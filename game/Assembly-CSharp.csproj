@@ -49,6 +49,7 @@
      <Compile Include="Assets\Billboard.cs" />
      <Compile Include="Assets\CameraFollow.cs" />
      <Compile Include="Assets\HitReach.cs" />
+     <Compile Include="Assets\PlayerJab.cs" />
      <Compile Include="Assets\PlayerMovement.cs" />
      <Compile Include="Assets\PlayerStance.cs" />
  <Reference Include="UnityEngine.UI">

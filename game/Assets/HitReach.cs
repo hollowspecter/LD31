@@ -6,8 +6,6 @@ public class HitReach : MonoBehaviour {
 	private bool isInReach = false;
 	private int opposingPlayer;
 	private int player;
-	private Collider opponentCol;
-	private Animator anim;
 	
 
 	void Awake()
@@ -18,23 +16,16 @@ public class HitReach : MonoBehaviour {
 			opposingPlayer = 1;
 		else
 			opposingPlayer = 0;
-			
-		anim = transform.parent.GetComponent<Animator>();
 	}
 	
-	void Update()
-	{
-		if (Input.GetButtonDown("Hit_"+player))
-			anim.SetTrigger("Jab");
-	}
+
 	
 	void OnTriggerEnter(Collider col)
 	{
 		if (col.tag == "Player"+opposingPlayer)
 		{
-			opponentCol = col;
 			isInReach = true;
-			Debug.Log ("Is In Reach: "+col.tag);
+			//Debug.Log ("Is In Reach: "+col.tag);
 		}
 	}
 	
@@ -43,7 +34,12 @@ public class HitReach : MonoBehaviour {
 		if (col.tag == "Player"+opposingPlayer)
 		{
 			isInReach = false;
-			Debug.Log ("Out of Reach: "+col.tag);
+			//Debug.Log ("Out of Reach: "+col.tag);
 		}
+	}
+	
+	public bool opposingPlayerInReach()
+	{
+		return isInReach;
 	}
 }

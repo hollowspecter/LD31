@@ -12,6 +12,8 @@ public class PlayerStance : MonoBehaviour {
 	PlayerMovement playerMovement;
 	bool damaged;
 	int player;
+	Rigidbody playerRigidbody;
+	
 	
 	void Awake()
 	{
@@ -19,6 +21,8 @@ public class PlayerStance : MonoBehaviour {
 		playerMovement = GetComponent<PlayerMovement>();
 		currentMultiplier = startingMultiplier;
 		player = playerMovement.player;
+		playerRigidbody = GetComponent<Rigidbody> ();
+		
 	}
 	
 	void Update()
@@ -37,11 +41,16 @@ public class PlayerStance : MonoBehaviour {
 		UpdateText();
 	}
 	
-	public void TakeHit(float amount)
+	public void TakeHit(float amount, Vector3 hitposition)
 	{
 		damaged = true;
 		
 		currentMultiplier += amount;
+		
+		Vector3 recoil = transform.position - hitposition;
+		recoil = recoil.normalized * 10000 * Time.deltaTime * (1.0f+currentMultiplier);
+		
+		playerRigidbody.AddForce(recoil);
 	}
 	
 	void UpdateText()
