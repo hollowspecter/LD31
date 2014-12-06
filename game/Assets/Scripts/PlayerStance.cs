@@ -52,10 +52,35 @@ public class PlayerStance : MonoBehaviour {
 			currentMultiplier += amount;
 			
 			Vector3 recoil = transform.position - hitposition;
+
 			if (type == "strong")
-				recoil = recoil.normalized * 800 * Time.deltaTime * 10*(1.0f+currentMultiplier);
+				recoil = recoil.normalized * 800 * Time.deltaTime * 10 *(1.0f+currentMultiplier);
+			if (type == "dash")
+				recoil = recoil.normalized * 800 * Time.deltaTime * 5 *(1.0f+currentMultiplier);
+			if (type == "bumper")
+				recoil = recoil.normalized * 800 * Time.deltaTime * 15 *(1.0f+currentMultiplier);
 			else
 				recoil = recoil.normalized * 800 * Time.deltaTime * (1.0f+currentMultiplier);
+		
+			playerRigidbody.AddForce(recoil);
+			
+			// knockdown
+			if (calculateKnockdownProbabilty(recoil.magnitude))
+				anim.SetTrigger("Knockdown");
+		}
+	}
+
+	public void TakeHit(float amount, Vector3 hitposition, int recoilMul/*set to 1 to ignore*/)
+	{
+		if (!respawning)
+		{
+			damaged = true;
+			
+			currentMultiplier += amount;
+			
+			Vector3 recoil = transform.position - hitposition;
+
+			recoil = recoil.normalized * 800 * Time.deltaTime * recoilMul *(1.0f+currentMultiplier);
 			
 			playerRigidbody.AddForce(recoil);
 			
