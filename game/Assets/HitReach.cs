@@ -5,15 +5,27 @@ public class HitReach : MonoBehaviour {
 	
 	private bool isInReach = false;
 	private int opposingPlayer;
+	private int player;
 	private Collider opponentCol;
+	private Animator anim;
 	
+
 	void Awake()
 	{
 		PlayerMovement pm = transform.parent.GetComponent<PlayerMovement>();
-		if (pm.player == 0)
+		player = pm.player;
+		if (player == 0)
 			opposingPlayer = 1;
 		else
 			opposingPlayer = 0;
+			
+		anim = transform.parent.GetComponent<Animator>();
+	}
+	
+	void Update()
+	{
+		if (Input.GetButtonDown("Hit_"+player))
+			anim.SetTrigger("Jab");
 	}
 	
 	void OnTriggerEnter(Collider col)

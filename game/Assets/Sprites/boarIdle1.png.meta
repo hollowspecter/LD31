@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 3b8a8fd4d6df788428702257297b725d
+guid: ec46e86e8d5acb44092bcbde135b91cc
 TextureImporter:
   fileIDToRecycleName:
-    21300000: boarwalk_0
-    21300002: boarwalk_1
-    21300004: boarwalk_2
-    21300006: boarwalk_3
+    21300000: boarIdle1_0
+    21300002: boarIdle1_1
+    21300004: boarIdle1_2
+    21300006: boarIdle1_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -47,7 +47,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: boarwalk_0
+    - name: boarIdle1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -57,7 +57,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: boarwalk_1
+    - name: boarIdle1_1
       rect:
         serializedVersion: 2
         x: 256
@@ -67,7 +67,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: boarwalk_2
+    - name: boarIdle1_2
       rect:
         serializedVersion: 2
         x: 0
@@ -77,7 +77,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: boarwalk_3
+    - name: boarIdle1_3
       rect:
         serializedVersion: 2
         x: 256
