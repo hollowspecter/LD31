@@ -3,6 +3,7 @@
 public class PlayerMovement : MonoBehaviour
 {
 	public float speed = 6f;
+	public int player = 0; // which player is it?
 
 	Vector3 movement;
 	Animator anim;
@@ -17,8 +18,8 @@ public class PlayerMovement : MonoBehaviour
 	// physics update
 	void FixedUpdate()
 	{
-		float h = Input.GetAxisRaw ("Horizontal"); //just 1, -1 or 0 snaps!, axis = input
-		float v = Input.GetAxisRaw ("Vertical");
+		float h = Input.GetAxisRaw ("Horizontal_"+player); //just 1, -1 or 0 snaps!, axis = input
+		float v = Input.GetAxisRaw ("Vertical_"+player);
 		
 		bool walking = h != 0f || v != 0f;
 

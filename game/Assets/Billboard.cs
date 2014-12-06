@@ -5,7 +5,6 @@ public class Billboard : MonoBehaviour {
 
 	private Transform myTransform;
 	private Transform mainCam;
-	private bool flipped;
 	
 	void Awake ()
 	{
@@ -15,6 +14,6 @@ public class Billboard : MonoBehaviour {
 	
 	void LateUpdate ()
 	{
-		myTransform.LookAt(mainCam);
+		myTransform.LookAt(myTransform.position + mainCam.position);
 	}
 }
