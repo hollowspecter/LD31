@@ -5,7 +5,7 @@ public class PlayerJab : MonoBehaviour {
 	
 	public int player = 0;
 	public float jabStrength = 1.0f;
-	public float strongStrength = 3.0f;
+	public float strongStrength = 0.0f;
 	public PlayerStance opponent;
 	public AudioClip sfx_goodhit;
 	public AudioClip sfx_stronghit;

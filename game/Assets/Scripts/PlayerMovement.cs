@@ -3,14 +3,21 @@
 public class PlayerMovement : MonoBehaviour
 {
 	public float speed = 6f;
+	public float walkingSpeed = 6f;
+	public float dashSpeed = 36f;
 	public int player = 0; // which player is it?
 
+	[HideInInspector]
 	Vector3 movement;
 	Animator anim;
 	Rigidbody playerRigidbody;
 	PlayerJab playerAttacks;
 	
 	public bool blockMovement = false;
+	public bool isDashing = false;
+	
+	float dashH = 0f;
+	float dashV = 0f;
 
 	void Awake()
 	{
@@ -26,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 	// physics update
 	void FixedUpdate()
 	{
+		speed = walkingSpeed;
 		float h = Input.GetAxisRaw ("Horizontal_"+player); //just 1, -1 or 0 snaps!, axis = input
 		float v = Input.GetAxisRaw ("Vertical_"+player);
 		
@@ -34,6 +42,18 @@ public class PlayerMovement : MonoBehaviour
 		{
 			h = 0;
 			v = 0;
+		}
+		
+		if(isDashing)
+		{
+			speed = dashSpeed;
+			h = dashH;
+			v = dashV;
+		}
+		else
+		{
+			dashH = h;
+			dashV = v;
 		}
 		
 		bool walking = h != 0f || v != 0f;
@@ -75,5 +95,10 @@ public class PlayerMovement : MonoBehaviour
 		bool knockdownIdle = info.IsName("knockdownIdleL") || info.IsName("knockdownIdleR");
 		
 		return knockdown || knockdownIdle;
+	}
+	
+	public Vector3 getMovement()
+	{
+		return movement;
 	}
 }
