@@ -13,6 +13,7 @@ public class PlayerStance : MonoBehaviour {
 	bool damaged;
 	int player;
 	Rigidbody playerRigidbody;
+	bool respawning = false;
 	
 	
 	void Awake()
@@ -41,20 +42,41 @@ public class PlayerStance : MonoBehaviour {
 		UpdateText();
 	}
 	
-	public void TakeHit(float amount, Vector3 hitposition)
+	public void TakeHit(float amount, Vector3 hitposition, string type)
 	{
-		damaged = true;
-		
-		currentMultiplier += amount;
-		
-		Vector3 recoil = transform.position - hitposition;
-		recoil = recoil.normalized * 10000 * Time.deltaTime * (1.0f+currentMultiplier);
-		
-		playerRigidbody.AddForce(recoil);
+		if (!respawning)
+		{
+			damaged = true;
+			
+			currentMultiplier += amount;
+			
+			Vector3 recoil = transform.position - hitposition;
+			if (type == "strong")
+				recoil = recoil.normalized * 800 * Time.deltaTime * 10*(1.0f+currentMultiplier);
+			else
+				recoil = recoil.normalized * 800 * Time.deltaTime * (1.0f+currentMultiplier);
+			
+			playerRigidbody.AddForce(recoil);
+		}
 	}
 	
 	void UpdateText()
 	{
 		multiplierText.text = "Player"+player+" Factor: "+currentMultiplier;
+	}
+	
+	public void resetMultiplier()
+	{
+		currentMultiplier = startingMultiplier;
+	}
+	
+	public void startedRespawning()
+	{
+		respawning = true;
+	}
+	
+	public void endedRespawning()
+	{
+		respawning = false;
 	}
 }

@@ -8,11 +8,19 @@ public class PlayerMovement : MonoBehaviour
 	Vector3 movement;
 	Animator anim;
 	Rigidbody playerRigidbody;
+	PlayerJab playerAttacks;
+	
+	public bool blockMovement = false;
 
 	void Awake()
 	{
 		anim = GetComponent<Animator> ();
 		playerRigidbody = GetComponent<Rigidbody> ();
+		playerAttacks = GetComponent<PlayerJab>();
+		if (player == 1)
+		{
+			anim.SetBool ("Right", false);
+		}
 	}
 
 	// physics update
@@ -21,8 +29,14 @@ public class PlayerMovement : MonoBehaviour
 		float h = Input.GetAxisRaw ("Horizontal_"+player); //just 1, -1 or 0 snaps!, axis = input
 		float v = Input.GetAxisRaw ("Vertical_"+player);
 		
+		if (playerAttacks.getIsStronging() || blockMovement)
+		{
+			h = 0;
+			v = 0;
+		}
+		
 		bool walking = h != 0f || v != 0f;
-
+		
 		Move (h, v);
 		Turning (h, v, walking);
 		Animating (h, v, walking);
