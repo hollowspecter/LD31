@@ -67,7 +67,7 @@ public class PlayerStance : MonoBehaviour {
 	
 	void UpdateText()
 	{
-		multiplierText.text = "Player"+player+" Factor: "+currentMultiplier;
+		multiplierText.text = currentMultiplier+"%";
 	}
 	
 	public void resetMultiplier()

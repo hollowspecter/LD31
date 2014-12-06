@@ -8,6 +8,7 @@ public class CountDown : MonoBehaviour {
 	public float fadeAwaySpeed = 1.0f;
 	public PlayerMovement pm1;
 	public PlayerMovement pm2;
+	public int gosize = 100;
 	
 	Text text;
 	
@@ -29,7 +30,7 @@ public class CountDown : MonoBehaviour {
 		{
 			pm1.blockMovement = false;
 			pm2.blockMovement = false;
-			text.fontSize = 40;
+			text.fontSize = gosize;
 			text.text = "GO!!";
 			
 			text.color = Color.Lerp(text.color, Color.clear, fadeAwaySpeed * Time.deltaTime);
