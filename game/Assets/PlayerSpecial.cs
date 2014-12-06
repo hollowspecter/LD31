@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerSpecial : MonoBehaviour {
@@ -6,6 +7,8 @@ public class PlayerSpecial : MonoBehaviour {
 	public int player = 0;
 	public float dashStrength = 2.0f;
 	public PlayerStance opponent;
+	public float cooldown = 50.0f;
+	public float recoverSpeed = 10.0f;
 	
 	public AudioClip sfx_dashHit;
 	
@@ -14,6 +17,7 @@ public class PlayerSpecial : MonoBehaviour {
 	public float minPitch = 0.8f;
 	public float maxPitch = 1.2f;
 	
+	public Slider cooldownSlider;
 	
 	bool hasWeapon = false;
 	float weaponStrength;
@@ -29,6 +33,8 @@ public class PlayerSpecial : MonoBehaviour {
 	float timer = 0.0f;
 	float maxTimer = 0.2f;
 	
+	float currentCooldown = 0.0f;
+	
 	// Use this for initialization
 	void Awake () 
 	{
@@ -36,6 +42,16 @@ public class PlayerSpecial : MonoBehaviour {
 		hitreach = GetComponentInChildren<HitReach>();
 		
 		self = GetComponent<PlayerMovement>();
+	}
+	
+	void Update()
+	{
+		if (!canUseSpecial())
+		{
+			currentCooldown += recoverSpeed * Time.deltaTime;
+		}
+		
+		cooldownSlider.value = currentCooldown / cooldown;
 	}
 	
 	// Update is called once per frame
@@ -47,9 +63,12 @@ public class PlayerSpecial : MonoBehaviour {
 		
 		if (Input.GetButtonDown("Special_"+player) && !isJabbing && !isStronging && !self.isDashing && !hasWeapon )
 		{
-			Debug.Log("Dash!");
-			timer = 0.0f;
-			self.isDashing = true;				
+			if (canUseSpecial())
+			{
+				//Debug.Log("Dash!");
+				timer = 0.0f;
+				self.isDashing = true;	
+			}			
 		}
 		
 		
@@ -57,7 +76,7 @@ public class PlayerSpecial : MonoBehaviour {
 		{
 			if (hitreach.opposingPlayerInReach())
 			{
-				Debug.Log("Hit with Dash!");
+				//Debug.Log("Hit with Dash!");
 				opponent.TakeHit(dashStrength, transform.position, "dash");
 				playSound(sfx_dashHit);
 				
@@ -69,7 +88,8 @@ public class PlayerSpecial : MonoBehaviour {
 			if(timer >= maxTimer)
 			{	
 				self.isDashing = false;
-				Debug.Log("timeup Dash!");
+				resetCooldown();
+				//Debug.Log("timeup Dash!");
 			}
 		}
 		
@@ -83,5 +103,14 @@ public class PlayerSpecial : MonoBehaviour {
 		audio.PlayOneShot(sfx, vol);
 	}
 	
+	void resetCooldown()
+	{
+		currentCooldown = 0.0f;
+	}
 	
+	bool canUseSpecial()
+	{
+		Debug.Log ((currentCooldown >= cooldown)+"");
+		return currentCooldown >= cooldown;
+	}
 }
