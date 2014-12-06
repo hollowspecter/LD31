@@ -21,7 +21,6 @@ public class PlayerDeath : MonoBehaviour {
 
 	void Awake()
 	{
-		wintext.text = "";
 		stance = transform.parent.GetComponent<PlayerStance>();
 		render = GetComponent<SpriteRenderer>();
 		originalColor = render.color;

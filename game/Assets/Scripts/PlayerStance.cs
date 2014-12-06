@@ -7,6 +7,7 @@ public class PlayerStance : MonoBehaviour {
 	public float startingMultiplier = 0.0f;
 	public float currentMultiplier;
 	public Text multiplierText;
+	public float knockdownProbabilityFactor = 3000.0f;
 	
 	Animator anim;
 	PlayerMovement playerMovement;
@@ -57,6 +58,10 @@ public class PlayerStance : MonoBehaviour {
 				recoil = recoil.normalized * 800 * Time.deltaTime * (1.0f+currentMultiplier);
 			
 			playerRigidbody.AddForce(recoil);
+			
+			// knockdown
+			if (calculateKnockdownProbabilty(recoil.magnitude))
+				anim.SetTrigger("Knockdown");
 		}
 	}
 	
@@ -85,5 +90,14 @@ public class PlayerStance : MonoBehaviour {
 		currentMultiplier -= red;
 		if (currentMultiplier < 0)
 			currentMultiplier = 0;
+	}
+	
+	bool calculateKnockdownProbabilty(float magnitude)
+	{
+		float rndm = Random.value;
+		
+		float probability = (1.0f / knockdownProbabilityFactor) * magnitude;
+		
+		return rndm < probability;
 	}
 }

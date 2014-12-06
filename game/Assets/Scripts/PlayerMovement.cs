@@ -29,7 +29,8 @@ public class PlayerMovement : MonoBehaviour
 		float h = Input.GetAxisRaw ("Horizontal_"+player); //just 1, -1 or 0 snaps!, axis = input
 		float v = Input.GetAxisRaw ("Vertical_"+player);
 		
-		if (playerAttacks.getIsStronging() || blockMovement)
+		if (playerAttacks.getIsStronging() || blockMovement
+			|| getKnockdown())
 		{
 			h = 0;
 			v = 0;
@@ -65,5 +66,14 @@ public class PlayerMovement : MonoBehaviour
 		anim.SetBool ("IsWalking", walking);
 		if (h != 0)
 			anim.SetBool ("Right", h > 0);
+	}
+	
+	bool getKnockdown()
+	{
+		AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(2);
+		bool knockdown = info.IsName("knockdownL") || info.IsName("knockdownR");
+		bool knockdownIdle = info.IsName("knockdownIdleL") || info.IsName("knockdownIdleR");
+		
+		return knockdown || knockdownIdle;
 	}
 }
