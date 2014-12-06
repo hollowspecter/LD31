@@ -74,6 +74,7 @@ public class PlayerSpecial : MonoBehaviour {
 		
 		if(self.isDashing)
 		{
+			// hits player
 			if (hitreach.opposingPlayerInReach())
 			{
 				//Debug.Log("Hit with Dash!");
@@ -81,10 +82,11 @@ public class PlayerSpecial : MonoBehaviour {
 				playSound(sfx_dashHit);
 				
 				self.isDashing = false;
-				
+				resetCooldown();
 			}
 			timer += Time.deltaTime;
 			
+			// timer goes off
 			if(timer >= maxTimer)
 			{	
 				self.isDashing = false;
