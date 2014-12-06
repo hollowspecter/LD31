@@ -54,9 +54,10 @@
      <Compile Include="Assets\Scripts\PlayerJab.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\PlayerStance.cs" />
+     <Compile Include="Assets\Scripts\SwirlPickup.cs" />
+     <Compile Include="Assets\Scripts\ZoomPickup.cs" />
      <Compile Include="Assets\Sprites\HeartPickup.cs" />
      <Compile Include="Assets\Sprites\HeartsView.cs" />
-     <Compile Include="Assets\ZoomPickup.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
  </Reference>

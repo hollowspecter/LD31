@@ -2,11 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerStance.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerJab.cs" Line="62" Column="27" />
-      <File FileName="Assets\Scripts\PlayerStance.cs" Line="87" Column="26" />
-      <File FileName="Assets\Scripts\PlayerMovement.cs" Line="36" Column="4" />
-      <File FileName="Assets\Scripts\PlayerDeath.cs" Line="55" Column="5" />
-      <File FileName="Assets\Scripts\HitReach.cs" Line="15" Column="3" />
+      <File FileName="Assets\Scripts\PlayerJab.cs" Line="33" Column="3" />
+      <File FileName="Assets\Scripts\PlayerStance.cs" Line="64" Column="34" />
+      <File FileName="Assets\Scripts\PlayerMovement.cs" Line="69" Column="3" />
+      <File FileName="Assets\Scripts\PlayerDeath.cs" Line="29" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
