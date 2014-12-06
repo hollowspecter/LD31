@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void Awake()
 	{
-		//anim = GetComponent<Animator> ();
+		anim = GetComponent<Animator> ();
 		playerRigidbody = GetComponent<Rigidbody> ();
 	}
 
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
 		Move (h, v);
 		Turning (h, v, walking);
-		//Animating (h, v);
+		Animating (h, v, walking);
 	}
 
 	void Move (float h, float v)
@@ -45,9 +45,10 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-	void Animating (float h, float v)
+	void Animating (float h, float v, bool walking)
 	{
-		bool walking = h != 0f || v != 0f;
 		anim.SetBool ("IsWalking", walking);
+		if (h != 0)
+			anim.SetBool ("Right", h > 0);
 	}
 }
