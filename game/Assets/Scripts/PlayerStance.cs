@@ -79,4 +79,11 @@ public class PlayerStance : MonoBehaviour {
 	{
 		respawning = false;
 	}
+	
+	public void reduceMultiplier(float red)
+	{
+		currentMultiplier -= red;
+		if (currentMultiplier < 0)
+			currentMultiplier = 0;
+	}
 }
