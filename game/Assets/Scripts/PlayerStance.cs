@@ -46,6 +46,7 @@ public class PlayerStance : MonoBehaviour {
 	
 	public void TakeHit(float amount, Vector3 hitposition, string type)
 	{
+		Debug.Log ("tookHit: " + amount);
 		if (!respawning)
 		{
 			damaged = true;
@@ -57,9 +58,9 @@ public class PlayerStance : MonoBehaviour {
 			if (type == "strong")
 				recoil = recoil.normalized * 800 * Time.deltaTime * 5 *(1.0f+currentMultiplier);
 			else if (type == "dash")
-				recoil = recoil.normalized * 800 * Time.deltaTime * 3 *(1.0f+currentMultiplier);
+				recoil = recoil.normalized * 800 * Time.deltaTime * 7 *(1.0f+currentMultiplier);
 			else if (type == "bumper")
-				recoil = recoil.normalized * 800 * Time.deltaTime * 5 *(1.0f+currentMultiplier);
+				recoil = recoil.normalized * 800 * Time.deltaTime * 10 *(1.0f+(currentMultiplier)<5f?5f:currentMultiplier);
 			else
 				recoil = recoil.normalized * 800 * Time.deltaTime * (1.0f+currentMultiplier);
 		
