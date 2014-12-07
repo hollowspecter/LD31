@@ -46,17 +46,18 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ApplePickup.cs" />
-     <Compile Include="Assets\IceMode.cs" />
-     <Compile Include="Assets\ItemManager.cs" />
-     <Compile Include="Assets\PlayerSpecial.cs" />
+     <Compile Include="Assets\Scripts\ApplePickup.cs" />
      <Compile Include="Assets\Scripts\Billboard.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\CountDown.cs" />
      <Compile Include="Assets\Scripts\HitReach.cs" />
+     <Compile Include="Assets\Scripts\IceMode.cs" />
+     <Compile Include="Assets\Scripts\ItemManager.cs" />
+     <Compile Include="Assets\Scripts\Pitfall.cs" />
      <Compile Include="Assets\Scripts\PlayerDeath.cs" />
      <Compile Include="Assets\Scripts\PlayerJab.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\PlayerSpecial.cs" />
      <Compile Include="Assets\Scripts\PlayerStance.cs" />
      <Compile Include="Assets\Scripts\SwirlPickup.cs" />
      <Compile Include="Assets\Scripts\ZoomPickup.cs" />
