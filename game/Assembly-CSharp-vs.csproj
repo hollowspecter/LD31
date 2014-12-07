@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\PressStart.cs" />
      <Compile Include="Assets\Scripts\ApplePickup.cs" />
      <Compile Include="Assets\Scripts\Billboard.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
@@ -60,15 +59,16 @@
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\PlayerSpecial.cs" />
      <Compile Include="Assets\Scripts\PlayerStance.cs" />
+     <Compile Include="Assets\Scripts\PressStart.cs" />
+     <Compile Include="Assets\Scripts\SnowFlake.cs" />
+     <Compile Include="Assets\Scripts\SnowMachine.cs" />
      <Compile Include="Assets\Scripts\SwirlPickup.cs" />
      <Compile Include="Assets\Scripts\ZoomPickup.cs" />
+     <Compile Include="Assets\Scripts\attackInstructions.cs" />
+     <Compile Include="Assets\Scripts\buttons.cs" />
      <Compile Include="Assets\Scripts\env_Bumper.cs" />
-     <Compile Include="Assets\SnowFlake.cs" />
-     <Compile Include="Assets\SnowMachine.cs" />
      <Compile Include="Assets\Sprites\HeartPickup.cs" />
      <Compile Include="Assets\Sprites\HeartsView.cs" />
-     <Compile Include="Assets\attackInstructions.cs" />
-     <Compile Include="Assets\buttons.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
@@ -139,7 +139,7 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendForBloom.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>D:/Unity Projects/LD31/game/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>C:/Users/julian/Desktop/ludum dare/git/LD31/game/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
