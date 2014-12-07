@@ -7,7 +7,6 @@ public class PlayerDeath : MonoBehaviour {
 	public int lifes = 5;
 	public Text wintext;
 	public int player;
-	public float winscreenduration = 3.0f;
 	public HeartsView hearts;
 	public Transform respawn;
 	public float flashingDuration = 4.0f;
@@ -18,6 +17,8 @@ public class PlayerDeath : MonoBehaviour {
 	Color originalColor;
 	
 	float timer = 0.0f;
+	
+	bool ending =false;
 
 	void Awake()
 	{
@@ -30,6 +31,17 @@ public class PlayerDeath : MonoBehaviour {
 		else
 			opposingPlayer = 0;
 	}
+	
+	void Update()
+	{
+		if (ending)
+		{
+			if (Input.GetButtonDown("Submit"))
+			{
+				Application.LoadLevel(Application.loadedLevel);
+			}
+		}
+	}
 
 	void OnBecameInvisible()
 	{	
@@ -40,14 +52,13 @@ public class PlayerDeath : MonoBehaviour {
 			StartCoroutine("Flashing");
 		}
 		else
-			StartCoroutine("Ending");
+			Ending ();
 	}
 	
-	IEnumerator Ending() {
-		wintext.text = "Player"+opposingPlayer+"\nWINS!!!";
-		yield return new WaitForSeconds(winscreenduration);
-		Application.LoadLevel(Application.loadedLevel);
-	}
+	void Ending() {
+		wintext.text = "Player"+opposingPlayer+"\nWINS!!!\n\nPress Start to Play";
+		ending = true;
+	}	
 	
 	void Respawn()
 	{
