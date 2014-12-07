@@ -11,56 +11,50 @@ public class env_Bumper : MonoBehaviour {
 	PlayerStance player0;
 	PlayerStance player1;
 
-	bool player0bumped = false;
-	bool player1bumped = false;
+	Animator anim;
 
 	// Use this for initialization
 	void Awake () 
 	{
 		player0 = GameObject.FindGameObjectWithTag("Player0").GetComponent<PlayerStance>();
 		player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerStance>();
+		anim = GetComponent<Animator>();
+	}
+	
+	// Update is called once per frame
+	void Update ()
+	{
+			
 	}
 
 	void OnTriggerEnter(Collider col)
 	{
-		//Debug.Log("enter");
 		if(recoilMul == 0)
 		{
-			if(col.tag == "Player0"&& !player0bumped)
-			{	
-				player0bumped = true;
-				player0.TakeHit(bumperStrength, transform.position, "bumper");
-			}
-			if(col.tag == "Player1" && !player1bumped)
+			if(col.tag == "Player0")
 			{
-				player1bumped = true;
+				anim.SetTrigger("bumped");
+				player0.TakeHit(bumperStrength, transform.position, "bumper");
+
+			}
+			if(col.tag == "Player1")
+			{
+				anim.SetTrigger("bumped");
 				player1.TakeHit(bumperStrength, transform.position, "bumper");
 			}
 		}
 		else
 		{
-			if(col.tag == "Player0"&& !player0bumped)
+			if(col.tag == "Player0")
 			{
-				player0bumped = false;
+				anim.SetTrigger("bumped");
 				player0.TakeHit(bumperStrength, transform.position, "bumper");
 			}
-			if(col.tag == "Player1"&& !player1bumped)
+			if(col.tag == "Player1")
 			{
-				player1bumped = true;
+				anim.SetTrigger("bumped");
 				player1.TakeHit(bumperStrength, transform.position, "bumper");
 			}
-		}
-	}
-
-	void OnTriggerExit(Collider col)
-	{
-		if(col.tag == "Player0")
-		{
-			player0bumped = false;
-		}
-		if(col.tag == "Player1")
-		{
-			player1bumped = false;
 		}
 	}
 }
