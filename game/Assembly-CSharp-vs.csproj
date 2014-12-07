@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\ApplePickup.cs" />
+     <Compile Include="Assets\IceMode.cs" />
      <Compile Include="Assets\ItemManager.cs" />
      <Compile Include="Assets\PlayerSpecial.cs" />
      <Compile Include="Assets\Scripts\Billboard.cs" />
