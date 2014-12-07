@@ -3,9 +3,9 @@ using System.Collections;
 
 public class IceMode : MonoBehaviour {
 	
-	public PlayerMovement player0;
-	public PlayerMovement player1;
-	public MeshRenderer floorRenderer;
+	PlayerMovement player0;
+	PlayerMovement player1;
+	MeshRenderer floorRenderer;
 	public AudioClip pickupSound;
 	public float iceModeDuration;
 	
@@ -26,6 +26,9 @@ public class IceMode : MonoBehaviour {
 	
 	void Awake()
 	{
+		floorRenderer = GameObject.FindGameObjectWithTag("Floor").GetComponent<MeshRenderer>();
+		player0 = GameObject.FindGameObjectWithTag("Player0").GetComponent<PlayerMovement>();
+		player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerMovement>();
 		rigid0 = player0.rigidbody;
 		rigid1 = player1.rigidbody;
 		originalDrag = rigid0.drag;
