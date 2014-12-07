@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Pitfall : MonoBehaviour {
 
+	public float fallspeed = 80.0f;
+
 	RigidbodyConstraints originalCons;
 	Transform playerT0;
 	Transform playerT1;
@@ -17,8 +19,7 @@ public class Pitfall : MonoBehaviour {
 	{
 		if (captured0)
 		{
-			rigid0.angularVelocity = Vector3.zero;
-			playerT0.position = new Vector3(transform.position.x, playerT0.position.y, transform.position.z);
+			rigid0.velocity = new Vector3(0,-1 * fallspeed,0);
 			
 			originalCons = rigid0.constraints;
 			rigid0.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
@@ -26,8 +27,7 @@ public class Pitfall : MonoBehaviour {
 		}
 		if (captured1)
 		{
-			rigid1.angularVelocity = Vector3.zero;
-			playerT1.position = new Vector3(transform.position.x, playerT1.position.y, transform.position.z);
+			rigid1.velocity = new Vector3(0,-1 * fallspeed,0);
 			
 			originalCons = rigid1.constraints;
 			rigid1.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
@@ -39,26 +39,18 @@ public class Pitfall : MonoBehaviour {
 	{
 		if (col.CompareTag("Player0"))
 		{
-			//Debug.Log ("Captured Player0");
-		
 			playerT0 = col.transform;
 			rigid0 = playerT0.rigidbody;
 			move0 = playerT0.GetComponent<PlayerMovement>();
-			
-			playerT0.position = transform.position;
-			
+
 			captured0 = true;
 		}
 		if (col.CompareTag("Player1"))
 		{
-			//Debug.Log ("Captured Player1");
-		
 			playerT1 = col.transform;
 			rigid1 = playerT1.rigidbody;
 			move1 = playerT1.GetComponent<PlayerMovement>();
-			
-			playerT1.position = transform.position;
-			
+
 			captured1 = true;
 		}
 	}
