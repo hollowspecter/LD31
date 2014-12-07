@@ -2,7 +2,8 @@ fileFormatVersion: 2
 guid: 086a0a76df215a1469d690f84ed43ea5
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - snowDecal: {fileID: 100002, guid: 19a77906473993647be08e282c310d1a, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

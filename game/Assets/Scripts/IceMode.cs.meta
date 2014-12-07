@@ -2,7 +2,9 @@ fileFormatVersion: 2
 guid: cc0473cfc5192cb4dabe0d5fc829cd0f
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pickupSound: {instanceID: 0}
+  - iceMaterial: {fileID: 2100000, guid: 65e70dbdd808b8a4bbdc2abffdf523ec, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -2,7 +2,8 @@ fileFormatVersion: 2
 guid: 0f59b8c3dca955747a9a893ffadc818e
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - snowflake: {fileID: 100002, guid: c3c3a869e03020e4fbddb038fba62194, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
