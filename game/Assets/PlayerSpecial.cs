@@ -112,7 +112,6 @@ public class PlayerSpecial : MonoBehaviour {
 	
 	bool canUseSpecial()
 	{
-		Debug.Log ((currentCooldown >= cooldown)+"");
 		return currentCooldown >= cooldown;
 	}
 }
