@@ -3,6 +3,8 @@ using System.Collections;
 
 public class IceMode : MonoBehaviour {
 	
+	static bool icemodeOn = false;
+	
 	PlayerMovement player0;
 	PlayerMovement player1;
 	MeshRenderer floorRenderer;
@@ -50,7 +52,7 @@ public class IceMode : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider col)
 	{
-		if (col.CompareTag("Player0") || col.CompareTag("Player1"))
+		if (col.CompareTag("Player0") || col.CompareTag("Player1") && !icemodeOn)
 		{
 			collider.enabled = false;
 			render.color = Color.clear;
@@ -69,6 +71,7 @@ public class IceMode : MonoBehaviour {
 		floorRenderer.material.color = Color.clear;
 		player0.moveByForce = true;
 		player1.moveByForce = true;
+		icemodeOn = true;
 		yield return new WaitForSeconds(iceModeDuration);
 		
 		fadeOut = true;
@@ -78,5 +81,6 @@ public class IceMode : MonoBehaviour {
 		player0.moveByForce = false;
 		player1.moveByForce = false;
 		floorRenderer.material = originalMaterial;
+		icemodeOn = false;
 	}
 }
