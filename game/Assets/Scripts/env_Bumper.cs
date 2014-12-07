@@ -20,16 +20,10 @@ public class env_Bumper : MonoBehaviour {
 		player0 = GameObject.FindGameObjectWithTag("Player0").GetComponent<PlayerStance>();
 		player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerStance>();
 	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-			
-	}
 
 	void OnTriggerEnter(Collider col)
 	{
-		Debug.Log("enter");
+		//Debug.Log("enter");
 		if(recoilMul == 0)
 		{
 			if(col.tag == "Player0"&& !player0bumped)
