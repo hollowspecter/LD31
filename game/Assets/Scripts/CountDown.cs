@@ -10,8 +10,10 @@ public class CountDown : MonoBehaviour {
 	public PlayerMovement pm2;
 	public int gosize = 100;
 	
-	Text text;
+	public AudioClip music;
+	bool activated = false;
 	
+	Text text;	
 	void Awake()
 	{
 		text = GetComponent<Text>();
@@ -34,6 +36,13 @@ public class CountDown : MonoBehaviour {
 			text.text = "GO!!";
 			
 			text.color = Color.Lerp(text.color, Color.clear, fadeAwaySpeed * Time.deltaTime);
+			
+			if (!activated)
+			{
+				audio.clip = music;
+				audio.Play();
+				activated = true;
+			}
 		}
 	}
 }
