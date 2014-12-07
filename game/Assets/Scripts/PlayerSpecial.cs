@@ -52,6 +52,8 @@ public class PlayerSpecial : MonoBehaviour {
 		}
 		
 		cooldownSlider.value = currentCooldown / cooldown;
+		
+		anim.SetBool("Dash", self.isDashing);
 	}
 	
 	// Update is called once per frame
