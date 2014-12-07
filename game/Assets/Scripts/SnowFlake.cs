@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SnowFlake : MonoBehaviour 
 {
+	public static int snowflakeCount = 0;
 	
 	public GameObject snowDecal;
 
@@ -24,6 +25,7 @@ public class SnowFlake : MonoBehaviour
 		if(col.tag == "Floor")
 		{
 			spawnSnowDecal();
+			snowflakeCount++;
 		}
 	}
 

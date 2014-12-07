@@ -10,6 +10,7 @@ public class IceMode : MonoBehaviour {
 	MeshRenderer floorRenderer;
 	public AudioClip pickupSound;
 	public float iceModeDuration;
+	public static int amountOfSnowflakesForForever = 100;
 	
 	public float iceDrag = 0.5f;
 	public Material iceMaterial;
@@ -24,6 +25,7 @@ public class IceMode : MonoBehaviour {
 	
 	bool fadeIn = false;
 	bool fadeOut = false;
+	static bool icemodeForever = false;
 	
 	float timer = 0.0f;
 	
@@ -41,6 +43,21 @@ public class IceMode : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if ((SnowFlake.snowflakeCount > amountOfSnowflakesForForever) && !icemodeForever)
+		{
+			icemodeForever = true;
+			fadeIn = true;
+			rigid0.drag = iceDrag;
+			rigid1.drag = iceDrag;
+			floorRenderer.material = iceMaterial;
+			floorRenderer.material.color = Color.clear;
+			player0.moveByForce = true;
+			player1.moveByForce = true;
+			icemodeOn = true;
+			Debug.Log ("Ice mode forever!");
+		}
+			
+	
 		if (fadeIn && !fadeOut)
 		{
 			floorRenderer.material.color = Color.Lerp(floorRenderer.material.color, Color.white, fadeSpeed * Time.deltaTime);
@@ -48,10 +65,12 @@ public class IceMode : MonoBehaviour {
 		else if (fadeOut)
 		{
 			timer += Time.deltaTime;
-			floorRenderer.material.color = Color.Lerp(floorRenderer.material.color, Color.white, fadeSpeed * Time.deltaTime);
+			if (!icemodeForever)
+				floorRenderer.material.color = Color.Lerp(floorRenderer.material.color, Color.white, fadeSpeed * Time.deltaTime);
 			if (timer >= 1.5f)
 			{
-				icemodeOn = false;
+				if (!icemodeForever)
+					icemodeOn = false;
 				Destroy(gameObject);
 			}
 		}
@@ -61,7 +80,7 @@ public class IceMode : MonoBehaviour {
 	{
 		if (col.CompareTag("Player0") || col.CompareTag("Player1"))
 		{
-			if (!icemodeOn)
+			if (!icemodeOn && !icemodeForever)
 			{
 				collider.enabled = false;
 				render.color = Color.clear;
@@ -85,11 +104,15 @@ public class IceMode : MonoBehaviour {
 		yield return new WaitForSeconds(iceModeDuration);
 		
 		fadeOut = true;
-		floorRenderer.material.color = Color.clear;
-		rigid0.drag = originalDrag;
-		rigid1.drag = originalDrag;
-		player0.moveByForce = false;
-		player1.moveByForce = false;
-		floorRenderer.material = originalMaterial;
+		if (!icemodeForever)
+		{
+			floorRenderer.material.color = Color.clear;
+			rigid0.drag = originalDrag;
+			rigid1.drag = originalDrag;
+			player0.moveByForce = false;
+			player1.moveByForce = false;
+			floorRenderer.material = originalMaterial;
+		}
+		
 	}
 }

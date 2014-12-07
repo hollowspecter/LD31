@@ -54,6 +54,7 @@ public class ZoomPickup : MonoBehaviour {
 				collider.enabled = false;
 				render.color = Color.clear;
 				audio.PlayOneShot(pickupSound);
+				zooming = true;
 				
 				StartCoroutine("zoomingShit");
 			}
@@ -63,7 +64,6 @@ public class ZoomPickup : MonoBehaviour {
 	IEnumerator zoomingShit()
 	{
 		zoomIn = true;
-		zooming = true;
 		yield return new WaitForSeconds(zoomDuration);
 		zoomOut = true;
 	}
