@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\PlayerSpecial.cs" />
      <Compile Include="Assets\Scripts\PlayerStance.cs" />
+     <Compile Include="Assets\Scripts\SnowGenerator.cs" />
      <Compile Include="Assets\Scripts\SwirlPickup.cs" />
      <Compile Include="Assets\Scripts\ZoomPickup.cs" />
      <Compile Include="Assets\Scripts\env_Bumper.cs" />
@@ -137,7 +138,7 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendForBloom.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>D:/Unity Projects/LD31/game/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>C:/Users/julian/Desktop/ludum dare/git/LD31/game/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>

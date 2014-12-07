@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\PlayerSpecial.cs" />
      <Compile Include="Assets\Scripts\PlayerStance.cs" />
+     <Compile Include="Assets\Scripts\SnowGenerator.cs" />
      <Compile Include="Assets\Scripts\SwirlPickup.cs" />
      <Compile Include="Assets\Scripts\ZoomPickup.cs" />
      <Compile Include="Assets\Scripts\env_Bumper.cs" />
