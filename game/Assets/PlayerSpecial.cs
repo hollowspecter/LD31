@@ -114,4 +114,11 @@ public class PlayerSpecial : MonoBehaviour {
 	{
 		return currentCooldown >= cooldown;
 	}
+	
+	public void recoverCooldown(float rec)
+	{
+		currentCooldown += rec;
+		if (currentCooldown > cooldown)
+			currentCooldown = cooldown;
+	}
 }

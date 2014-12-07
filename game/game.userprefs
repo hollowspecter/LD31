@@ -1,13 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\PlayerSpecial.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\env_Bumper.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerJab.cs" Line="78" Column="1" />
-      <File FileName="Assets\Scripts\PlayerStance.cs" Line="106" Column="1" />
-      <File FileName="Assets\Scripts\PlayerMovement.cs" Line="56" Column="14" />
-      <File FileName="Assets\Scripts\PlayerDeath.cs" Line="86" Column="1" />
+      <File FileName="Assets\Scripts\env_Bumper.cs" Line="26" Column="5" />
+      <File FileName="Assets\Scripts\PlayerDeath.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Billboard.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CountDown.cs" Line="40" Column="1" />
+      <File FileName="Assets\Scripts\CountDown.cs" Line="1" Column="1" />
       <File FileName="Assets\PlayerSpecial.cs" Line="89" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
