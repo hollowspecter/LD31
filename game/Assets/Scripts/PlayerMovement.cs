@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 	public float walkingSpeed = 6f;
 	public float dashSpeed = 36f;
 	public int player = 0; // which player is it?
+	public float forceMultiplier = 10.0f;
 
 	[HideInInspector]
 	Vector3 movement;
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 	
 	public bool blockMovement = false;
 	public bool isDashing = false;
+	public bool moveByForce = false;
 	
 	float dashH = 0f;
 	float dashV = 0f;
@@ -68,7 +70,10 @@ public class PlayerMovement : MonoBehaviour
 		movement.Set (h, 0f, v);
 		movement = movement.normalized * speed * Time.deltaTime;
 		
-		playerRigidbody.MovePosition (transform.position + movement); //current pos + movement
+		if (!moveByForce)
+			playerRigidbody.MovePosition (transform.position + movement); //current pos + movement
+		else
+			playerRigidbody.AddForce (movement * forceMultiplier);
 	}
 
 	void Turning(float h, float v, bool isWalking)
