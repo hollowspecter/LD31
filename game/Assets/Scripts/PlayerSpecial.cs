@@ -19,6 +19,8 @@ public class PlayerSpecial : MonoBehaviour {
 	
 	public Slider cooldownSlider;
 	
+	public AudioClip sfx_dash;
+	
 	bool hasWeapon = false;
 	float weaponStrength;
 	AudioClip sfx_weaponHit;
@@ -70,7 +72,8 @@ public class PlayerSpecial : MonoBehaviour {
 			{
 				//Debug.Log("Dash!");
 				timer = 0.0f;
-				self.isDashing = true;	
+				self.isDashing = true;
+				playSound(sfx_dash)	;
 			}			
 		}
 		

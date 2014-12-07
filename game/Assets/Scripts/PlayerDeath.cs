@@ -10,7 +10,6 @@ public class PlayerDeath : MonoBehaviour {
 	public HeartsView hearts;
 	public Transform respawn;
 	public float flashingDuration = 4.0f;
-	public AudioClip death;
 	
 	int opposingPlayer;
 	PlayerStance stance;
@@ -49,7 +48,6 @@ public class PlayerDeath : MonoBehaviour {
 		if (lifes > 0) {
 			lifes--;
 			hearts.reduceHeart(lifes);
-			audio.PlayOneShot(death);
 			Respawn ();
 			StartCoroutine("Flashing");
 		}

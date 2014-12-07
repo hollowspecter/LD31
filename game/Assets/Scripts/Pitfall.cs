@@ -4,6 +4,12 @@ using System.Collections;
 public class Pitfall : MonoBehaviour {
 
 	public float fallspeed = 80.0f;
+	public AudioClip fall;
+	
+	public float minVol = 0.5f;
+	public float maxVol = 0.8f;
+	public float minPitch = 0.8f;
+	public float maxPitch = 1.2f;
 
 	RigidbodyConstraints originalCons;
 	Transform playerT0;
@@ -41,6 +47,7 @@ public class Pitfall : MonoBehaviour {
 			rigid0 = playerT0.rigidbody;
 
 			captured0 = true;
+			playSound(fall);
 		}
 		if (col.CompareTag("Player1"))
 		{
@@ -48,6 +55,7 @@ public class Pitfall : MonoBehaviour {
 			rigid1 = playerT1.rigidbody;
 
 			captured1 = true;
+			playSound(fall);
 		}
 	}
 	
@@ -65,5 +73,12 @@ public class Pitfall : MonoBehaviour {
 			rigid1.collider.isTrigger = false;
 			captured1 = false;
 		}
+	}
+	
+	void playSound(AudioClip sfx)
+	{
+		float vol = Random.Range(minVol, maxVol);
+		audio.pitch = Random.Range (minPitch, maxPitch);
+		audio.PlayOneShot(sfx, vol);
 	}
 }
