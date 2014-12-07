@@ -20,6 +20,8 @@ public class env_Bumper : MonoBehaviour {
 		if(player0 == null)
 			player0 = GameObject.Find("boar").GetComponent<PlayerStance>();
 		player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerStance>();
+		if(player1 == null)
+			player1 = GameObject.Find("deer").GetComponent<PlayerStance>();
 		anim = GetComponent<Animator>();
 	}
 	
@@ -41,7 +43,7 @@ public class env_Bumper : MonoBehaviour {
 			if(col.tag == "Player1")
 			{
 				anim.SetTrigger("bumped");
-				player0.TakeHit(bumperStrength, transform.position, "bumper");
+				player1.TakeHit(bumperStrength, transform.position, "bumper");
 			}
 		}
 		else
