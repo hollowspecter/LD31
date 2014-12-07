@@ -11,11 +11,14 @@ public class env_Bumper : MonoBehaviour {
 	PlayerStance player0;
 	PlayerStance player1;
 
+	Animator anim;
+
 	// Use this for initialization
 	void Awake () 
 	{
 		player0 = GameObject.FindGameObjectWithTag("Player0").GetComponent<PlayerStance>();
 		player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerStance>();
+		anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -30,10 +33,13 @@ public class env_Bumper : MonoBehaviour {
 		{
 			if(col.tag == "Player0")
 			{
+				anim.SetTrigger("bumped");
 				player0.TakeHit(bumperStrength, transform.position, "bumper");
+
 			}
 			if(col.tag == "Player1")
 			{
+				anim.SetTrigger("bumped");
 				player1.TakeHit(bumperStrength, transform.position, "bumper");
 			}
 		}
@@ -41,10 +47,12 @@ public class env_Bumper : MonoBehaviour {
 		{
 			if(col.tag == "Player0")
 			{
+				anim.SetTrigger("bumped");
 				player0.TakeHit(bumperStrength, transform.position, "bumper");
 			}
 			if(col.tag == "Player1")
 			{
+				anim.SetTrigger("bumped");
 				player1.TakeHit(bumperStrength, transform.position, "bumper");
 			}
 		}
