@@ -3,6 +3,8 @@ using System.Collections;
 
 public class ZoomPickup : MonoBehaviour {
 	
+	static bool zooming = false;
+	
 	public AudioClip pickupSound;
 	public float zoomDuration = 6.0f;
 	public float zoomedCameraSize = 10.0f;
@@ -35,7 +37,10 @@ public class ZoomPickup : MonoBehaviour {
 			mainCam.orthographicSize = Mathf.Lerp(mainCam.orthographicSize, 14, zoomOutSpeed * Time.deltaTime);
 			
 			if ((originalCamSize - mainCam.orthographicSize) < 0.05f)
+			{
+				zooming = false;
 				Destroy(gameObject) ;
+			}
 
 		}
 	}
@@ -44,17 +49,21 @@ public class ZoomPickup : MonoBehaviour {
 	{
 		if (col.CompareTag("Player0") || col.CompareTag("Player1"))
 		{
-			collider.enabled = false;
-			render.color = Color.clear;
-			audio.PlayOneShot(pickupSound);
-			
-			StartCoroutine("zoomingShit");
+			if (!zooming)
+			{
+				collider.enabled = false;
+				render.color = Color.clear;
+				audio.PlayOneShot(pickupSound);
+				
+				StartCoroutine("zoomingShit");
+			}
 		}
 	}
 	
 	IEnumerator zoomingShit()
 	{
 		zoomIn = true;
+		zooming = true;
 		yield return new WaitForSeconds(zoomDuration);
 		zoomOut = true;
 	}

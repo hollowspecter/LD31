@@ -25,6 +25,7 @@ public class IceMode : MonoBehaviour {
 	bool fadeIn = false;
 	bool fadeOut = false;
 	
+	float timer = 0.0f;
 	
 	void Awake()
 	{
@@ -46,19 +47,28 @@ public class IceMode : MonoBehaviour {
 		}
 		else if (fadeOut)
 		{
+			timer += Time.deltaTime;
 			floorRenderer.material.color = Color.Lerp(floorRenderer.material.color, Color.white, fadeSpeed * Time.deltaTime);
+			if (timer >= 1.5f)
+			{
+				icemodeOn = false;
+				Destroy(gameObject);
+			}
 		}
 	}
 	
 	void OnTriggerEnter(Collider col)
 	{
-		if (col.CompareTag("Player0") || col.CompareTag("Player1") && !icemodeOn)
+		if (col.CompareTag("Player0") || col.CompareTag("Player1"))
 		{
-			collider.enabled = false;
-			render.color = Color.clear;
-			audio.PlayOneShot(pickupSound);
-			
-			StartCoroutine("iceMode");
+			if (!icemodeOn)
+			{
+				collider.enabled = false;
+				render.color = Color.clear;
+				audio.PlayOneShot(pickupSound);
+				
+				StartCoroutine("iceMode");
+			}
 		}
 	}
 	
@@ -81,6 +91,5 @@ public class IceMode : MonoBehaviour {
 		player0.moveByForce = false;
 		player1.moveByForce = false;
 		floorRenderer.material = originalMaterial;
-		icemodeOn = false;
 	}
 }
