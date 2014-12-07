@@ -63,6 +63,8 @@
      <Compile Include="Assets\Scripts\SwirlPickup.cs" />
      <Compile Include="Assets\Scripts\ZoomPickup.cs" />
      <Compile Include="Assets\Scripts\env_Bumper.cs" />
+     <Compile Include="Assets\SnowFlake.cs" />
+     <Compile Include="Assets\SnowMachine.cs" />
      <Compile Include="Assets\Sprites\HeartPickup.cs" />
      <Compile Include="Assets\Sprites\HeartsView.cs" />
      <Compile Include="Assets\attackInstructions.cs" />
