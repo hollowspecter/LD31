@@ -10,9 +10,9 @@ public class PlayerStance : MonoBehaviour {
 	public float knockdownProbabilityFactor = 3000.0f;
 
 	Animator anim;
-	PlayerMovement playerMovement;
+	//PlayerMovement playerMovement;
 	bool damaged;
-	int player;
+	//int player;
 	Rigidbody playerRigidbody;
 	bool respawning = false;
 
@@ -20,9 +20,9 @@ public class PlayerStance : MonoBehaviour {
 	void Awake()
 	{
 		anim = GetComponent<Animator>();
-		playerMovement = GetComponent<PlayerMovement>();
+		//playerMovement = GetComponent<PlayerMovement>();
 		currentMultiplier = startingMultiplier;
-		player = playerMovement.player;
+		//player = playerMovement.player;
 		playerRigidbody = GetComponent<Rigidbody> ();
 		
 	}

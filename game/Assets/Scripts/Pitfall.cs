@@ -10,8 +10,6 @@ public class Pitfall : MonoBehaviour {
 	Transform playerT1;
 	Rigidbody rigid0;
 	Rigidbody rigid1;
-	PlayerMovement move0;
-	PlayerMovement move1;
 	bool captured0 = false;
 	bool captured1 = false;
 
@@ -41,7 +39,6 @@ public class Pitfall : MonoBehaviour {
 		{
 			playerT0 = col.transform;
 			rigid0 = playerT0.rigidbody;
-			move0 = playerT0.GetComponent<PlayerMovement>();
 
 			captured0 = true;
 		}
@@ -49,7 +46,6 @@ public class Pitfall : MonoBehaviour {
 		{
 			playerT1 = col.transform;
 			rigid1 = playerT1.rigidbody;
-			move1 = playerT1.GetComponent<PlayerMovement>();
 
 			captured1 = true;
 		}
