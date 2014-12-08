@@ -32,6 +32,7 @@ public class PlayerSpecial : MonoBehaviour {
 	bool isJabbing = false;
 	bool isStronging = false;
 	bool isComboing = false;
+	bool isKicking = false;
 	
 	float timer = 0.0f;
 	float maxTimer = 0.2f;
@@ -66,8 +67,10 @@ public class PlayerSpecial : MonoBehaviour {
 		isJabbing = info.IsName("jabR") || info.IsName("jabL");
 		isStronging = info.IsName("strongR") || info.IsName("strongL");
 		isComboing = info.IsName ("comboR") || info.IsName("comboL");
+		isKicking = info.IsName ("kickR") || info.IsName("kickL");
 		
-		if (Input.GetButtonDown("Special_"+player) && !isJabbing && !isStronging && !isComboing && !self.isDashing && !hasWeapon
+		if (Input.GetButtonDown("Special_"+player) && !isJabbing && !isStronging && !isComboing 
+		    && !isKicking && !self.isDashing && !hasWeapon
 			&& !self.blockMovement)
 		{
 			if (canUseSpecial())

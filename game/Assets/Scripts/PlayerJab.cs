@@ -21,6 +21,7 @@ public class PlayerJab : MonoBehaviour {
 	private bool isJabbing = false;
 	private bool isStronging = false;
 	private bool isComboing = false;
+	private bool isKicking = false;
 	
 	void Awake()
 	{
@@ -35,8 +36,9 @@ public class PlayerJab : MonoBehaviour {
 		isJabbing = info.IsName("jabR") || info.IsName("jabL");
 		isStronging = info.IsName("strongR") || info.IsName("strongL");
 		isComboing = info.IsName ("comboR") || info.IsName("comboL");
+		isKicking = info.IsName ("kickR") || info.IsName("kickL");
 	
-		if (Input.GetButtonDown("Hit_"+player) && !isStronging && !isComboing)
+		if (Input.GetButtonDown("Hit_"+player) && !isStronging && !isComboing && !isKicking)
 		{
 			if(isJabbing)
 				anim.SetTrigger("Combo");
@@ -44,8 +46,15 @@ public class PlayerJab : MonoBehaviour {
 				anim.SetTrigger("Jab");
 		}
 
-		if (Input.GetButtonDown("Strong_"+player) && !isJabbing && !isStronging && !isComboing)
-			anim.SetTrigger("Strong");
+		isComboing = info.IsName ("comboR") || info.IsName("comboL");
+
+		if (Input.GetButtonDown("Strong_"+player) && !isJabbing && !isStronging && !isKicking)
+		{
+			if(isComboing)
+				anim.SetTrigger("Kick");
+			else
+				anim.SetTrigger("Strong");
+		}
 	}
 	
 	public void AttemptedHit()
@@ -60,6 +69,17 @@ public class PlayerJab : MonoBehaviour {
 	}
 	
 	public void AttemptedStrongHit()
+	{
+		// is opposing player in reach?
+		if (hitreach.opposingPlayerInReach())
+		{
+			//Debug.Log("Landed a HIT!");
+			opponent.TakeHit(strongStrength, transform.position, "strong");
+			playSound(sfx_stronghit);
+		}
+	}
+
+	public void AttemptedKick()
 	{
 		// is opposing player in reach?
 		if (hitreach.opposingPlayerInReach())
