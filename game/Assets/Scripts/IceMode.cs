@@ -11,10 +11,12 @@ public class IceMode : MonoBehaviour {
 	MeshRenderer floorRenderer;
 	public AudioClip pickupSound;
 	public float iceModeDuration;
-	public static int amountOfSnowflakesForForever = 300;
+	public static int amountOfSnowflakesForForever = 10;
 	
 	public Material iceMaterial;
-	
+
+	public MeshRenderer fakefloor;
+
 	public float fadeSpeed = 1.0f;
 
 	Material originalMaterial;
@@ -52,7 +54,13 @@ public class IceMode : MonoBehaviour {
 			icemodeForever = true;
 			fadeIn = true;
 			floorRenderer.material = iceMaterial;
+<<<<<<< HEAD
 			floorRenderer.material.color = Color.clear;
+=======
+			floorRenderer.material.color = new Color(0.027f,0.191f,0.52f,0f);
+			player0.moveByForce = true;
+			player1.moveByForce = true;
+>>>>>>> origin/master
 			icemodeOn = true;
 			Debug.Log ("Ice mode forever!");
 		}
@@ -60,7 +68,7 @@ public class IceMode : MonoBehaviour {
 	
 		if (fadeIn && !fadeOut)
 		{
-			floorRenderer.material.color =Color.white;// Color.Lerp(floorRenderer.material.color, Color.white, fadeSpeed * Time.deltaTime);
+			floorRenderer.material.color = Color.Lerp(floorRenderer.material.color, Color.white, fadeSpeed * Time.deltaTime);
 		}
 		else if (fadeOut)
 		{

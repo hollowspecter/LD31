@@ -14,6 +14,7 @@ public class WinterControl : MonoBehaviour {
 	public Material cliff_Ice;
 	
 	bool isWinter = false;
+	bool activated = false;
 
 	
 	public Text text;
@@ -62,7 +63,7 @@ public class WinterControl : MonoBehaviour {
 		else
 			delay += Time.deltaTime;
 
-		if(isWinter)
+		if(isWinter )
 		{
 			foreach(GameObject g in rocks)
 			{
