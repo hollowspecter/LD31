@@ -3,18 +3,22 @@ using System.Collections;
 
 public class SnowMachine : MonoBehaviour {
 
+	//how many seconds until Winter/ Icemode
 	public float timeTilSuddenDeath = 30.0f;
 	public bool suddendeath = false;
 
+	//Snowflakeprefab and fallheight
 	public GameObject snowflake;
 	public float snowflakeHeight = 30.0f;
 
+	//the snowing area
 	public float maxX = 28.0f;
 	public float maxZ = 28.0f;
 
+	//how much time between the snowflakes
 	public float mindelay = 0.8f;
 	public float maxdelay = 2.0f;
-	
+
 	float timer = 0.0f;
 	bool snowing = false;
 	
