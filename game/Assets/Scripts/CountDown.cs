@@ -30,8 +30,12 @@ public class CountDown : MonoBehaviour {
 		}
 		else
 		{
-			pm1.blockMovement = false;
-			pm2.blockMovement = false;
+			if (!activated)
+			{
+				pm1.blockMovement = false;
+				pm2.blockMovement = false;
+			}
+			
 			text.fontSize = gosize;
 			text.text = "GO!!";
 			

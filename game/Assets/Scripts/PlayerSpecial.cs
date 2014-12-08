@@ -48,6 +48,8 @@ public class PlayerSpecial : MonoBehaviour {
 	
 	void Update()
 	{
+		hasWeapon = anim.GetBool ("Gun");
+	
 		if (!canUseSpecial())
 		{
 			currentCooldown += recoverSpeed * Time.deltaTime;
