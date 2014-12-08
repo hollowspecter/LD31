@@ -58,6 +58,9 @@ public class IceMode : MonoBehaviour {
 			//floorRenderer.material.color = Color.clear;
 
 			floorRenderer.material.color = new Color(0.027f,0.191f,0.52f,0f);
+			
+			player0.icemode = true;
+			player1.icemode = true;
 
 
 			icemodeOn = true;
