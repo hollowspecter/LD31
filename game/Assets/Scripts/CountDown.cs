@@ -10,6 +10,8 @@ public class CountDown : MonoBehaviour {
 	public PlayerMovement pm2;
 	public int gosize = 100;
 	
+	public AudioSource wintermusic;
+	
 	public AudioClip music;
 	bool activated = false;
 	
@@ -45,6 +47,7 @@ public class CountDown : MonoBehaviour {
 			{
 				audio.clip = music;
 				audio.Play();
+				wintermusic.Play();
 				activated = true;
 			}
 		}
