@@ -81,11 +81,10 @@ public class PlayerJab : MonoBehaviour {
 
 	public void AttemptedKick()
 	{
-		PlayerMovement mov = GetComponent<PlayerMovement>();
-		mov.moveByForce = true;
-		float kickdistance = 1f;
-		mov.Move(transform.forward.x *kickdistance, transform.forward.z * kickdistance);
-		mov.moveByForce = false;
+		Rigidbody playerRigidbody = GetComponent<Rigidbody>();
+		float forceMultiplier = 3f;
+		Vector3 mov = new Vector3(transform.forward.x, transform.forward.z);
+		playerRigidbody.AddForce (mov * forceMultiplier);
 		// is opposing player in reach?
 		if (hitreach.opposingPlayerInReach())
 		{
