@@ -38,7 +38,7 @@ public class ZoomPickup : MonoBehaviour {
 			
 			if ((originalCamSize - mainCam.orthographicSize) < 0.05f)
 			{
-				zooming = false;
+				
 				Destroy(gameObject) ;
 			}
 
@@ -65,6 +65,7 @@ public class ZoomPickup : MonoBehaviour {
 	{
 		zoomIn = true;
 		yield return new WaitForSeconds(zoomDuration);
-		zoomOut = false;
+		zoomOut = true;
+		zooming = false;
 	}
 }
