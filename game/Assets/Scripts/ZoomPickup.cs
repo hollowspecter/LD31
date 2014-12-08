@@ -65,6 +65,6 @@ public class ZoomPickup : MonoBehaviour {
 	{
 		zoomIn = true;
 		yield return new WaitForSeconds(zoomDuration);
-		zoomOut = true;
+		zoomOut = false;
 	}
 }
