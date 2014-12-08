@@ -34,7 +34,7 @@ public class ZoomPickup : MonoBehaviour {
 		}
 		else if (zoomOut)
 		{
-			mainCam.orthographicSize = Mathf.Lerp(mainCam.orthographicSize, 14, zoomOutSpeed * Time.deltaTime);
+			mainCam.orthographicSize = Mathf.Lerp(mainCam.orthographicSize, originalCamSize, zoomOutSpeed * Time.deltaTime);
 			
 			if ((originalCamSize - mainCam.orthographicSize) < 0.05f)
 			{
