@@ -3,14 +3,14 @@ using System.Collections;
 
 public class IceMode : MonoBehaviour {
 	
-	static bool icemodeOn = false;
+	public static bool icemodeOn = false;
 	
 	PlayerMovement player0;
 	PlayerMovement player1;
 	MeshRenderer floorRenderer;
 	public AudioClip pickupSound;
 	public float iceModeDuration;
-	public static int amountOfSnowflakesForForever = 100;
+	static int amountOfSnowflakesForForever = 1000;
 	
 	public float iceDrag = 0.5f;
 	public Material iceMaterial;
@@ -20,7 +20,6 @@ public class IceMode : MonoBehaviour {
 	Rigidbody rigid0;
 	Rigidbody rigid1;
 	float originalDrag;
-	SpriteRenderer render;
 	Material originalMaterial;
 	
 	bool fadeIn = false;
@@ -38,11 +37,12 @@ public class IceMode : MonoBehaviour {
 		rigid1 = player1.rigidbody;
 		originalDrag = rigid0.drag;
 		originalMaterial = floorRenderer.material;
-		render = transform.GetChild(0).GetComponent<SpriteRenderer>();
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
+		Debug.Log("SnowFlakes: " + SnowFlake.snowflakeCount);
 		if ((SnowFlake.snowflakeCount > amountOfSnowflakesForForever) && !icemodeForever)
 		{
 			icemodeForever = true;
@@ -60,7 +60,7 @@ public class IceMode : MonoBehaviour {
 	
 		if (fadeIn && !fadeOut)
 		{
-			floorRenderer.material.color = Color.Lerp(floorRenderer.material.color, Color.white, fadeSpeed * Time.deltaTime);
+			floorRenderer.material.color =Color.white;// Color.Lerp(floorRenderer.material.color, Color.white, fadeSpeed * Time.deltaTime);
 		}
 		else if (fadeOut)
 		{
@@ -75,10 +75,10 @@ public class IceMode : MonoBehaviour {
 			}
 		}
 	}
-	
+	/*
 	void OnTriggerEnter(Collider col)
 	{
-		if (col.CompareTag("Player0") || col.CompareTag("Player1"))
+		if(col.CompareTag("Player0") || col.CompareTag("Player1"))
 		{
 			if (!icemodeOn && !icemodeForever)
 			{
@@ -89,8 +89,8 @@ public class IceMode : MonoBehaviour {
 				StartCoroutine("iceMode");
 			}
 		}
-	}
-	
+	}*/
+
 	IEnumerator iceMode()
 	{
 		fadeIn = true;

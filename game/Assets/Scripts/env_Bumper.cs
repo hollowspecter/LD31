@@ -15,6 +15,8 @@ public class env_Bumper : MonoBehaviour {
 	
 	Animator anim;
 
+	bool isWinter;
+
 	// Use this for initialization
 	void Awake () 
 	{
@@ -32,7 +34,8 @@ public class env_Bumper : MonoBehaviour {
 	// Update is called once per frame...or not
 	void Update ()
 	{
-
+		isWinter = IceMode.icemodeOn;
+		anim.SetBool("isWinter", isWinter);
 	}
 
 	void OnTriggerEnter(Collider col)
