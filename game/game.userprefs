@@ -1,15 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ZoomPickup.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\IceMode.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerDeath.cs" Line="78" Column="4" />
+      <File FileName="Assets\iecblock.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerDeath.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\env_Bumper.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\IceMode.cs" Line="13" Column="16" />
-      <File FileName="Assets\Scripts\PlayerSpecial.cs" Line="131" Column="1" />
-      <File FileName="Assets\Scripts\ZoomPickup.cs" Line="70" Column="2" />
-      <File FileName="Assets\Scripts\SwirlPickup.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\IceMode.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Pitfall.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SnowFlake.cs" Line="28" Column="21" />
+      <File FileName="Assets\Scripts\PlayerJab.cs" Line="1" Column="1" />
+      <File FileName="Assets\GunShot.cs" Line="1" Column="1" />
+      <File FileName="Assets\PlayerShoot.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerSpecial.cs" Line="1" Column="1" />
+      <File FileName="Assets\Bullet.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

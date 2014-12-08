@@ -5,21 +5,18 @@ public class IceMode : MonoBehaviour {
 	
 	static bool icemodeOn = false;
 	
-	PlayerMovement player0;
-	PlayerMovement player1;
+	PlayerIcemode player0;
+	PlayerIcemode player1;
 	MeshRenderer floorRenderer;
 	public AudioClip pickupSound;
 	public float iceModeDuration;
 	public static int amountOfSnowflakesForForever = 100;
 	
-	public float iceDrag = 0.5f;
 	public Material iceMaterial;
 	
 	public float fadeSpeed = 1.0f;
 
-	Rigidbody rigid0;
-	Rigidbody rigid1;
-	float originalDrag;
+
 	SpriteRenderer render;
 	Material originalMaterial;
 	
@@ -32,11 +29,19 @@ public class IceMode : MonoBehaviour {
 	void Awake()
 	{
 		floorRenderer = GameObject.FindGameObjectWithTag("Floor").GetComponent<MeshRenderer>();
-		player0 = GameObject.FindGameObjectWithTag("Player0").GetComponent<PlayerMovement>();
-		player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerMovement>();
-		rigid0 = player0.rigidbody;
-		rigid1 = player1.rigidbody;
-		originalDrag = rigid0.drag;
+		
+		player0 = GameObject.FindGameObjectWithTag("Player0").GetComponent<PlayerIcemode>();
+		if(player0 == null)
+			player0 = GameObject.Find("boar").GetComponent<PlayerIcemode>();
+		if (player0 == null)
+			Debug.LogError("Player 0 is not assigned");
+			
+		player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerIcemode>();
+		if(player1 == null)
+			player1 = GameObject.Find("deer").GetComponent<PlayerIcemode>();
+		if (player1 == null)
+			Debug.LogError("Player 1 is not assigned");
+			
 		originalMaterial = floorRenderer.material;
 		render = transform.GetChild(0).GetComponent<SpriteRenderer>();
 	}
@@ -47,12 +52,8 @@ public class IceMode : MonoBehaviour {
 		{
 			icemodeForever = true;
 			fadeIn = true;
-			rigid0.drag = iceDrag;
-			rigid1.drag = iceDrag;
 			floorRenderer.material = iceMaterial;
 			floorRenderer.material.color = Color.clear;
-			player0.moveByForce = true;
-			player1.moveByForce = true;
 			icemodeOn = true;
 			Debug.Log ("Ice mode forever!");
 		}
@@ -94,12 +95,10 @@ public class IceMode : MonoBehaviour {
 	IEnumerator iceMode()
 	{
 		fadeIn = true;
-		rigid0.drag = iceDrag;
-		rigid1.drag = iceDrag;
 		floorRenderer.material = iceMaterial;
 		floorRenderer.material.color = Color.clear;
-		player0.moveByForce = true;
-		player1.moveByForce = true;
+		player0.icemode = true;
+		player1.icemode = true;
 		icemodeOn = true;
 		yield return new WaitForSeconds(iceModeDuration);
 		
@@ -107,10 +106,8 @@ public class IceMode : MonoBehaviour {
 		if (!icemodeForever)
 		{
 			floorRenderer.material.color = Color.clear;
-			rigid0.drag = originalDrag;
-			rigid1.drag = originalDrag;
-			player0.moveByForce = false;
-			player1.moveByForce = false;
+			player0.icemode = false;
+			player1.icemode = false;
 			floorRenderer.material = originalMaterial;
 		}
 		

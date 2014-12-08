@@ -17,15 +17,17 @@ public class PlayerJab : MonoBehaviour {
 	
 	Animator anim;
 	HitReach hitreach;
+	PlayerMovement pm;
 	
 	private bool isJabbing = false;
 	private bool isStronging = false;
+	private bool isShooting = false;
 	
 	void Awake()
 	{
 		anim = GetComponent<Animator>();
 		hitreach = GetComponentInChildren<HitReach>();
-		
+		pm = GetComponent<PlayerMovement>();
 	}
 
 	void Update()
@@ -33,11 +35,12 @@ public class PlayerJab : MonoBehaviour {
 		AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(1);
 		isJabbing = info.IsName("jabR") || info.IsName("jabL");
 		isStronging = info.IsName("strongR") || info.IsName("strongL");
+		isShooting = info.IsName("shootR") || info.IsName("shootL");
 	
-		if (Input.GetButtonDown("Hit_"+player) && !isJabbing && !isStronging)
+		if (Input.GetButtonDown("Hit_"+player) && !isJabbing && !isStronging && !isShooting && !pm.blockMovement)
 			anim.SetTrigger("Jab");
 			
-		if (Input.GetButtonDown("Strong_"+player) && !isJabbing && !isStronging)
+		if (Input.GetButtonDown("Strong_"+player) && !isJabbing && !isStronging && !isShooting && !pm.blockMovement)
 			anim.SetTrigger("Strong");
 	}
 	

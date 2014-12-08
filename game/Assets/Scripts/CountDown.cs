@@ -28,7 +28,7 @@ public class CountDown : MonoBehaviour {
 			text.text = "GET READY\n"+Mathf.Round(countdown);
 			countdown -= Time.deltaTime;
 		}
-		else
+		else if (!activated)
 		{
 			pm1.blockMovement = false;
 			pm2.blockMovement = false;
