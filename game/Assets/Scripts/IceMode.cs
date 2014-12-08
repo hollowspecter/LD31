@@ -10,7 +10,7 @@ public class IceMode : MonoBehaviour {
 	MeshRenderer floorRenderer;
 	public AudioClip pickupSound;
 	public float iceModeDuration;
-	static int amountOfSnowflakesForForever = 1000;
+	public static int amountOfSnowflakesForForever = 300;
 	
 	public float iceDrag = 0.5f;
 	public Material iceMaterial;
@@ -42,7 +42,6 @@ public class IceMode : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		Debug.Log("SnowFlakes: " + SnowFlake.snowflakeCount);
 		if ((SnowFlake.snowflakeCount > amountOfSnowflakesForForever) && !icemodeForever)
 		{
 			icemodeForever = true;

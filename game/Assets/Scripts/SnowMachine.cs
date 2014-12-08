@@ -21,9 +21,19 @@ public class SnowMachine : MonoBehaviour {
 
 	float timer = 0.0f;
 	bool snowing = false;
-	
+
+	bool isWinter;
+	int snowFlakeNum = 1;
+	int maxSnowFlakes = 10;
+
 	void Update()
 	{
+		//calculate number of snowflakes to spawn
+		isWinter = IceMode.icemodeOn;
+		snowFlakeNum = (int) (((float)SnowFlake.snowflakeCount/IceMode.amountOfSnowflakesForForever)*maxSnowFlakes);
+		snowFlakeNum = snowFlakeNum > 0 ? snowFlakeNum : 1;
+		snowFlakeNum = Mathf.Clamp(snowFlakeNum, 1, maxSnowFlakes);
+
 		if (!suddendeath)
 		{
 			timer += Time.deltaTime;
@@ -44,13 +54,35 @@ public class SnowMachine : MonoBehaviour {
 		snowing = true;
 		while(snowing)
 		{
-			Vector2 point = Random.insideUnitCircle;
-			GameObject obj = (GameObject)Instantiate (snowflake, new Vector3(point.x * maxX, snowflakeHeight, point.y * maxZ), Quaternion.identity);
-			obj.transform.SetParent(this.transform);
-			float scale = Random.Range(0.4f, 1.6f);
-			obj.transform.localScale = new Vector3(scale, 1f, scale);
-			float delay = Random.Range(mindelay, maxdelay);
-			yield return new WaitForSeconds(delay);
+			//Debug.Log("snowFlakeNum: " + snowFlakeNum);
+			if(isWinter)
+			{
+				for(int i = 0; i < maxSnowFlakes; i++)
+				{
+					//Debug.Log("Snowflake");
+					Vector2 point = Random.insideUnitCircle;
+					GameObject obj = (GameObject)Instantiate (snowflake, new Vector3(point.x * maxX, snowflakeHeight, point.y * maxZ), Quaternion.identity);
+					obj.transform.SetParent(this.transform);
+					float scale = Random.Range(0.4f, 1.6f);
+					obj.transform.localScale = new Vector3(scale, 1f, scale);
+				}
+				float delay = Random.Range(mindelay, maxdelay);
+				yield return new WaitForSeconds(delay);
+			}
+			else
+			{
+				for(int i = 0; i < snowFlakeNum; i++)
+				{
+					Vector2 point = Random.insideUnitCircle;
+					GameObject obj = (GameObject)Instantiate (snowflake, new Vector3(point.x * maxX, snowflakeHeight, point.y * maxZ), Quaternion.identity);
+					obj.transform.SetParent(this.transform);
+					float scale = Random.Range(0.4f, 1.6f);
+					obj.transform.localScale = new Vector3(scale, 1f, scale);
+				}
+				float delay = Random.Range(mindelay, maxdelay);
+				yield return new WaitForSeconds(delay);
+			}
+
 		}
 	}
 }

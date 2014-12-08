@@ -6,12 +6,9 @@ public class SnowFlake : MonoBehaviour
 	public static int snowflakeCount = 0;
 	
 	public GameObject snowDecal;
-
-	Renderer render;
-
 	void Awake()
 	{
-		render = GetComponentInChildren<Renderer>();
+
 	}
 
 	void Update () 
