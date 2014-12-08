@@ -28,6 +28,7 @@ public class SnowMachine : MonoBehaviour {
 
 	void Update()
 	{
+		Debug.Log("test");
 		//calculate number of snowflakes to spawn
 		isWinter = IceMode.icemodeOn;
 		snowFlakeNum = (int) (((float)SnowFlake.snowflakeCount/IceMode.amountOfSnowflakesForForever)*maxSnowFlakes);

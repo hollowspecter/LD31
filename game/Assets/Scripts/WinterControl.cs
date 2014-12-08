@@ -6,7 +6,6 @@ public class WinterControl : MonoBehaviour {
 	public GameObject SummerTrees;
 	public GameObject WinterTrees;
 
-	GameObject floor;
 	GameObject[] rocks;
 
 	public Material cliff;
@@ -18,7 +17,6 @@ public class WinterControl : MonoBehaviour {
 	void Awake () 
 	{
 		rocks = GameObject.FindGameObjectsWithTag("Rock");
-		floor = GameObject.FindGameObjectWithTag("Floor");
 	}
 	
 	// Update is called once per frame
