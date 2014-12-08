@@ -23,7 +23,7 @@ public class ZoomPickup : MonoBehaviour {
 		
 		render = transform.GetChild(0).GetComponent<SpriteRenderer>();
 		mainCam = Camera.main;
-		originalCamSize = mainCam.orthographicSize;
+		originalCamSize = 20;
 	}
 	
 	void Update()
