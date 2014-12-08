@@ -13,11 +13,15 @@ public class PlayerMovement : MonoBehaviour
 	Animator anim;
 	Rigidbody playerRigidbody;
 	PlayerJab playerAttacks;
-	
+	RigidbodyConstraints originalCons; 
+
 	public bool blockMovement = false;
 	public bool isDashing = false;
 	public bool moveByForce = false;
-	
+
+	bool onFloor = true;
+	float fallSpeed = 80f;
+
 	float dashH = 0f;
 	float dashV = 0f;
 
@@ -30,11 +34,14 @@ public class PlayerMovement : MonoBehaviour
 		{
 			anim.SetBool ("Right", false);
 		}
+
+		originalCons = playerRigidbody.constraints;
 	}
 
 	// physics update
 	void FixedUpdate()
-	{
+	{	
+		playerRigidbody.constraints = originalCons;
 		speed = walkingSpeed;
 		float h = Input.GetAxisRaw ("Horizontal_"+player); //just 1, -1 or 0 snaps!, axis = input
 		float v = Input.GetAxisRaw ("Vertical_"+player);
@@ -59,17 +66,23 @@ public class PlayerMovement : MonoBehaviour
 		}
 		
 		bool walking = h != 0f || v != 0f;
-		
-		Move (h, v);
-		Turning (h, v, walking);
-		Animating (h, v, walking);
+		if(onFloor)
+		{
+			Move (h, v);
+			Turning (h, v, walking);
+			Animating (h, v, walking);
+		}
+		else
+		{
+			Fall();
+		}
 	}
 
 	void Move (float h, float v)
 	{
 		movement.Set (h, 0f, v);
 		movement = movement.normalized * speed * Time.deltaTime;
-		
+
 		if (!moveByForce)
 			playerRigidbody.MovePosition (transform.position + movement); //current pos + movement
 		else
@@ -101,9 +114,33 @@ public class PlayerMovement : MonoBehaviour
 		
 		return knockdown || knockdownIdle;
 	}
+
+	void OnCollisionEnter(Collision col)
+	{
+		if(col.collider.tag == "Floor")
+		{
+			onFloor = true;
+		}
+	}
+
+	void OnCollisionExit(Collision col)
+	{
+		//Debug.Log("below Floor");
+		if(col.collider.tag == "Floor")
+		{
+			onFloor = false;
+		}
+	}
 	
 	public Vector3 getMovement()
 	{
 		return movement;
+	}
+
+	void Fall()
+	{
+		playerRigidbody.AddForce(0,-1 * fallSpeed,0);
+		originalCons = playerRigidbody.constraints;
+		playerRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 	}
 }
