@@ -46,6 +46,7 @@ public class PlayerDeath : MonoBehaviour {
 
 	void OnBecameInvisible()
 	{	
+		//Debug.Log("became Invisible");
 		if (lifes > 0) {
 			lifes--;
 			hearts.reduceHeart(lifes);
