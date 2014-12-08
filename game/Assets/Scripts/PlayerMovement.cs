@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 	public bool isDashing = false;
 	public bool moveByForce = false;
 
-	bool onFloor = true;
+	bool onFloor = false;
 	float fallSpeed = 80f;
 
 	float dashH = 0f;
@@ -115,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
 		return knockdown || knockdownIdle;
 	}
 
-	void OnCollisionEnter(Collision col)
+	void OnCollisionStay(Collision col)
 	{
 		if(col.collider.tag == "Floor")
 		{
@@ -125,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void OnCollisionExit(Collision col)
 	{
-		//Debug.Log("below Floor");
+		Debug.Log("not on:" + col.collider.tag);
 		if(col.collider.tag == "Floor")
 		{
 			onFloor = false;

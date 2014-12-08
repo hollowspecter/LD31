@@ -20,9 +20,10 @@ public class SnowFlake : MonoBehaviour
 			Destroy(gameObject);
 	}
 
-	void OnTriggerEnter(Collider col)
+	void OnCollisionEnter(Collision col)
 	{
-		if(col.tag == "Floor")
+		Debug.Log("snowflake hit:" + col.collider.tag);
+		if(col.collider.tag == "Floor")
 		{
 			spawnSnowDecal();
 			snowflakeCount++;
@@ -32,6 +33,7 @@ public class SnowFlake : MonoBehaviour
 	void spawnSnowDecal()
 	{
 		Vector3 pos = new Vector3(this.transform.position.x, 0.001f, this.transform.position.z);
+		Debug.Log("SpawnSnowDecal at:" + pos);
 		GameObject obj = (GameObject) Instantiate(snowDecal, pos, Quaternion.identity);
 		obj.transform.SetParent(this.transform.parent);
 		float scale = Random.Range(0.4f, 1.6f);

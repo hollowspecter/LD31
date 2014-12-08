@@ -1,24 +1,12 @@
 ﻿<Properties>
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ZoomPickup.cs">
-    <Files>
-      <File FileName="Assets\Scripts\PlayerDeath.cs" Line="78" Column="4" />
-      <File FileName="Assets\Scripts\env_Bumper.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\IceMode.cs" Line="13" Column="16" />
-      <File FileName="Assets\Scripts\PlayerSpecial.cs" Line="131" Column="1" />
-      <File FileName="Assets\Scripts\ZoomPickup.cs" Line="70" Column="2" />
-      <File FileName="Assets\Scripts\SwirlPickup.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Pitfall.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SnowFlake.cs" Line="28" Column="21" />
-=======
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerDeath.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SnowFlake.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerMovement.cs" Line="16" Column="37" />
-      <File FileName="Assets\Scripts\Pitfall.cs" Line="31" Column="101" />
-      <File FileName="Assets\Scripts\PlayerDeath.cs" Line="68" Column="21" />
->>>>>>> origin/sudden-death-snow
+      <File FileName="Assets\Scripts\IceMode.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\env_Bumper.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\WinterControl.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SnowMachine.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SnowFlake.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

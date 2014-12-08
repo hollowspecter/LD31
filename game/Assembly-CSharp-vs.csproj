@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\SnowFlake.cs" />
      <Compile Include="Assets\Scripts\SnowMachine.cs" />
      <Compile Include="Assets\Scripts\SwirlPickup.cs" />
+     <Compile Include="Assets\Scripts\WinterControl.cs" />
      <Compile Include="Assets\Scripts\ZoomPickup.cs" />
      <Compile Include="Assets\Scripts\attackInstructions.cs" />
      <Compile Include="Assets\Scripts\buttons.cs" />
