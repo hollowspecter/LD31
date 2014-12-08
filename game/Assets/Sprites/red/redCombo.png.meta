@@ -1,15 +1,17 @@
 fileFormatVersion: 2
-guid: bcfe516f085b5ef4e81ff61cd2d08a4c
+guid: 4d2de5f3b316c03459c3ba44f1fbf24d
 TextureImporter:
   fileIDToRecycleName:
-    21300000: boarJab_0
-    21300002: boarJab_1
-    21300004: boarJab_2
-    21300006: boarJab_3
+    21300000: redCombo_0
+    21300002: redCombo_1
+    21300004: redCombo_2
+    21300006: redCombo_3
+    21300008: redCombo_4
+    21300010: redCombo_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -29,7 +31,7 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: 0
-    aniso: 1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -47,7 +49,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: boarJab_0
+    - name: redCombo_0
       rect:
         serializedVersion: 2
         x: 0
@@ -57,7 +59,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: boarJab_1
+    - name: redCombo_1
       rect:
         serializedVersion: 2
         x: 256
@@ -67,7 +69,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: boarJab_2
+    - name: redCombo_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: redCombo_3
       rect:
         serializedVersion: 2
         x: 0
@@ -77,10 +89,20 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: boarJab_3
+    - name: redCombo_4
       rect:
         serializedVersion: 2
         x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: redCombo_5
+      rect:
+        serializedVersion: 2
+        x: 512
         y: 0
         width: 256
         height: 256

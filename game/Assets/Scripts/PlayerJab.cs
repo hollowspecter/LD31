@@ -20,6 +20,7 @@ public class PlayerJab : MonoBehaviour {
 	
 	private bool isJabbing = false;
 	private bool isStronging = false;
+	private bool isComboing = false;
 	
 	void Awake()
 	{
@@ -33,11 +34,17 @@ public class PlayerJab : MonoBehaviour {
 		AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(1);
 		isJabbing = info.IsName("jabR") || info.IsName("jabL");
 		isStronging = info.IsName("strongR") || info.IsName("strongL");
+		isComboing = info.IsName ("comboR") || info.IsName("comboL");
 	
-		if (Input.GetButtonDown("Hit_"+player) && !isJabbing && !isStronging)
-			anim.SetTrigger("Jab");
-			
-		if (Input.GetButtonDown("Strong_"+player) && !isJabbing && !isStronging)
+		if (Input.GetButtonDown("Hit_"+player) && !isStronging && !isComboing)
+		{
+			if(isJabbing)
+				anim.SetTrigger("Combo");
+			else
+				anim.SetTrigger("Jab");
+		}
+
+		if (Input.GetButtonDown("Strong_"+player) && !isJabbing && !isStronging && !isComboing)
 			anim.SetTrigger("Strong");
 	}
 	
