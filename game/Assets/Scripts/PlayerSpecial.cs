@@ -48,6 +48,8 @@ public class PlayerSpecial : MonoBehaviour {
 	
 	void Update()
 	{
+		hasWeapon = anim.GetBool("Gun");
+	
 		if (!canUseSpecial())
 		{
 			currentCooldown += recoverSpeed * Time.deltaTime;
@@ -64,7 +66,7 @@ public class PlayerSpecial : MonoBehaviour {
 		AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(1);
 		isJabbing = info.IsName("jabR") || info.IsName("jabL");
 		isStronging = info.IsName("strongR") || info.IsName("strongL");
-		hasWeapon = anim.GetBool("Gun");
+		
 		
 		if (Input.GetButtonDown("Special_"+player) && !isJabbing && !isStronging && !self.isDashing && !hasWeapon
 			&& !self.blockMovement)

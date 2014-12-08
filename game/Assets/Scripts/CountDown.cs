@@ -28,10 +28,13 @@ public class CountDown : MonoBehaviour {
 			text.text = "GET READY\n"+Mathf.Round(countdown);
 			countdown -= Time.deltaTime;
 		}
-		else if (!activated)
+		else
 		{
-			pm1.blockMovement = false;
-			pm2.blockMovement = false;
+			if (!activated)
+			{
+				pm1.blockMovement = false;
+				pm2.blockMovement = false;
+			}
 			text.fontSize = gosize;
 			text.text = "GO!!";
 			

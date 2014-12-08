@@ -59,4 +59,9 @@ public class Bullet : MonoBehaviour {
 		audio.pitch = Random.Range (minPitch, maxPitch);
 		audio.PlayOneShot(sfx, vol);
 	}
+	
+	void OnBecameInvisible()
+	{
+		Destroy (gameObject);
+	}
 }

@@ -71,6 +71,7 @@
      <Compile Include="Assets\Scripts\attackInstructions.cs" />
      <Compile Include="Assets\Scripts\buttons.cs" />
      <Compile Include="Assets\Scripts\env_Bumper.cs" />
+     <Compile Include="Assets\SnowCanonPickup.cs" />
      <Compile Include="Assets\Sprites\HeartPickup.cs" />
      <Compile Include="Assets\Sprites\HeartsView.cs" />
      <Compile Include="Assets\iecblock.cs" />
