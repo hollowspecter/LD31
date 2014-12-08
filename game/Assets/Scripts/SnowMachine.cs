@@ -10,6 +10,8 @@ public class SnowMachine : MonoBehaviour {
 	//Snowflakeprefab and fallheight
 	public GameObject snowflake;
 	public float snowflakeHeight = 30.0f;
+	
+	public static bool snowing = false;
 
 	//the snowing area
 	public float maxX = 28.0f;
@@ -20,7 +22,6 @@ public class SnowMachine : MonoBehaviour {
 	public float maxdelay = 2.0f;
 
 	float timer = 0.0f;
-	bool snowing = false;
 
 	bool isWinter;
 	int snowFlakeNum = 1;
