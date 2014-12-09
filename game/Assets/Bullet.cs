@@ -14,29 +14,21 @@ public class Bullet : MonoBehaviour {
 	GameObject iceblock1;
 
 	int player;
-	
-	void Awake()
-	{
-		if (CompareTag("Player0bullet"))
-			player = 0;
-		else
-			player = 1;
-	}
 
 	void OnTriggerEnter(Collider col)
 	{
 		if (player==0)
 		{
-			if (col.CompareTag("Player0"))
+			if (col.CompareTag("Player1"))
 			{
-				Debug.Log ("Snowball Hit player0!");
+				Debug.Log ("Snowball Hit player1!");
 				HitPlayer(col);
 			}
 		}else if (player==1)
 		{
-			if (col.CompareTag("Player1"))
+			if (col.CompareTag("Player0"))
 			{
-				Debug.Log ("Snowball Hit player1!");
+				Debug.Log ("Snowball Hit player0!");
 				HitPlayer(col);
 			}
 		}
@@ -63,5 +55,10 @@ public class Bullet : MonoBehaviour {
 	void OnBecameInvisible()
 	{
 		Destroy (gameObject);
+	}
+	
+	public void setPlayer(int p)
+	{
+		player = p;
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections;
 public class GunShot : MonoBehaviour {
 
 	public int maxAmmo = 3;
+	public int player;
 	
 	int ammo = 3;
 
@@ -43,7 +44,7 @@ public class GunShot : MonoBehaviour {
 		direction.Normalize();
 		
 		GameObject bulletInstance = (GameObject) Instantiate (bullet, gunpoint.position, Quaternion.Euler(new Vector3(0,0,0)));
-		bulletInstance.tag = tag+"bullet";
+		bulletInstance.GetComponent<Bullet>().setPlayer(player);
 		bulletInstance.GetComponent<Rigidbody>().velocity = direction * speed;
 		
 		checkAmmo();
@@ -58,7 +59,7 @@ public class GunShot : MonoBehaviour {
 		
 		direction.Normalize();
 		GameObject bulletInstance = (GameObject) Instantiate (bullet, gunpoint.position, Quaternion.Euler(new Vector3(0,0,0)));
-		bulletInstance.tag = tag+"bullet";
+		bulletInstance.GetComponent<Bullet>().setPlayer(player);
 		bulletInstance.GetComponent<Rigidbody>().velocity = direction * speed;
 		
 		checkAmmo();
