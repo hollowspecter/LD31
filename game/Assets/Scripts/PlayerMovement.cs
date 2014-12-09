@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-	public void Move (float h, float v)
+	void Move (float h, float v)
 	{
 		movement.Set (h, 0f, v);
 		movement = movement.normalized * speed * Time.deltaTime;
@@ -87,6 +87,13 @@ public class PlayerMovement : MonoBehaviour
 			playerRigidbody.MovePosition (transform.position + movement); //current pos + movement
 		else
 			playerRigidbody.AddForce (movement * forceMultiplier);
+	}
+
+	public void PushByForce(float h, float v, float distance)
+	{	
+		movement.Set (h, 0f, v);
+		movement = movement.normalized * distance * Time.deltaTime;
+		playerRigidbody.AddForce (movement * forceMultiplier);
 	}
 
 	void Turning(float h, float v, bool isWalking)

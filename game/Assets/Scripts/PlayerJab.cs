@@ -79,12 +79,14 @@ public class PlayerJab : MonoBehaviour {
 		}
 	}
 
+	public void kickJump()
+	{
+		GetComponent<PlayerMovement>().PushByForce(transform.forward.x, transform.forward.z, 200f);
+	}
+
 	public void AttemptedKick()
 	{
-		Rigidbody playerRigidbody = GetComponent<Rigidbody>();
-		float forceMultiplier = 3f;
-		Vector3 mov = new Vector3(transform.forward.x, transform.forward.z);
-		playerRigidbody.AddForce (mov * forceMultiplier);
+
 		// is opposing player in reach?
 		if (hitreach.opposingPlayerInReach())
 		{
