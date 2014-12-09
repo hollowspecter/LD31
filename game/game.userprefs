@@ -1,14 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SnowMachine.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\IceMode.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerJab.cs" Line="53" Column="17" />
-      <File FileName="Assets\Scripts\PlayerSpecial.cs" Line="70" Column="61" />
-      <File FileName="Assets\Scripts\PlayerStance.cs" Line="135" Column="1" />
-      <File FileName="Assets\Scripts\PlayerMovement.cs" Line="135" Column="5" />
-      <File FileName="Assets\Scripts\ZoomPickup.cs" Line="40" Column="57" />
-      <File FileName="Assets\Scripts\SnowMachine.cs" Line="77" Column="29" />
-      <File FileName="Assets\Scripts\Pitfall.cs" Line="44" Column="5" />
+      <File FileName="Assets\Scripts\PlayerJab.cs" Line="42" Column="62" />
+      <File FileName="Assets\Scripts\IceMode.cs" Line="14" Column="56" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

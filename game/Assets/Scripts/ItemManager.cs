@@ -37,7 +37,12 @@ public class ItemManager : MonoBehaviour {
 	{
 		int itemIndex = Random.Range (0, items.Length);
 		int spawnIndex = Random.Range (0, spawnPositions.Length);
+		while(spawnPositions[spawnIndex].childCount > 0)
+		{
+			spawnIndex = Random.Range (0, spawnPositions.Length);
+		}
 		
-		Instantiate (items[itemIndex], spawnPositions[spawnIndex].position, Quaternion.identity);
+		GameObject o = (GameObject)Instantiate (items[itemIndex], spawnPositions[spawnIndex].position, Quaternion.identity);
+		o.transform.SetParent(spawnPositions[spawnIndex]);
 	}
 }
