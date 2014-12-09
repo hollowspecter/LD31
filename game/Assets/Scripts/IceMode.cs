@@ -11,7 +11,7 @@ public class IceMode : MonoBehaviour {
 	MeshRenderer floorRenderer;
 	public AudioClip pickupSound;
 	public float iceModeDuration;
-	public static int amountOfSnowflakesForForever = 10;
+	public static int amountOfSnowflakesForForever = 1500;
 	
 	public Material iceMaterial;
 

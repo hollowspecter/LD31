@@ -40,12 +40,6 @@ public class PlayerJab : MonoBehaviour {
 		isShooting = info.IsName("shootR") || info.IsName("shootL");
 		isComboing = info.IsName ("comboR") || info.IsName ("comboL");
 		isKicking = info.IsName ("kickR") || info.IsName ("kickL");
-	
-		if (Input.GetButtonDown("Hit_"+player) && !isJabbing && !isStronging && !isShooting && !pm.blockMovement)
-			anim.SetTrigger("Jab");
-			
-		if (Input.GetButtonDown("Strong_"+player) && !isJabbing && !isStronging && !isShooting && !pm.blockMovement)
-			anim.SetTrigger("Strong");
 			
 		if (Input.GetButtonDown("Hit_"+player) && !isStronging && !isComboing && !isKicking && !isShooting && !pm.blockMovement)
 		{
@@ -107,7 +101,6 @@ public class PlayerJab : MonoBehaviour {
 	
 	public void AttemptedKick()
 	{
-
 		// is opposing player in reach?
 		if (hitreach.opposingPlayerInReach())
 		{
