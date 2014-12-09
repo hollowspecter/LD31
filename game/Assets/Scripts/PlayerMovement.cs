@@ -143,4 +143,11 @@ public class PlayerMovement : MonoBehaviour
 		originalCons = playerRigidbody.constraints;
 		playerRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 	}
+	
+	public void PushByForce(float h, float v, float distance)
+	{	
+		movement.Set (h, 0f, v);
+		movement = movement.normalized * distance * Time.deltaTime;
+		playerRigidbody.AddForce (movement * forceMultiplier);
+	}
 }
