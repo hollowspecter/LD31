@@ -1,9 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\IceMode.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\Fachseminar\Assets\Scripts\ComputeColliders.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerJab.cs" Line="42" Column="62" />
-      <File FileName="Assets\Scripts\IceMode.cs" Line="14" Column="56" />
+      <File FileName="..\..\Fachseminar\Assets\Scripts\UnitSphere.cs" Line="41" Column="31" />
+      <File FileName="..\..\Fachseminar\Assets\Scripts\ComputeColliders.cs" Line="99" Column="41" />
+      <File FileName="..\..\Fachseminar\Assets\Scripts\CameraMovement.cs" Line="23" Column="75" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
