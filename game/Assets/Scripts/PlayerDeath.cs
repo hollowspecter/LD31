@@ -66,8 +66,8 @@ public class PlayerDeath : MonoBehaviour {
 		//Debug.Log ("Respawning");
 		transform.parent.position = respawn.position;
 		transform.parent.rotation = Quaternion.identity;
-		transform.parent.rigidbody.velocity = Vector3.zero;
-		transform.parent.rigidbody.angularVelocity = Vector3.zero;
+		transform.parent.GetComponent<Rigidbody>().velocity = Vector3.zero;
+		transform.parent.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 		
 		stance.resetMultiplier();
 	}

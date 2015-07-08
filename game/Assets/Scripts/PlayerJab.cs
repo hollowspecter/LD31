@@ -85,8 +85,8 @@ public class PlayerJab : MonoBehaviour {
 	void playSound(AudioClip sfx)
 	{
 		float vol = Random.Range(minVol, maxVol);
-		audio.pitch = Random.Range (minPitch, maxPitch);
-		audio.PlayOneShot(sfx, vol);
+		GetComponent<AudioSource>().pitch = Random.Range (minPitch, maxPitch);
+		GetComponent<AudioSource>().PlayOneShot(sfx, vol);
 	}
 	
 	public bool getIsStronging()

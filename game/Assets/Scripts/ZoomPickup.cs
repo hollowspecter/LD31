@@ -51,9 +51,9 @@ public class ZoomPickup : MonoBehaviour {
 		{
 			if (!zooming)
 			{
-				collider.enabled = false;
+				GetComponent<Collider>().enabled = false;
 				render.color = Color.clear;
-				audio.PlayOneShot(pickupSound);
+				GetComponent<AudioSource>().PlayOneShot(pickupSound);
 				zooming = true;
 				
 				StartCoroutine("zoomingShit");

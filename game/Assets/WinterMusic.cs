@@ -31,7 +31,7 @@ public class WinterMusic : MonoBehaviour {
 			float percantageComplete = timeGone / crossfadeDuration;
 			float newVol = Mathf.Lerp(0, maxVol, percantageComplete);
 
-			audio.volume = newVol;
+			GetComponent<AudioSource>().volume = newVol;
 			oldmusic.volume = maxVol - newVol;
 			
 		

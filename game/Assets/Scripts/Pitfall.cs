@@ -27,7 +27,7 @@ public class Pitfall : MonoBehaviour {
 			
 			originalCons = rigid0.constraints;
 			rigid0.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-			rigid0.collider.isTrigger = true;
+			rigid0.GetComponent<Collider>().isTrigger = true;
 		}
 		if (captured1)
 		{
@@ -35,7 +35,7 @@ public class Pitfall : MonoBehaviour {
 			
 			originalCons = rigid1.constraints;
 			rigid1.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-			rigid1.collider.isTrigger = true;
+			rigid1.GetComponent<Collider>().isTrigger = true;
 		}
 	}
 
@@ -45,7 +45,7 @@ public class Pitfall : MonoBehaviour {
 		if (col.CompareTag("Player0"))
 		{
 			playerT0 = col.transform;
-			rigid0 = playerT0.rigidbody;
+			rigid0 = playerT0.GetComponent<Rigidbody>();
 
 			captured0 = true;
 			playSound(fall);
@@ -53,7 +53,7 @@ public class Pitfall : MonoBehaviour {
 		if (col.CompareTag("Player1"))
 		{
 			playerT1 = col.transform;
-			rigid1 = playerT1.rigidbody;
+			rigid1 = playerT1.GetComponent<Rigidbody>();
 
 			captured1 = true;
 			playSound(fall);
@@ -65,13 +65,13 @@ public class Pitfall : MonoBehaviour {
 		if (col.CompareTag("Player0"))
 		{
 			rigid0.constraints = originalCons;
-			rigid0.collider.isTrigger = false;
+			rigid0.GetComponent<Collider>().isTrigger = false;
 			captured0 = false;
 		}
 		if (col.CompareTag("Player1"))
 		{
 			rigid1.constraints = originalCons;
-			rigid1.collider.isTrigger = false;
+			rigid1.GetComponent<Collider>().isTrigger = false;
 			captured1 = false;
 		}
 	}
@@ -79,7 +79,7 @@ public class Pitfall : MonoBehaviour {
 	void playSound(AudioClip sfx)
 	{
 		float vol = Random.Range(minVol, maxVol);
-		audio.pitch = Random.Range (minPitch, maxPitch);
-		audio.PlayOneShot(sfx, vol);
+		GetComponent<AudioSource>().pitch = Random.Range (minPitch, maxPitch);
+		GetComponent<AudioSource>().PlayOneShot(sfx, vol);
 	}
 }

@@ -45,8 +45,8 @@ public class CountDown : MonoBehaviour {
 			
 			if (!activated)
 			{
-				audio.clip = music;
-				audio.Play();
+				GetComponent<AudioSource>().clip = music;
+				GetComponent<AudioSource>().Play();
 				wintermusic.Play();
 				activated = true;
 			}

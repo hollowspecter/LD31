@@ -23,9 +23,9 @@ public class SwirlPickup : MonoBehaviour {
 		{
 			if (!swirling)
 			{
-				collider.enabled = false;
+				GetComponent<Collider>().enabled = false;
 				render.color = Color.clear;
-				audio.PlayOneShot(pickupSound);
+				GetComponent<AudioSource>().PlayOneShot(pickupSound);
 				
 				StartCoroutine("swirl");
 			}

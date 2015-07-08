@@ -19,9 +19,9 @@ public class HeartPickup : MonoBehaviour {
 		{
 			PlayerStance stance = col.GetComponent<PlayerStance>();
 			stance.reduceMultiplier(strength);
-			collider.enabled = false;
+			GetComponent<Collider>().enabled = false;
 			render.color = Color.clear;
-			audio.PlayOneShot(pickupSound);
+			GetComponent<AudioSource>().PlayOneShot(pickupSound);
 			Destroy(gameObject, pickupSound.length);
 		}
 	}

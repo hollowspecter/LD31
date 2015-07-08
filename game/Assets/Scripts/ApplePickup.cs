@@ -20,9 +20,9 @@ public class ApplePickup : MonoBehaviour {
 			PlayerSpecial special = col.GetComponent<PlayerSpecial>();
 			special.recoverCooldown(strength);
 			
-			collider.enabled = false;
+			GetComponent<Collider>().enabled = false;
 			render.color = Color.clear;
-			audio.PlayOneShot(pickupSound);
+			GetComponent<AudioSource>().PlayOneShot(pickupSound);
 			Destroy(gameObject, pickupSound.length);
 		}
 	}
