@@ -63,8 +63,10 @@ public class PlayerStance : MonoBehaviour {
 				recoil = recoil.normalized * 800 * Time.deltaTime * 10 *(1.0f+(currentMultiplier)<5f?5f:currentMultiplier);
 			else
 				recoil = recoil.normalized * 800 * Time.deltaTime * (1.0f+currentMultiplier);
-		
-			playerRigidbody.AddForce(recoil);
+
+            Debug.Log("Recoil: " + recoil);
+            
+			playerRigidbody.AddForce(new Vector3(recoil.x,0,recoil.z));
 			
 			// knockdown
 			if (calculateKnockdownProbabilty(recoil.magnitude))
