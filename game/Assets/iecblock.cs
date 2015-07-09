@@ -8,7 +8,7 @@ public class iecblock : MonoBehaviour {
 	bool active = false;
 	
 	PlayerIcemode player;
-	PlayerMovement playermov;
+	Movement playermov;
 	float timer;
 	MeshRenderer render;
 	
@@ -17,6 +17,8 @@ public class iecblock : MonoBehaviour {
 		render = GetComponent<MeshRenderer>();
 		player = transform.parent.GetComponent<PlayerIcemode>();
 		playermov = transform.parent.GetComponent<PlayerMovement>();
+		if(playermov == null)
+			playermov = transform.parent.GetComponent<AI_Movement>();
 		Deactivate();
 	}
 	

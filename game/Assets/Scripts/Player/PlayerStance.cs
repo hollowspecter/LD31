@@ -66,7 +66,7 @@ public class PlayerStance : MonoBehaviour {
 
             Debug.Log("Recoil: " + recoil);
             
-			playerRigidbody.AddForce(new Vector3(recoil.x,0,recoil.z));
+			playerRigidbody.AddForce(new Vector3(recoil.x,0.0f,recoil.z));
 			
 			// knockdown
 			if (calculateKnockdownProbabilty(recoil.magnitude))

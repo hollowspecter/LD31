@@ -27,7 +27,7 @@ public class PlayerSpecial : MonoBehaviour {
 	
 	Animator anim;
 	HitReach hitreach;
-	PlayerMovement self;
+	Movement self;
 	
 	bool isJabbing = false;
 	bool isStronging = false;
@@ -46,6 +46,8 @@ public class PlayerSpecial : MonoBehaviour {
 		hitreach = GetComponentInChildren<HitReach>();
 		
 		self = GetComponent<PlayerMovement>();
+		if(self == null)
+			self = GetComponent<AI_Movement>();
 	}
 	
 	void Update()

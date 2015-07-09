@@ -1,31 +1,9 @@
 ﻿using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Movement
 {
-	public float speed = 6f;
-	public float walkingSpeed = 6f;
-	public float dashSpeed = 36f;
-	public int player = 0; // which player is it?
-	public float forceMultiplier = 10.0f;
 
-	[HideInInspector]
-	Vector3 movement;
-	Animator anim;
-	Rigidbody playerRigidbody;
-	PlayerJab playerAttacks;
-	RigidbodyConstraints originalCons; 
-
-	public bool blockMovement = false;
-	public bool isDashing = false;
-	public bool moveByForce = false;
-
-	bool onFloor = false;
-	float fallSpeed = 800f;
-
-	float dashH = 0f;
-	float dashV = 0f;
-
-	void Awake()
+	public override void Awake()
 	{
 		anim = GetComponent<Animator> ();
 		playerRigidbody = GetComponent<Rigidbody> ();
@@ -77,78 +55,5 @@ public class PlayerMovement : MonoBehaviour
 			Debug.Log("fall");
 			Fall();
 		}
-	}
-
-	void Move (float h, float v)
-	{
-		movement.Set (h, 0f, v);
-		movement = movement.normalized * speed * Time.deltaTime;
-
-		if (!moveByForce)
-			playerRigidbody.MovePosition (transform.position + movement); //current pos + movement
-		else
-			playerRigidbody.AddForce (movement * forceMultiplier);
-	}
-
-	void Turning(float h, float v, bool isWalking)
-	{
-		if (isWalking)
-		{
-			Vector3 movement = new Vector3(h, 0.0f, v);
-			Quaternion newRotation = Quaternion.LookRotation(movement);
-			playerRigidbody.MoveRotation(newRotation);
-		}
-	}
-
-	void Animating (float h, float v, bool walking)
-	{
-		anim.SetBool ("IsWalking", walking);
-		if (h != 0)
-			anim.SetBool ("Right", h > 0);
-	}
-	
-	bool getKnockdown()
-	{
-		AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(2);
-		bool knockdown = info.IsName("knockdownL") || info.IsName("knockdownR");
-		bool knockdownIdle = info.IsName("knockdownIdleL") || info.IsName("knockdownIdleR");
-		
-		return knockdown || knockdownIdle;
-	}
-
-	void OnCollisionStay(Collision col)
-	{
-		if(col.collider.tag == "Floor")
-		{
-			onFloor = true;
-		}
-	}
-
-	void OnCollisionExit(Collision col)
-	{
-		Debug.Log("not on:" + col.collider.tag);
-		if(col.collider.tag == "Floor")
-		{
-			onFloor = false;
-		}
-	}
-	
-	public Vector3 getMovement()
-	{
-		return movement;
-	}
-
-	void Fall()
-	{
-		playerRigidbody.AddForce(0,-1 * fallSpeed,0);
-		originalCons = playerRigidbody.constraints;
-		playerRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-	}
-	
-	public void PushByForce(float h, float v, float distance)
-	{	
-		movement.Set (h, 0f, v);
-		movement = movement.normalized * distance * Time.deltaTime;
-		playerRigidbody.AddForce (movement * forceMultiplier);
 	}
 }

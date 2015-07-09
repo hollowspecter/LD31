@@ -10,7 +10,11 @@ public class HitReach : MonoBehaviour {
 
 	void Awake()
 	{
-		PlayerMovement pm = transform.parent.GetComponent<PlayerMovement>();
+		Movement pm = transform.parent.GetComponent<PlayerMovement>();
+		if(pm == null)
+		{
+			pm = transform.parent.GetComponent<AI_Movement>();
+		}
 		player = pm.player;
 		if (player == 0)
 			opposingPlayer = 1;

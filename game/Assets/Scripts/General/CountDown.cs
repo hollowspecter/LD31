@@ -6,13 +6,16 @@ public class CountDown : MonoBehaviour {
 
 	public float countdown = 5.0f;
 	public float fadeAwaySpeed = 1.0f;
-	public PlayerMovement pm1;
-	public PlayerMovement pm2;
+	public Movement pm1;
+	public Movement pm2;
 	public int gosize = 100;
 	
 	public AudioSource wintermusic;
 	
 	public AudioClip music;
+
+
+
 	bool activated = false;
 	
 	Text text;	

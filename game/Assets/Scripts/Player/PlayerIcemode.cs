@@ -9,12 +9,15 @@ public class PlayerIcemode : MonoBehaviour {
 	
 	Rigidbody rigid;
 	float originalDrag;
-	PlayerMovement playerMov;
+	Movement playerMov;
 	
 	void Awake()
 	{
 		rigid = GetComponent<Rigidbody>();
-		playerMov = GetComponent<PlayerMovement>();
+		playerMov = GetComponent<PlayerMovement>();		
+		if(playerMov == null)
+			playerMov = GetComponent<AI_Movement>();
+
 		originalDrag = rigid.drag;
 	}
 
