@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
 	public bool moveByForce = false;
 
 	bool onFloor = false;
-	float fallSpeed = 80f;
+	float fallSpeed = 800f;
 
 	float dashH = 0f;
 	float dashV = 0f;
@@ -74,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 		else
 		{
+			Debug.Log("fall");
 			Fall();
 		}
 	}

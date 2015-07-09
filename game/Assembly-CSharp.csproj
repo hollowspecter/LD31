@@ -46,36 +46,36 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Bullet.cs" />
-     <Compile Include="Assets\GunShot.cs" />
-     <Compile Include="Assets\PlayerIcemode.cs" />
-     <Compile Include="Assets\PlayerShoot.cs" />
      <Compile Include="Assets\Scripts\ApplePickup.cs" />
      <Compile Include="Assets\Scripts\Billboard.cs" />
+     <Compile Include="Assets\Scripts\Bullet.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\CountDown.cs" />
+     <Compile Include="Assets\Scripts\GunShot.cs" />
      <Compile Include="Assets\Scripts\HitReach.cs" />
      <Compile Include="Assets\Scripts\IceMode.cs" />
      <Compile Include="Assets\Scripts\ItemManager.cs" />
      <Compile Include="Assets\Scripts\Pitfall.cs" />
      <Compile Include="Assets\Scripts\PlayerDeath.cs" />
+     <Compile Include="Assets\Scripts\PlayerIcemode.cs" />
      <Compile Include="Assets\Scripts\PlayerJab.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\PlayerShoot.cs" />
      <Compile Include="Assets\Scripts\PlayerSpecial.cs" />
      <Compile Include="Assets\Scripts\PlayerStance.cs" />
      <Compile Include="Assets\Scripts\PressStart.cs" />
+     <Compile Include="Assets\Scripts\SnowCanonPickup.cs" />
      <Compile Include="Assets\Scripts\SnowFlake.cs" />
      <Compile Include="Assets\Scripts\SnowMachine.cs" />
      <Compile Include="Assets\Scripts\SwirlPickup.cs" />
      <Compile Include="Assets\Scripts\WinterControl.cs" />
+     <Compile Include="Assets\Scripts\WinterMusic.cs" />
      <Compile Include="Assets\Scripts\ZoomPickup.cs" />
      <Compile Include="Assets\Scripts\attackInstructions.cs" />
      <Compile Include="Assets\Scripts\buttons.cs" />
      <Compile Include="Assets\Scripts\env_Bumper.cs" />
-     <Compile Include="Assets\SnowCanonPickup.cs" />
      <Compile Include="Assets\Sprites\HeartPickup.cs" />
      <Compile Include="Assets\Sprites\HeartsView.cs" />
-     <Compile Include="Assets\WinterMusic.cs" />
      <Compile Include="Assets\iecblock.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />

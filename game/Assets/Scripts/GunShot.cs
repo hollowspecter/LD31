@@ -46,7 +46,9 @@ public class GunShot : MonoBehaviour {
 		GameObject bulletInstance = (GameObject) Instantiate (bullet, gunpoint.position, Quaternion.Euler(new Vector3(0,0,0)));
 		bulletInstance.GetComponent<Bullet>().setPlayer(player);
 		bulletInstance.GetComponent<Rigidbody>().velocity = direction * speed;
-		
+
+
+		Debug.Log("velo =" + bulletInstance.GetComponent<Rigidbody>().velocity);
 		checkAmmo();
 	}
 	
