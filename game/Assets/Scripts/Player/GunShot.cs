@@ -31,6 +31,15 @@ public class GunShot : MonoBehaviour {
 			snowcanon.SetActive(true);
 		else
 			snowcanon.SetActive(false);
+
+		if( anim.GetBool("Right") )
+		{
+			snowcanon.transform.localPosition = new Vector3(0.0f, 0.0f, 0.2f);
+		}
+		else
+		{
+			snowcanon.transform.localPosition = new Vector3(0.0f, 0.0f, -0.2f);
+		}
 			
 	}
 	
