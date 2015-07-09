@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\AI_Project\Movement\AI_Movement.cs" />
+     <Compile Include="Assets\Scripts\AI_Project\Movement\AI_NavMeshSeek.cs" />
      <Compile Include="Assets\Scripts\General\Billboard.cs" />
      <Compile Include="Assets\Scripts\General\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\General\CountDown.cs" />
