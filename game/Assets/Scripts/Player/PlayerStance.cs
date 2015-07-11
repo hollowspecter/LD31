@@ -46,7 +46,7 @@ public class PlayerStance : MonoBehaviour {
 	
 	public void TakeHit(float amount, Vector3 hitposition, string type)
 	{
-		Debug.Log ("tookHit: " + amount);
+		//Debug.Log ("tookHit: " + amount);
 		if (!respawning)
 		{
 			damaged = true;
@@ -64,7 +64,7 @@ public class PlayerStance : MonoBehaviour {
 			else
 				recoil = recoil.normalized * 800 * Time.deltaTime * (1.0f+currentMultiplier);
 
-            Debug.Log("Recoil: " + recoil);
+            //Debug.Log("Recoil: " + recoil);
             
 			playerRigidbody.AddForce(new Vector3(recoil.x,0.0f,recoil.z));
 			

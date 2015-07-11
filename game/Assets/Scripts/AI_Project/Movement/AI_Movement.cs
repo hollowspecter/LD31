@@ -54,7 +54,7 @@ public class AI_Movement : Movement
 		    || getKnockdown())
 		{
 			agent.Stop();
-			Debug.Log("stopped");
+			//Debug.Log("stopped");
 			h = 0;
 			v = 0;
 		}

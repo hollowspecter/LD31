@@ -41,7 +41,7 @@ public class Pitfall : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
 	{
-		Debug.Log("pitfalled");
+		//Debug.Log("pitfalled");
 		if (col.CompareTag("Player0"))
 		{
 			playerT0 = col.transform;

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class IceMode : MonoBehaviour {
 	
-	public static bool icemodeOn = false;
+	static bool icemodeOn = false;
 	
 	PlayerIcemode player0;
 	PlayerIcemode player1;
@@ -15,7 +15,7 @@ public class IceMode : MonoBehaviour {
 	
 	public Material iceMaterial;
 
-	public MeshRenderer fakefloor;
+	//public MeshRenderer fakefloor;
 
 	public float fadeSpeed = 1.0f;
 
@@ -39,7 +39,7 @@ public class IceMode : MonoBehaviour {
 			
 		player1 = GameObject.FindGameObjectWithTag("Player1").GetComponent<PlayerIcemode>();
 		if (player1 == null)
-			player1 = GameObject.Find("boar").GetComponent<PlayerIcemode>();
+			player1 = GameObject.Find("AI_deer").GetComponent<PlayerIcemode>();
 		if (player1 == null)
 			Debug.LogError("Player 1 is not assigned");
 		
@@ -59,11 +59,11 @@ public class IceMode : MonoBehaviour {
 
 			floorRenderer.material.color = new Color(0.027f,0.191f,0.52f,0f);
 			
+			IceMode.icemodeOn = true;
 			player0.icemode = true;
 			player1.icemode = true;
 
 
-			icemodeOn = true;
 			Debug.Log ("Ice mode forever!");
 		}
 			
@@ -81,9 +81,14 @@ public class IceMode : MonoBehaviour {
 			if (timer >= 1.5f)
 			{
 				if (!icemodeForever)
-					icemodeOn = false;
+					IceMode.icemodeOn = false;
 				Destroy(gameObject);
 			}
+		}
+
+		if(IceMode.icemodeOn)
+		{
+			Debug.Log("iceModeON!");
 		}
 	}
 	/*
@@ -109,7 +114,7 @@ public class IceMode : MonoBehaviour {
 		floorRenderer.material.color = Color.clear;
 		player0.icemode = true;
 		player1.icemode = true;
-		icemodeOn = true;
+		IceMode.icemodeOn = true;
 		yield return new WaitForSeconds(iceModeDuration);
 		
 		fadeOut = true;
@@ -121,5 +126,10 @@ public class IceMode : MonoBehaviour {
 			floorRenderer.material = originalMaterial;
 		}
 		
+	}
+
+	public static bool getIcemodeOn()
+	{
+		return IceMode.icemodeOn;
 	}
 }

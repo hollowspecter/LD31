@@ -34,7 +34,7 @@ public class env_Bumper : MonoBehaviour {
 	// Update is called once per frame...or not
 	void Update ()
 	{
-		isWinter = IceMode.icemodeOn;
+		isWinter = IceMode.getIcemodeOn();
 		anim.SetBool("isWinter", isWinter);
 	}
 

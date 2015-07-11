@@ -91,7 +91,7 @@ public class Movement : MonoBehaviour
 	
 	protected void OnCollisionExit(Collision col)
 	{
-		Debug.Log("not on:" + col.collider.tag);
+		//Debug.Log("not on:" + col.collider.tag);
 		if(col.collider.tag == "Floor")
 		{
 			onFloor = false;

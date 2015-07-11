@@ -16,7 +16,7 @@ public class WinterMusic : MonoBehaviour {
 
 	void Update()
 	{
-		isWinter = IceMode.icemodeOn;
+		isWinter = IceMode.getIcemodeOn();
 		
 		if (isWinter && !lerpStarted)
 		{

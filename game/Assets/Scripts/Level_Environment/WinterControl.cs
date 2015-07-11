@@ -13,7 +13,7 @@ public class WinterControl : MonoBehaviour {
 	public Material cliff;
 	public Material cliff_Ice;
 	
-	bool isWinter = false;
+	bool isWinter = true;
 
 	
 	public Text text;
@@ -31,7 +31,7 @@ public class WinterControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		isWinter = IceMode.icemodeOn;
+		isWinter = IceMode.getIcemodeOn();
 
 		//display Text
 		if(SnowMachine.snowing && state == 0)
@@ -62,8 +62,9 @@ public class WinterControl : MonoBehaviour {
 		else
 			delay += Time.deltaTime;
 
-		if(isWinter )
+		if(isWinter)
 		{
+			Debug.Log("its winterTime");
 			foreach(GameObject g in rocks)
 			{
 				g.GetComponent<MeshRenderer>().material = cliff_Ice;
