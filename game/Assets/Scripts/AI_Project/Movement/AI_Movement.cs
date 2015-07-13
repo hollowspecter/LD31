@@ -129,7 +129,7 @@ public class AI_Movement : Movement
 	}
 
 	
-	public void setTarget(Transform in_Target)
+	public void SetTarget(Transform in_Target)
 	{
 		target = in_Target;
 	}

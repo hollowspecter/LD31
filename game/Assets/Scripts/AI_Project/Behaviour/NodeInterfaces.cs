@@ -3,16 +3,18 @@ using System.Collections;
 
 public interface ChildNode
 {
-	void activate();
+	void Activate();
 }
 
 public interface ParentNode
 {
 	void AddChild(ChildNode c);
-	bool childDone(ChildNode c);
+	bool ChildDone(ChildNode c);
 }
 
 public interface TaskNode
 {
-	void performTask();
+	void PerformTask();
 }
+
+
