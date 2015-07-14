@@ -22,6 +22,7 @@ public class AI_Movement : Movement
 	private int subtargetIndex = 1;
 
 	private NavMeshPath path;
+	private bool stopped = false;
 
 	public override void Awake()
 	{
@@ -40,6 +41,7 @@ public class AI_Movement : Movement
 		agent.enabled = true;
 		agent.CalculatePath(target.position, path);
 		agent.enabled = false;
+
 
 		//Debug.draw the path in red
 		Debug.DrawLine(transform.position, path.corners[0],Color.red,0.5f);
@@ -61,15 +63,18 @@ public class AI_Movement : Movement
 		{
 
 			//if you have almost reached your subgoal, move on to the next one to avoid stuttering
-			if(sqrSubDist < 3)
+			if(sqrSubDist < 3 && subtargetIndex <= path.corners.Length)
 			{
 				subtargetIndex++;
 				subtarget = path.corners[subtargetIndex];
 			}
+			
+			sqrTargetDist = (target.position - transform.position).sqrMagnitude;
+			stopped  = (sqrTargetDist < stopDist);
 
 			if(sqrTargetDist < stopDist)
 			{
-				Debug.Log("Arrived");
+				//Debug.Log("Arrived" + sqrTargetDist);
 			}
 
 			//calculate the direction the character should move in 
@@ -89,7 +94,7 @@ public class AI_Movement : Movement
 
 		//reset the movement-values if the character is Attacking(strong), his movement is blocked or he is knocked Down
 		if (playerAttacks.getIsStronging() || blockMovement
-		    || getKnockdown())
+		    || getKnockdown() || stopped)
 		{
 			//Debug.Log("stopped");
 			h = 0;

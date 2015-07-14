@@ -4,34 +4,39 @@ using System.Collections.Generic;
 
 public class Behaviour : ParentNode 
 {
-	bool isActive;
-	List<ChildNode> children;
+	bool isRunning;
+	ChildNode behaviourRoot;
 	//TODO: List<Task> activeTasks;
 
 
 	// Use this for initialization
-	void Start () 
+	void StartBehaviour() 
 	{
-		children = new List<ChildNode>();
-
-	
+		if(behaviourRoot != null)
+		{
+			behaviourRoot.Activate();
+		}
+			
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void Update() 
 	{
-	
+		if(isRunning)
+		{
+
+		}
+
 	}
 
-	public void AddChild(ChildNode c)
+	public void AddChild(ChildNode child)
 	{
-
+		behaviourRoot = child;
 	}
 
-	public bool ChildDone(ChildNode c)
+	public void ChildDone(ChildNode child, bool childResult)
 	{
-		bool b = false;
-		return b;
+		Debug.Log("Behaviour terminated with Result: " + childResult); 
 	}
 
 

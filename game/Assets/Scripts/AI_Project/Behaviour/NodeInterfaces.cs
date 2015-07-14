@@ -8,11 +8,11 @@ public interface ChildNode
 
 public interface ParentNode
 {
-	void AddChild(ChildNode c);
-	bool ChildDone(ChildNode c);
+	void AddChild(ChildNode child);
+	void ChildDone(ChildNode child, bool childResult);
 }
 
-public interface TaskNode
+public interface TaskNode : ChildNode
 {
 	void PerformTask();
 }
