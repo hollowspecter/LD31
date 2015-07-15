@@ -116,4 +116,9 @@ public class Movement : MonoBehaviour
 		movement = movement.normalized * distance * Time.deltaTime;
 		playerRigidbody.AddForce (movement * forceMultiplier);
 	}
+
+	public bool getOnFloor()
+	{
+		return onFloor;
+	}
 }

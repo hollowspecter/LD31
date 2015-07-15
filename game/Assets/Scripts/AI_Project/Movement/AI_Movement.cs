@@ -22,7 +22,7 @@ public class AI_Movement : Movement
 	private int subtargetIndex = 1;
 
 	private NavMeshPath path;
-	private bool stopped = false;
+	private bool hasArrived = false;
 
 	public override void Awake()
 	{
@@ -70,7 +70,7 @@ public class AI_Movement : Movement
 			}
 			
 			sqrTargetDist = (target.position - transform.position).sqrMagnitude;
-			stopped  = (sqrTargetDist < stopDist);
+			hasArrived  = (sqrTargetDist < stopDist);
 
 			if(sqrTargetDist < stopDist)
 			{
@@ -94,7 +94,7 @@ public class AI_Movement : Movement
 
 		//reset the movement-values if the character is Attacking(strong), his movement is blocked or he is knocked Down
 		if (playerAttacks.getIsStronging() || blockMovement
-		    || getKnockdown() || stopped)
+		    || getKnockdown() || hasArrived)
 		{
 			//Debug.Log("stopped");
 			h = 0;
@@ -137,5 +137,15 @@ public class AI_Movement : Movement
 	public void SetTarget(Transform in_Target)
 	{
 		target = in_Target;
+	}
+
+	public float getSqrTargetDistance()
+	{
+		return sqrTargetDist;
+	}
+
+	public bool getHasArrived()
+	{
+		return hasArrived;
 	}
 }

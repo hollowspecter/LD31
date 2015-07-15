@@ -7,7 +7,12 @@ public class UntilFail: ChildNode, ParentNode
 	ParentNode parent;
 	
 	ChildNode child;
-	
+
+	public UntilFail(ParentNode parent)
+	{
+		this.parent = parent;
+	}
+
 	public void AddChild(ChildNode child)
 	{
 		this.child = child;

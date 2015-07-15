@@ -10,15 +10,9 @@ public class Sequence : ChildNode, ParentNode
 	int currentChildIndex;
 	
 	// Use this for initialization
-	void Start () 
+	public Sequence(ParentNode parent)
 	{
-		
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		
+		this.parent = parent;
 	}
 	
 	public void AddChild(ChildNode child)

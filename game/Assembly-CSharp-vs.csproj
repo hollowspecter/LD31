@@ -53,7 +53,7 @@
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\UntilFail.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\AttackStrongTask.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\AttackTask.cs" />
-     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekTargetTask.cs" />
+     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekOpponentTask.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Movement\AI_Movement.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Movement\AI_NavMeshSeek.cs" />
      <Compile Include="Assets\Scripts\General\Billboard.cs" />
