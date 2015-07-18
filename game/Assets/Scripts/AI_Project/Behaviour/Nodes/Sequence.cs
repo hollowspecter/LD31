@@ -13,6 +13,7 @@ public class Sequence : ChildNode, ParentNode
 	public Sequence(ParentNode parent)
 	{
 		this.parent = parent;
+		this.parent.AddChild(this);
 	}
 	
 	public void AddChild(ChildNode child)

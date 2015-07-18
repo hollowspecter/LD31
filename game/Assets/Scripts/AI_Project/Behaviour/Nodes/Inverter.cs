@@ -1,39 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
-public class UntilFail: ChildNode, ParentNode 
-{
+public class Inverter : ChildNode, ParentNode {
+
 	ParentNode parent;
 	
 	ChildNode child;
-
-	public UntilFail(ParentNode parent)
+	
+	public Inverter(ParentNode parent)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
 	}
-
+	
 	public void AddChild(ChildNode child)
 	{
 		this.child = child;
 	}
 	
 	public void ChildDone(ChildNode child, bool childResult)
-	{
-		
-		//if child returns true, return true yourself
-		if(childResult)
-		{
-			child.Activate();
-		}
-		
-		//else try the next child if there is no next child return false
-		else
-		{
-			parent.ChildDone(this, true);
-		}
-		
+	{		
+		parent.ChildDone(this, !childResult);		
 	}
 	
 	public void Activate()

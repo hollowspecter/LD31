@@ -50,9 +50,9 @@ public class PlayerMovement : Movement
 			Turning (h, v, walking);
 			Animating (h, v, walking);
 		}
-		else
+		else if(!blockMovement)
 		{
-			Debug.Log("fall");
+			//Debug.Log("fall");
 			Fall();
 		}
 	}

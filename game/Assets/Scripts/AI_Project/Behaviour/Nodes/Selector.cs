@@ -13,6 +13,7 @@ public class Selector : ChildNode, ParentNode
 	public Selector(ParentNode parent)
 	{
 		this.parent = parent;
+		this.parent.AddChild(this);
 	}
 
 	public void AddChild(ChildNode child)

@@ -46,8 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AI_Project\AI_Component.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Behaviour.cs" />
+     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Conditions\AreYouHurt_C.cs" />
+     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Conditions\IsOpponentDead_C.cs" />
+     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Conditions\IsOpponentHurt_CHealth_1.cs" />
+     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Conditions\isOpponentInDangerousPosition_C.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\NodeInterfaces.cs" />
+     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\Inverter.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\Selector.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\Sequence.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\UntilFail.cs" />

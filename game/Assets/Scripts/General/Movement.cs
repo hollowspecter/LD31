@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Movement : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class Movement : MonoBehaviour
 	protected Animator anim;
 	protected Rigidbody playerRigidbody;
 	protected PlayerJab playerAttacks;
-	protected RigidbodyConstraints originalCons; 
+	protected RigidbodyConstraints originalCons;
+	protected PlayerDeath playerDeath;
 	
 	public bool blockMovement = false;
 	public bool isDashing = false;
@@ -30,6 +32,7 @@ public class Movement : MonoBehaviour
 		anim = GetComponent<Animator> ();
 		playerRigidbody = GetComponent<Rigidbody> ();
 		playerAttacks = GetComponent<PlayerJab>();
+		playerDeath = GetComponentInChildren<PlayerDeath>();
 		if (player == 1)
 		{
 			anim.SetBool ("Right", false);
@@ -108,6 +111,7 @@ public class Movement : MonoBehaviour
 		playerRigidbody.AddForce(0,-1 * fallSpeed,0);
 		originalCons = playerRigidbody.constraints;
 		playerRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
 	}
 	
 	public void PushByForce(float h, float v, float distance)

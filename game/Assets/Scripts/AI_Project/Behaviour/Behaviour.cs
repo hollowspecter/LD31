@@ -4,10 +4,14 @@ using System.Collections.Generic;
 
 public class Behaviour : ParentNode 
 {
-	bool isRunning;
+	bool isRunning = false;
 	ChildNode behaviourRoot;
-	//TODO: List<Task> activeTasks;
-
+	List<TaskNode> activeTasks;
+	
+	public Behaviour ()
+	{
+		activeTasks = new List<TaskNode>();
+	}
 
 	// Use this for initialization
 	void StartBehaviour() 
@@ -24,7 +28,10 @@ public class Behaviour : ParentNode
 	{
 		if(isRunning)
 		{
-
+			foreach(TaskNode t in activeTasks)
+			{
+				t.PerformTask();
+			}
 		}
 
 	}
@@ -37,6 +44,16 @@ public class Behaviour : ParentNode
 	public void ChildDone(ChildNode child, bool childResult)
 	{
 		Debug.Log("Behaviour terminated with Result: " + childResult); 
+	}
+
+	public void activateTask(TaskNode t)
+	{
+		activeTasks.Add(t);
+	}
+
+	public void deactivateTast(TaskNode t)
+	{
+		activeTasks.Remove(t);
 	}
 
 

@@ -7,8 +7,6 @@ public class AI_Movement : Movement
 
 	public Vector3 subtarget;
 
-
-	
 	private NavMeshAgent agent;
 
 	private float sqrTargetDist;
@@ -36,12 +34,8 @@ public class AI_Movement : Movement
 		//it is called every half-second
 	void AIUpdate()
 	{	
-		//Use Unitys NavMeshAgent to calculate a Path on the NavMesh
-		path.ClearCorners();//Clear the Old Path(necessary?)
-		agent.enabled = true;
-		agent.CalculatePath(target.position, path);
-		agent.enabled = false;
-
+	
+		CalculatePath();
 
 		//Debug.draw the path in red
 		Debug.DrawLine(transform.position, path.corners[0],Color.red,0.5f);
@@ -56,40 +50,26 @@ public class AI_Movement : Movement
 		subtarget = path.corners[subtargetIndex];
 	}
 
+	void Update()
+	{
+		SeekUpdate();
+	}
+
 	void FixedUpdate()
 	{
-
-		if(target != null)
-		{
-
-			//if you have almost reached your subgoal, move on to the next one to avoid stuttering
-			if(sqrSubDist < 3 && subtargetIndex <= path.corners.Length)
-			{
-				subtargetIndex++;
-				subtarget = path.corners[subtargetIndex];
-			}
-			
-			sqrTargetDist = (target.position - transform.position).sqrMagnitude;
-			hasArrived  = (sqrTargetDist < stopDist);
-
-			if(sqrTargetDist < stopDist)
-			{
-				//Debug.Log("Arrived" + sqrTargetDist);
-			}
-
-			//calculate the direction the character should move in 
-			SeekSubtarget(); //seek your target
-			//TODO: walk around obstacles
-			//TODO: evade dangerous positions (Does this belong here?)
-		}
-
 		//split the direction Vector in a horizontal and vertical component
 		//this is mainly a relict of the PlayerMovement  axis-implementation
-		float h = subDirection.x;
-		float v = subDirection.z;
+		repulsion = evadeDanger();
+		Vector3 direction = attraction - repulsion;
+
+		float h = direction.x;
+		float v = direction.z;
 
 		//Debug.draw the direction you want to move in
-		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), subDirection.normalized * 3,Color.red);
+		
+		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), attraction.normalized * 3,Color.red);
+		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), repulsion.normalized * 3,Color.blue);
+		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), direction.normalized * 3,Color.yellow);
 
 
 		//reset the movement-values if the character is Attacking(strong), his movement is blocked or he is knocked Down
@@ -112,14 +92,51 @@ public class AI_Movement : Movement
 			Animating (h, v, walking);
 		}
 		//otherwise let the character Fall
-		else
+		else if(!blockMovement)
 		{
 			Fall();
 		}
 
 	}
 
+	void CalculatePath()
+	{
+		//Use Unitys NavMeshAgent to calculate a Path on the NavMesh
+		path.ClearCorners();//Clear the Old Path(necessary?)
+		agent.enabled = true;
+		agent.CalculatePath(target.position, path);
+		agent.enabled = false;
+	}
+
+
 	//Calculate the direction to the subtarget and calculate the squared Distance
+	void SeekUpdate()
+	{
+		if(target != null)
+		{
+			
+			//if you have almost reached your subgoal, move on to the next one to avoid stuttering
+			if(sqrSubDist < 3 && subtargetIndex <= path.corners.Length)
+			{
+				subtargetIndex++;
+				subtarget = path.corners[subtargetIndex];
+			}
+			
+			sqrTargetDist = (target.position - transform.position).sqrMagnitude;
+			hasArrived  = (sqrTargetDist < stopDist);
+			
+			if(sqrTargetDist < stopDist)
+			{
+				//Debug.Log("Arrived" + sqrTargetDist);
+			}
+			
+			//calculate the direction the character should move in 
+			attraction = SeekSubtarget(); //seek your target
+			//TODO: walk around obstacles
+			//TODO: evade dangerous positions (Does this belong here?)
+		}
+	}
+
 	Vector3 SeekSubtarget()
 	{
 
@@ -133,6 +150,45 @@ public class AI_Movement : Movement
 
 	}
 
+
+
+	Vector3 evadeDanger()
+	{
+		Vector3 toClosestDanger = new Vector3();
+
+		Vector3 result = new Vector3();
+
+		NavMeshHit hit;
+		if (NavMesh.FindClosestEdge(transform.position, out hit, NavMesh.AllAreas)) 
+		{
+			toClosestDanger = hit.position - transform.position;
+		}
+
+		if(hit.distance < 2.0f)
+		{
+			result = toClosestDanger.normalized * (2.0f - hit.distance) * 5f;
+		}
+
+		return result;
+	}
+
+	bool whoIsInDanger(Transform opponentT)
+	{
+
+		NavMeshHit opponentHit;
+		NavMesh.FindClosestEdge(opponentT.position, out opponentHit, NavMesh.AllAreas);
+		
+		NavMeshHit myHit;
+		NavMesh.FindClosestEdge(transform.position, out myHit, NavMesh.AllAreas);
+
+		return true;
+
+	}
+
+	void flank()
+	{
+
+	}
 	
 	public void SetTarget(Transform in_Target)
 	{
@@ -148,4 +204,5 @@ public class AI_Movement : Movement
 	{
 		return hasArrived;
 	}
+
 }

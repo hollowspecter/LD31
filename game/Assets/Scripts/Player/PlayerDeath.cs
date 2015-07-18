@@ -45,6 +45,11 @@ public class PlayerDeath : MonoBehaviour {
 
 	void OnBecameInvisible()
 	{	
+		Die();
+	}
+
+	public void Die()
+	{
 		//Debug.Log("became Invisible");
 		if (lifes > 0) {
 			lifes--;

@@ -3,14 +3,18 @@ using System.Collections;
 
 public class SeekOpponentTask : TaskNode 
 {
+	Behaviour rootBehaviour;
+
 	ParentNode parent;
 
 	AI_Movement moveComponent;
 	Transform opponent_T;
 
-	public SeekOpponentTask(ParentNode parent)
+	public SeekOpponentTask(ParentNode parent, Behaviour rootBehaviour)
 	{
 		this.parent = parent;
+		this.parent.AddChild(this);
+		this.rootBehaviour = rootBehaviour;
 	}
 
 	public void Activate()
@@ -38,7 +42,7 @@ public class SeekOpponentTask : TaskNode
 		}
 		else if(!moveComponent.getOnFloor())
 		{
-
+			parent.ChildDone(this, true);
 		}
 	}
 }
