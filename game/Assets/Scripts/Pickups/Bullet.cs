@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Bullet : MonoBehaviour {
@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour {
 	
 	void HitPlayer(Collider col)
 	{
-		col.transform.FindChild("iceblock").GetComponent<iecblock>().Activate();
+		col.transform.FindChild("iceblock").GetComponent<iceblock>().Activate();
 		playSound(snowballHit);
 		Destroy(gameObject);
 	}

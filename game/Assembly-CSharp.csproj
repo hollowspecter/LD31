@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\UntilFail.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\AttackStrongTask.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\AttackTask.cs" />
+     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\FlankOpponentTask.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekOpponentTask.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Movement\AI_Movement.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Movement\AI_NavMeshSeek.cs" />
@@ -68,6 +69,7 @@
      <Compile Include="Assets\Scripts\General\Movement.cs" />
      <Compile Include="Assets\Scripts\General\PressStart.cs" />
      <Compile Include="Assets\Scripts\General\WinterMusic.cs" />
+     <Compile Include="Assets\Scripts\General\iceblock.cs" />
      <Compile Include="Assets\Scripts\Level_Environment\IceMode.cs" />
      <Compile Include="Assets\Scripts\Level_Environment\ItemManager.cs" />
      <Compile Include="Assets\Scripts\Level_Environment\Pitfall.cs" />
@@ -93,7 +95,6 @@
      <Compile Include="Assets\Scripts\Player\buttons.cs" />
      <Compile Include="Assets\Sprites\HeartPickup.cs" />
      <Compile Include="Assets\Sprites\HeartsView.cs" />
-     <Compile Include="Assets\iecblock.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />

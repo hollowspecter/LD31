@@ -96,7 +96,7 @@ public class PlayerJab : MonoBehaviour {
 	
 	public void kickJump()
 	{
-		GetComponent<PlayerMovement>().PushByForce(transform.forward.x, transform.forward.z, 200f);
+		GetComponent<Movement>().PushByForce(transform.forward.x, transform.forward.z, 200f);
 	}
 	
 	public void AttemptedKick()
@@ -108,5 +108,10 @@ public class PlayerJab : MonoBehaviour {
 			opponent.TakeHit(strongStrength, transform.position, "strong");
 			playSound(sfx_stronghit);
 		}
+	}
+
+	public Animator getAnim()
+	{
+		return anim;
 	}
 }

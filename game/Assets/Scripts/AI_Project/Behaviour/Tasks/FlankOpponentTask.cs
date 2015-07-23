@@ -1,81 +1,90 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SeekOpponentTask : TaskNode 
+public class FlankOpponentTask : TaskNode 
 {
 	Behaviour rootBehaviour;
-
+	
 	ParentNode parent;
-
+	
 	AI_Movement moveComponent;
 	GameObject opponent;
 
-	public SeekOpponentTask(ParentNode parent, Behaviour rootBehaviour)
+	float timer = 0.0f;
+	float maxTimer = 1.0f;
+	bool flankDirection;
+
+	public FlankOpponentTask(ParentNode parent, Behaviour rootBehaviour)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
 		this.rootBehaviour = rootBehaviour;
-
+		
 		GameObject self = GameObject.FindGameObjectWithTag("Player1");
 		if(self == null)
 		{
 			self = GameObject.Find("AI_Deer");
 		}		
 		moveComponent = self.GetComponent<AI_Movement>();
-
+		
 		opponent = GameObject.FindGameObjectWithTag("Player0");
 		if(opponent == null)
 		{
 			opponent = GameObject.Find("boar");
 		}
 	}
-
+	
 	public void Activate()
 	{
-		Debug.Log ("seektask activate");
+		timer = 0.0f;
+		Debug.Log ("flanktask activate");
 
-
-		rootBehaviour.activateTask(this);
+		flankDirection = Random.value > 0.5?true:false;
 		moveComponent.SetTarget(opponent.transform);
-		moveComponent.setSeeking(true);
+		moveComponent.SetTarget(null);
+		rootBehaviour.activateTask(this);
+		moveComponent.setFlanking(true);
 	}
-
+	
 	public void Deactivate()
 	{
-		moveComponent.SetTarget(null);
-		moveComponent.setSeeking(false);
 		moveComponent.stop();
 		rootBehaviour.deactivateTask(this);
-
+		moveComponent.setFlanking(false);
+		
 	}
 	
 	public void PerformTask()
 	{
 		//has the AI arrived at its target?
-		if(moveComponent.getHasArrived())
+		if(timer >= maxTimer)
 		{
-			Debug.Log ("seektask stop: arrived");
+			moveComponent.turnToTarget();
+			Debug.Log ("flanktask stop: flanktimer achieved");
 			Deactivate();
 			parent.ChildDone(this, true);
 		}
 		//is the AI or the player falling off the board?
 		else if(!moveComponent.getOnFloor() )
 		{
-			Debug.Log ("seektask stop: AI falls");
+			Debug.Log ("flanktask stop: AI falls");
 			Deactivate();
 			parent.ChildDone(this, false);
 		}
 		else if(!opponent.GetComponent<PlayerMovement>().getOnFloor())
 		{
-			Debug.Log ("seektask stop: Player falls");
+			Debug.Log ("flanktask stop: Player falls");
 			Deactivate();
 			parent.ChildDone(this, false);
 		}
 		//if neither: seek the target through subtargets
-		else
+		else if(timer < maxTimer)
 		{
-			moveComponent.attr_SeekSubtarget();
+
+			moveComponent.SetTarget(opponent.transform);
+			moveComponent.attr_flank(flankDirection);
+			timer += Time.deltaTime;
 		}
 	}
-
+	
 }

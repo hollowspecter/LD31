@@ -8,16 +8,21 @@ public class IsOpponentDead_C: ChildNode
 	
 	Movement enemyMovement;
 	
-	public IsOpponentDead_C(ParentNode p, Movement m)
+	public IsOpponentDead_C(ParentNode p)
 	{
 		parent = p;
 		parent.AddChild(this);
-		enemyMovement = m;
+		GameObject opponent = GameObject.FindGameObjectWithTag("Player0");
+		if(opponent == null)
+		{
+			opponent = GameObject.Find("boar");
+		}
+		enemyMovement = opponent.GetComponent<PlayerMovement>();
 	}
 	
 	public void Activate()
 	{
-		bool isEnemyDead = !(enemyMovement.getOnFloor());
+		bool isEnemyDead = enemyMovement.getIsFalling();
 		
 		parent.ChildDone(this, isEnemyDead);
 	}

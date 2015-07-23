@@ -22,6 +22,7 @@ public class Movement : MonoBehaviour
 	public bool moveByForce = false;
 	
 	protected bool onFloor = false;
+	protected bool isFalling = false;
 	protected float fallSpeed = 800f;
 
 	protected float dashH = 0f;
@@ -71,8 +72,8 @@ public class Movement : MonoBehaviour
 	protected void Animating (float h, float v, bool walking)
 	{
 		anim.SetBool ("IsWalking", walking);
-		if (h != 0)
-			anim.SetBool ("Right", h > 0);
+		if (transform.forward.x != 0)
+			anim.SetBool ("Right", transform.forward.x > 0);
 	}
 	
 	protected bool getKnockdown()
@@ -89,6 +90,7 @@ public class Movement : MonoBehaviour
 		if(col.collider.tag == "Floor")
 		{
 			onFloor = true;
+			isFalling = false;
 		}
 	}
 	
@@ -111,7 +113,7 @@ public class Movement : MonoBehaviour
 		playerRigidbody.AddForce(0,-1 * fallSpeed,0);
 		originalCons = playerRigidbody.constraints;
 		playerRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-
+		isFalling = true;
 	}
 	
 	public void PushByForce(float h, float v, float distance)
@@ -124,5 +126,10 @@ public class Movement : MonoBehaviour
 	public bool getOnFloor()
 	{
 		return onFloor;
+	}
+
+	public bool getIsFalling()
+	{
+		return isFalling;
 	}
 }

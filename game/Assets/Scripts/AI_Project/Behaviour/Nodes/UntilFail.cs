@@ -22,13 +22,13 @@ public class UntilFail: ChildNode, ParentNode
 	public void ChildDone(ChildNode child, bool childResult)
 	{
 		
-		//if child returns true, return true yourself
+		//if child returns true activate it again
 		if(childResult)
 		{
 			child.Activate();
 		}
 		
-		//else try the next child if there is no next child return false
+		//else return true
 		else
 		{
 			parent.ChildDone(this, true);

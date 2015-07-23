@@ -14,6 +14,7 @@ public class Selector : ChildNode, ParentNode
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
+		children = new List<ChildNode>();
 	}
 
 	public void AddChild(ChildNode child)

@@ -15,7 +15,6 @@ public class PlayerStance : MonoBehaviour {
 	//int player;
 	Rigidbody playerRigidbody;
 	bool respawning = false;
-
 	
 	void Awake()
 	{

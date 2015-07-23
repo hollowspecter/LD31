@@ -14,6 +14,8 @@ public class Sequence : ChildNode, ParentNode
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
+		Debug.Log("sequence constructed");
+		children = new List<ChildNode>();
 	}
 	
 	public void AddChild(ChildNode child)
@@ -37,6 +39,7 @@ public class Sequence : ChildNode, ParentNode
 			{
 				parent.ChildDone(this, true);
 			}
+
 		}
 		
 		//if child returns false return false yourself

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class iecblock : MonoBehaviour {
+public class iceblock : MonoBehaviour {
 
 	public float duration = 5.0f;
 	

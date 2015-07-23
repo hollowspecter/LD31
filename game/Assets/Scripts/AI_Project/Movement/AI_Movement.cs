@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum moveType{SEEK, FLEE, }
+
 public class AI_Movement : Movement
 {
 	public Transform target;
@@ -15,12 +17,14 @@ public class AI_Movement : Movement
 	private Vector3 attraction;
 	private Vector3 repulsion;
 
-	private Vector3 subDirection;
 	private float sqrSubDist;
 	private int subtargetIndex = 1;
 
 	private NavMeshPath path;
 	private bool hasArrived = false;
+
+	bool seeking = false;
+	bool flanking = false;
 
 	public override void Awake()
 	{
@@ -34,33 +38,51 @@ public class AI_Movement : Movement
 		//it is called every half-second
 	void AIUpdate()
 	{	
-	
-		CalculatePath();
-
-		//Debug.draw the path in red
-		Debug.DrawLine(transform.position, path.corners[0],Color.red,0.5f);
-		for(int i = 1; i < path.corners.Length; i++)
+		if(seeking)
 		{
-			Debug.DrawLine(path.corners[i-1], path.corners[i],Color.red,0.5f);
-		}
+			CalculatePath();
 
-		//the subtarget is the point on the Path the AI wants to move towards
-		//it is resetted to the first pathcorner when a new path is calculated
-		subtargetIndex = 1;
-		subtarget = path.corners[subtargetIndex];
+			//Debug.draw the path in red
+			Debug.DrawLine(transform.position, path.corners[0],Color.red,0.5f);
+			for(int i = 1; i < path.corners.Length; i++)
+			{
+				Debug.DrawLine(path.corners[i-1], path.corners[i],Color.red,0.5f);
+			}
+
+			//the subtarget is the point on the Path the AI wants to move towards
+			//it is resetted to the first pathcorner when a new path is calculated
+			subtargetIndex = 1;
+			subtarget = path.corners[subtargetIndex];
+		}
+		if(flanking)
+		{
+
+		}
 	}
 
 	void Update()
-	{
-		SeekUpdate();
+	{		
+		//reset attraction and repulsion
+		//attraction = new Vector3(0,0,0);
+		//repulsion = new Vector3(0,0,0);
+
+		//calculate dangerous object(navmeshborder) repulsion
+		rep_evadeDanger();
+
+		//if you seek a target calculate seekattraction
+		if(seeking)
+		{
+			SeekUpdate();
+		}
+
 	}
 
 	void FixedUpdate()
 	{
+		
+		Vector3 direction = attraction - repulsion;
 		//split the direction Vector in a horizontal and vertical component
 		//this is mainly a relict of the PlayerMovement  axis-implementation
-		repulsion = evadeDanger();
-		Vector3 direction = attraction - repulsion;
 
 		float h = direction.x;
 		float v = direction.z;
@@ -109,14 +131,14 @@ public class AI_Movement : Movement
 	}
 
 
-	//Calculate the direction to the subtarget and calculate the squared Distance
+	//Calculate the distance to the subtarget and calculate the squared Distance
 	void SeekUpdate()
 	{
 		if(target != null)
 		{
 			
 			//if you have almost reached your subgoal, move on to the next one to avoid stuttering
-			if(sqrSubDist < 3 && subtargetIndex <= path.corners.Length)
+			if(sqrSubDist < 3 && subtargetIndex < path.corners.Length)
 			{
 				subtargetIndex++;
 				subtarget = path.corners[subtargetIndex];
@@ -129,30 +151,50 @@ public class AI_Movement : Movement
 			{
 				//Debug.Log("Arrived" + sqrTargetDist);
 			}
-			
-			//calculate the direction the character should move in 
-			attraction = SeekSubtarget(); //seek your target
-			//TODO: walk around obstacles
-			//TODO: evade dangerous positions (Does this belong here?)
 		}
 	}
 
-	Vector3 SeekSubtarget()
+	/***ADD MOVEINPUT METHODS***/
+	//These Methods are called from the behaviour trees tasks and change the attraction /repulsion vectors
+	//Attraction and Repulsion are then combined into the AIs next direction vector
+
+	public void attr_SeekSubtarget()
 	{
 
-		subDirection = subtarget - transform.position;
+		Vector3 subDirection = subtarget - transform.position;
 		subDirection = new Vector3(subDirection.x, 0.0f, subDirection.z);
 
 		sqrSubDist = subDirection.sqrMagnitude;
 
 
-		return Vector3.Normalize(subDirection);
+		attraction = Vector3.Normalize(subDirection);
 
 	}
 
+	public void attr_flank(bool right)
+	{
+		Vector3 rel_Right = Vector3.Cross((target.position - transform.position), transform.up);
+
+		if(right)
+		{
+			attraction = rel_Right.normalized;
+		}
+		else
+		{
+			attraction = -rel_Right.normalized;
+		}
+	}
+
+	public void turnToTarget()
+	{
+		Vector3 lookAtTarget = target.position-transform.position;
+		attraction = lookAtTarget.normalized;
+		Quaternion newRotation = Quaternion.LookRotation(lookAtTarget);
+		playerRigidbody.MoveRotation(newRotation);
+	}
 
 
-	Vector3 evadeDanger()
+	void rep_evadeDanger()
 	{
 		Vector3 toClosestDanger = new Vector3();
 
@@ -169,7 +211,13 @@ public class AI_Movement : Movement
 			result = toClosestDanger.normalized * (2.0f - hit.distance) * 5f;
 		}
 
-		return result;
+		repulsion = result;
+	}
+
+	public void stop()
+	{
+		attraction = new Vector3();
+		repulsion = new Vector3();
 	}
 
 	bool whoIsInDanger(Transform opponentT)
@@ -185,14 +233,10 @@ public class AI_Movement : Movement
 
 	}
 
-	void flank()
-	{
-
-	}
-	
 	public void SetTarget(Transform in_Target)
 	{
 		target = in_Target;
+		hasArrived = false;
 	}
 
 	public float getSqrTargetDistance()
@@ -203,6 +247,16 @@ public class AI_Movement : Movement
 	public bool getHasArrived()
 	{
 		return hasArrived;
+	}
+
+	public void setSeeking(bool b)
+	{
+		seeking = b;
+	}
+
+	public void setFlanking(bool b)
+	{
+		flanking = b;
 	}
 
 }
