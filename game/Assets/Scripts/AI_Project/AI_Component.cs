@@ -23,7 +23,7 @@ public class AI_Component : MonoBehaviour {
 						AreYouHurt_C hurt = new AreYouHurt_C(not_Hurt);
 					SeekOpponentTask seekOpponent = new SeekOpponentTask(seq_LoopCondition, SearchAndAttack);
 					Selector attackOrFlank = new Selector(seq_LoopCondition);
-						AttackTask attack = new AttackTask(attackOrFlank, SearchAndAttack);
+						//AttackTask attack = new AttackTask(attackOrFlank, SearchAndAttack);
 						FlankOpponentTask flank = new FlankOpponentTask(attackOrFlank, SearchAndAttack);
 					//Selector sel_Attack = new Selector(seq_LoopCondition);
 					

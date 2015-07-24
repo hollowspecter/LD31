@@ -173,15 +173,16 @@ public class AI_Movement : Movement
 
 	public void attr_flank(bool right)
 	{
+		float circleFactor = 0.3f;
 		Vector3 rel_Right = Vector3.Cross((target.position - transform.position), transform.up);
 
 		if(right)
 		{
-			attraction = rel_Right.normalized;
+			attraction = Vector3.Normalize(rel_Right + (target.position - transform.position) * circleFactor);
 		}
 		else
 		{
-			attraction = -rel_Right.normalized;
+			attraction = -Vector3.Normalize(rel_Right + (target.position - transform.position) * circleFactor);
 		}
 	}
 

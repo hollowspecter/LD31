@@ -80,7 +80,6 @@ public class FlankOpponentTask : TaskNode
 		//if neither: seek the target through subtargets
 		else if(timer < maxTimer)
 		{
-
 			moveComponent.SetTarget(opponent.transform);
 			moveComponent.attr_flank(flankDirection);
 			timer += Time.deltaTime;
