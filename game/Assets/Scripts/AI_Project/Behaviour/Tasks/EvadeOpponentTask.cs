@@ -49,7 +49,8 @@ public class EvadeOpponentTask: TaskNode
 		rootBehaviour.deactivateTask(this);
 		
 	}
-	
+
+
 	public void PerformTask()
 	{
 		float sqrDistToOpponent = (opponent.transform.position - moveComponent.transform.position).sqrMagnitude;
@@ -57,16 +58,35 @@ public class EvadeOpponentTask: TaskNode
 		if(sqrDistToOpponent > safeSqrDist)
 		{
 			//do nothing
-			Debug.Log ("evadetask succeed: AI safe");
+			//Debug.Log ("evadetask succeed: AI safe");
 			//Deactivate();
 			//parent.ChildDone(this, true);
 		}
+
 		//are you a decent distance away?
 		else if(sqrDistToOpponent > dangerSqrDist)
 		{
 			//move away until you are safe
 			moveComponent.rep_evadePosition(opponent.transform, safeSqrDist);
+
+			//has your move been stalled?
+
 		}
+
+		//is the AI or the player falling off the board?
+		else if(!moveComponent.getOnFloor())
+		{
+			Debug.Log ("flanktask fail: AI falls");
+			Deactivate();
+			parent.ChildDone(this, false);
+		}
+		else if(!opponent.GetComponent<PlayerMovement>().getOnFloor())
+		{
+			Debug.Log ("flanktask succeed: Player falls");
+			Deactivate();
+			parent.ChildDone(this, true);
+		}
+
 		//are you a dangerous distance away?
 		else
 		{

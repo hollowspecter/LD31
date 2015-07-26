@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\NodeInterfaces.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\Inverter.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\Parallel.cs" />
+     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\ParallelOneForAll.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\Selector.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\Sequence.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\UntilFail.cs" />

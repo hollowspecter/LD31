@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Behaviour : ParentNode 
+public class Behaviour : ParentNode  
 {
 	bool isRunning = false;
 	ChildNode behaviourRoot;
 	List<TaskNode> activeTasks;
+	
+	float timer = 0.0f;
 	
 	public Behaviour()
 	{
@@ -17,6 +19,7 @@ public class Behaviour : ParentNode
 	// Use this for initialization
 	public void StartBehaviour() 
 	{
+		Debug.Log("go");
 		if(behaviourRoot != null)
 		{
 			Debug.Log ("Behaviour started");
@@ -29,17 +32,18 @@ public class Behaviour : ParentNode
 		}
 			
 	}
-	
+
 	// Update is called once per frame
 	public void Update() 
 	{
-		if(!isRunning)
+		if((!isRunning ||activeTasks.Count < 1) && timer > 1.0f)
 		{
-			StartBehaviour();
+			
 			Debug.Log("Start BehaviourTree");
+			StartBehaviour();
+			timer = 0.0f;
 		}
-
-
+		timer += Time.deltaTime;
 		for(int i = 0; i< activeTasks.Count; ++i)
 		{
 			activeTasks[i].PerformTask();
@@ -56,6 +60,7 @@ public class Behaviour : ParentNode
 	{
 		Debug.Log("Behaviour terminated with Result: " + childResult); 
 		isRunning = false;
+		Debug.Log ("isrunning:" + isRunning);
 	}
 
 	public void activateTask(TaskNode t)

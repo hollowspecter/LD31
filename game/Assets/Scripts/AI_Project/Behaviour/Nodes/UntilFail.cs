@@ -45,7 +45,7 @@ public class UntilFail: ChildNode, ParentNode
 	}
 	public void Deactivate()
 	{
-		
+		child.Deactivate();
 	}
 
 }

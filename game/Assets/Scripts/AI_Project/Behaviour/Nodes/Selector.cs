@@ -37,10 +37,12 @@ public class Selector : ChildNode, ParentNode
 			currentChildIndex++;
 			if(currentChildIndex < children.Count)
 			{
+				Debug.Log("Selector: next");
 				children[currentChildIndex].Activate();
 			}
 			else
 			{
+				Debug.Log("Selector: stop");
 				parent.ChildDone(this, false);
 			}
 		}
@@ -58,6 +60,9 @@ public class Selector : ChildNode, ParentNode
 
 	public void Deactivate()
 	{
-		
+		for(int i = 0; i < children.Count; ++i)
+		{
+			children[i].Deactivate();
+		}
 	}
 }

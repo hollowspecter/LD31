@@ -15,27 +15,24 @@ public class AI_Component : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag("Player0");
 
 		SearchAndAttack = new Behaviour();
-
-			Selector sel_main = new Selector(SearchAndAttack);
+			Selector sel_main = new Selector(SearchAndAttack);	
 				Sequence seq_Aggressive = new Sequence(sel_main);
 					Inverter not_Hurt = new Inverter(seq_Aggressive);
 						AreYouHurt_C hurt = new AreYouHurt_C(not_Hurt);
 					SeekOpponentTask seekOpponent = new SeekOpponentTask(seq_Aggressive, SearchAndAttack);
 					Selector attackOrFlank = new Selector(seq_Aggressive);
 						AttackTask attack = new AttackTask(attackOrFlank, SearchAndAttack);
-						FlankOpponentTask flank_att = new FlankOpponentTask(attackOrFlank, SearchAndAttack);
+						FlankOpponentTask flank_att = new FlankOpponentTask(attackOrFlank, SearchAndAttack, 9.0f);
 					//Selector sel_Attack = new Selector(seq_LoopCondition);
-				Sequence seq_Defensive = new Sequence(sel_main);
-					UntilFail healthloop = new UntilFail(seq_Defensive);
-						Parallel healthAndFlee = new Parallel(healthloop);
-							SeekNearestHealthTask health = new SeekNearestHealthTask(healthAndFlee, SearchAndAttack);
-							EvadeOpponentTask flee = new EvadeOpponentTask(healthAndFlee, SearchAndAttack);
-					Parallel flankAndFlee2 = new Parallel(seq_Defensive);
-						FlankOpponentTask flank = new FlankOpponentTask(flankAndFlee2, SearchAndAttack);
+				Selector sel_Defensive = new Selector(sel_main);
+					ParallelOneForAll healthAndFlee = new ParallelOneForAll(sel_Defensive);
+						SeekNearestHealthTask health = new SeekNearestHealthTask(healthAndFlee, SearchAndAttack);
+						EvadeOpponentTask flee = new EvadeOpponentTask(healthAndFlee, SearchAndAttack);
+					
+					ParallelOneForAll flankAndFlee2 = new ParallelOneForAll(sel_Defensive);
+						FlankOpponentTask flank = new FlankOpponentTask(flankAndFlee2, SearchAndAttack, 81.0f);
 						EvadeOpponentTask flee2 = new EvadeOpponentTask(flankAndFlee2, SearchAndAttack);
-
-		SearchAndAttack.StartBehaviour();
-
+				//wander around
 	}
 	
 	// Update is called once per frame

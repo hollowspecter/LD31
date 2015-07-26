@@ -82,10 +82,10 @@ public class AI_Movement : Movement
 
 	void FixedUpdate()
 	{
-		float f = 1.0f;
+		float f = 5.0f;
 		if(dangerRepulsion.sqrMagnitude > 0.75)
 			f = 0.0f;
-		direction = attraction - (dangerRepulsion + repulsion * f);
+		direction = attraction - (dangerRepulsion*5 + repulsion * f);
 
 		//split the direction Vector in a horizontal and vertical component
 		//this is mainly a relict of the PlayerMovement  axis-implementation

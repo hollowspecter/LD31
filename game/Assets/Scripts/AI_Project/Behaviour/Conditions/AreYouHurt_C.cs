@@ -25,6 +25,7 @@ public class AreYouHurt_C: ChildNode
 
 	public void Activate()
 	{
+		Debug.Log ("are you hurt?");
 		bool areYouHurt = (ownStance.currentMultiplier > hurtValue);
 		if(areYouHurt)
 			Debug.Log("AI hurt over " + hurtValue + "%");

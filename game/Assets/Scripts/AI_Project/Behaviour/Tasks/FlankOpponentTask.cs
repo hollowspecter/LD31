@@ -15,11 +15,12 @@ public class FlankOpponentTask : TaskNode
 	bool flankDirection;
 	float maxFlankDistance  = 9.0f;
 
-	public FlankOpponentTask(ParentNode parent, Behaviour rootBehaviour)
+	public FlankOpponentTask(ParentNode parent, Behaviour rootBehaviour, float flankDistance)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
 		this.rootBehaviour = rootBehaviour;
+		maxFlankDistance = flankDistance;
 		
 		GameObject self = GameObject.FindGameObjectWithTag("Player1");
 		if(self == null)

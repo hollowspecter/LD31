@@ -33,6 +33,6 @@ public class Inverter : ChildNode, ParentNode {
 
 	public void Deactivate()
 	{
-		
+		child.Deactivate();
 	}
 }

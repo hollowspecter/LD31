@@ -14,7 +14,7 @@ public class Sequence : ChildNode, ParentNode
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
-		Debug.Log("sequence constructed");
+		//Debug.Log("sequence constructed");
 		children = new List<ChildNode>();
 	}
 	
@@ -33,10 +33,12 @@ public class Sequence : ChildNode, ParentNode
 			currentChildIndex++;
 			if(currentChildIndex < children.Count)
 			{
+				Debug.Log("Sequence: next");
 				children[currentChildIndex].Activate();
 			}
 			else
 			{
+				Debug.Log("Sequence: sucess");
 				parent.ChildDone(this, true);
 			}
 
@@ -45,8 +47,8 @@ public class Sequence : ChildNode, ParentNode
 		//if child returns false return false yourself
 		else
 		{
-			
-			parent.ChildDone(this, true);
+			Debug.Log("Sequence: fail");
+			parent.ChildDone(this, false);
 		}
 		
 	}
@@ -62,6 +64,9 @@ public class Sequence : ChildNode, ParentNode
 
 	public void Deactivate()
 	{
-		
+		for(int i = 0; i < children.Count; ++i)
+		{
+			children[i].Deactivate();
+		}
 	}
 }

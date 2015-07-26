@@ -10,8 +10,10 @@ public class SeekNearestHealthTask: TaskNode
 	
 	AI_Movement moveComponent;
 	GameObject[] healthPickup;
-	GameObject nearestPickup;
+	GameObject targetPickup;
 
+	float retargetTimer = 0.0f;
+	float retargetInterval = 3.0f;
 	
 	public SeekNearestHealthTask(ParentNode parent, Behaviour rootBehaviour)
 	{
@@ -35,11 +37,11 @@ public class SeekNearestHealthTask: TaskNode
 		if(healthPickup == null)
 			healthPickup = GameObject.FindGameObjectsWithTag("HealthPickup");
 		
-		nearestPickup = getNearestHealthPickup();
+		targetPickup = getNearestHealthPickup();
 
 		rootBehaviour.activateTask(this);
-		if(nearestPickup != null)
-			moveComponent.SetTarget(nearestPickup.transform);
+		if(targetPickup != null)
+			moveComponent.SetTarget(targetPickup.transform);
 		moveComponent.setSeeking(true);
 		moveComponent.setstopDist(1.0f);
 	}
@@ -47,7 +49,7 @@ public class SeekNearestHealthTask: TaskNode
 	public void Deactivate()
 	{
 		healthPickup = null;
-		nearestPickup = null;
+		targetPickup = null;
 		moveComponent.SetTarget(null);
 		moveComponent.setSeeking(false);
 		moveComponent.setstopDist(9.0f);
@@ -73,7 +75,7 @@ public class SeekNearestHealthTask: TaskNode
 			parent.ChildDone(this, false);
 		}
 		//did the player take the pickup?
-		else if(nearestPickup == null)
+		else if(targetPickup == null)
 		{
 			Debug.Log ("healthtask fail: pickup taken");
 			Deactivate();
@@ -82,13 +84,18 @@ public class SeekNearestHealthTask: TaskNode
 		//is the AI or the player falling off the board?
 		else if(!moveComponent.getOnFloor() )
 		{
-			Debug.Log ("seektask failp: AI falls");
+			Debug.Log ("seektask fail: AI falls");
 			Deactivate();
 			parent.ChildDone(this, false);
 		}
 		//if neither: seek the target through subtargets
 		else
 		{
+			retargetTimer += Time.deltaTime();
+			if(retargetTimer > retargetInterval)
+			{
+				moveComponent.SetTarget(getAnotherHealthPickup().transform);
+			}
 			moveComponent.attr_SeekSubtarget();
 		}
 	}
@@ -109,8 +116,21 @@ public class SeekNearestHealthTask: TaskNode
 				nearestPickup = o;
 			}
 		}
-
+		retargetTimer = 0.0f;
 		return nearestPickup;
+	}
+
+	GameObject getAnotherHealthPickup()
+	{
+		float minDistance = float.MaxValue;
+		GameObject nextPickup = null;
+
+		healthPickup = GameObject.FindGameObjectsWithTag("HealthPickup");
+
+		nextPickup = healthPickup[Random.Range(0, healthPickup.Length-1)];
+
+		retargetTimer = 0.0f;
+		return nextPickup;
 	}
 	
 }
