@@ -1,15 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AI_Project\Behaviour\Conditions\AreYouHurt_C.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekNearestHealthTask.cs">
     <Files>
       <File FileName="Assets\Scripts\AI_Project\Behaviour\Behaviour.cs" Line="46" Column="3" />
-      <File FileName="Assets\Scripts\AI_Project\AI_Component.cs" Line="34" Column="19" />
-      <File FileName="Assets\Scripts\AI_Project\Behaviour\Conditions\AreYouHurt_C.cs" Line="28" Column="31" />
+      <File FileName="Assets\Scripts\AI_Project\AI_Component.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Conditions\AreYouHurt_C.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Tasks\EvadeOpponentTask.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Nodes\Selector.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Nodes\ParallelOneForAll.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Nodes\Sequence.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\AI_Project\Behaviour\Nodes\UntilFail.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\AI_Project\Behaviour\Nodes\Selector.cs" Line="40" Column="13" />
-      <File FileName="Assets\Scripts\AI_Project\Behaviour\Nodes\Sequence.cs" Line="30" Column="52" />
-      <File FileName="Assets\Scripts\AI_Project\Behaviour\Nodes\Parallel.cs" Line="19" Column="30" />
-      <File FileName="Assets\Scripts\AI_Project\Behaviour\Nodes\ParallelOneForAll.cs" Line="5" Column="97" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekNearestHealthTask.cs" Line="92" Column="3" />
+      <File FileName="Assets\Scripts\Level_Environment\env_Bumper.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player\PlayerStance.cs" Line="64" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

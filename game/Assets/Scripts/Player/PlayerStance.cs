@@ -55,13 +55,13 @@ public class PlayerStance : MonoBehaviour {
 			Vector3 recoil = transform.position - hitposition;
 
 			if (type == "strong")
-				recoil = recoil.normalized * 800 * Time.deltaTime * 5 *(1.0f+currentMultiplier);
+				recoil = recoil.normalized * 400 * Time.deltaTime * 5 *(1.0f+currentMultiplier);
 			else if (type == "dash")
-				recoil = recoil.normalized * 800 * Time.deltaTime * 7 *(1.0f+currentMultiplier);
+				recoil = recoil.normalized * 400 * Time.deltaTime * 7 *(1.0f+currentMultiplier);
 			else if (type == "bumper")
-				recoil = recoil.normalized * 800 * Time.deltaTime * 10 *(1.0f+(currentMultiplier)<5f?5f:currentMultiplier);
+				recoil = recoil.normalized * 400 * Time.deltaTime * 10 *(1.0f+(currentMultiplier)<5f?5f:currentMultiplier);
 			else
-				recoil = recoil.normalized * 800 * Time.deltaTime * (1.0f+currentMultiplier);
+				recoil = recoil.normalized * 200 * Time.deltaTime * (1.0f+currentMultiplier);
 
             //Debug.Log("Recoil: " + recoil);
             

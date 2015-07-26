@@ -88,10 +88,12 @@ public class SeekNearestHealthTask: TaskNode
 			Deactivate();
 			parent.ChildDone(this, false);
 		}
+		//TODO: is the Player blocking your path?
+
 		//if neither: seek the target through subtargets
 		else
 		{
-			retargetTimer += Time.deltaTime();
+			retargetTimer += Time.deltaTime;
 			if(retargetTimer > retargetInterval)
 			{
 				moveComponent.SetTarget(getAnotherHealthPickup().transform);
