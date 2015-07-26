@@ -31,5 +31,10 @@ public class AreYouHurt_C: ChildNode
 		
 		parent.ChildDone(this, areYouHurt);
 	}
+
+	public void Deactivate()
+	{
+
+	}
 	
 }

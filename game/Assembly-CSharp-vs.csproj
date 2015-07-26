@@ -54,13 +54,15 @@
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Conditions\isOpponentInDangerousPosition_C.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\NodeInterfaces.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\Inverter.cs" />
+     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\Parallel.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\Selector.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\Sequence.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\UntilFail.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\AttackStrongTask.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\AttackTask.cs" />
+     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\EvadeOpponentTask.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\FlankOpponentTask.cs" />
-     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekNearestPickup.cs" />
+     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekNearestHealthTask.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekOpponentTask.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Movement\AI_Movement.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Movement\AI_NavMeshSeek.cs" />

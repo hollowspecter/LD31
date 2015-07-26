@@ -30,4 +30,9 @@ public class Inverter : ChildNode, ParentNode {
 			child.Activate();
 		}
 	}
+
+	public void Deactivate()
+	{
+		
+	}
 }

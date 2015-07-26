@@ -3,7 +3,8 @@ using System.Collections;
 
 public interface ChildNode
 {
-	void Activate();
+	void Activate();	
+	void Deactivate();
 }
 
 public interface ParentNode

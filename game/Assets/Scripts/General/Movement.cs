@@ -72,8 +72,8 @@ public class Movement : MonoBehaviour
 	protected void Animating (float h, float v, bool walking)
 	{
 		anim.SetBool ("IsWalking", walking);
-		if (transform.forward.x != 0)
-			anim.SetBool ("Right", transform.forward.x > 0);
+		if (h != 0)
+			anim.SetBool ("Right", h > 0);
 	}
 	
 	protected bool getKnockdown()

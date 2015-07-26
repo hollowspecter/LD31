@@ -26,5 +26,10 @@ public class IsOpponentDead_C: ChildNode
 		
 		parent.ChildDone(this, isEnemyDead);
 	}
+
+	public void Deactivate()
+	{
+		
+	}
 	
 }

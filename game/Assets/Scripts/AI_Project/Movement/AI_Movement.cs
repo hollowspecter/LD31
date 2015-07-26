@@ -16,6 +16,9 @@ public class AI_Movement : Movement
 
 	private Vector3 attraction;
 	private Vector3 repulsion;
+	private Vector3 dangerRepulsion;
+
+	Vector3 direction;
 
 	private float sqrSubDist;
 	private int subtargetIndex = 1;
@@ -23,7 +26,11 @@ public class AI_Movement : Movement
 	private NavMeshPath path;
 	private bool hasArrived = false;
 
+	private bool isStalled = false;
+
+	//should seekingmovement be updated?
 	bool seeking = false;
+
 	bool flanking = false;
 
 	public override void Awake()
@@ -54,10 +61,6 @@ public class AI_Movement : Movement
 			subtargetIndex = 1;
 			subtarget = path.corners[subtargetIndex];
 		}
-		if(flanking)
-		{
-
-		}
 	}
 
 	void Update()
@@ -67,7 +70,7 @@ public class AI_Movement : Movement
 		//repulsion = new Vector3(0,0,0);
 
 		//calculate dangerous object(navmeshborder) repulsion
-		rep_evadeDanger();
+		evadeDanger();
 
 		//if you seek a target calculate seekattraction
 		if(seeking)
@@ -79,10 +82,15 @@ public class AI_Movement : Movement
 
 	void FixedUpdate()
 	{
-		
-		Vector3 direction = attraction - repulsion;
+		float f = 1.0f;
+		if(dangerRepulsion.sqrMagnitude > 0.75)
+			f = 0.0f;
+		direction = attraction - (dangerRepulsion + repulsion * f);
+
 		//split the direction Vector in a horizontal and vertical component
 		//this is mainly a relict of the PlayerMovement  axis-implementation
+
+		isStalled = direction.sqrMagnitude < 0.1? true: false;
 
 		float h = direction.x;
 		float v = direction.z;
@@ -90,7 +98,8 @@ public class AI_Movement : Movement
 		//Debug.draw the direction you want to move in
 		
 		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), attraction.normalized * 3,Color.red);
-		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), repulsion.normalized * 3,Color.blue);
+		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), dangerRepulsion.normalized * 3,Color.blue);
+		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), repulsion.normalized * 3,Color.magenta);
 		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), direction.normalized * 3,Color.yellow);
 
 
@@ -194,31 +203,60 @@ public class AI_Movement : Movement
 		playerRigidbody.MoveRotation(newRotation);
 	}
 
-
-	void rep_evadeDanger()
+	public void rep_evadePosition(Transform t, float maxEvasion)
 	{
+		float maxEvasionDist = maxEvasion;
+		Vector3 toPosition = t.position - transform.position;
+		Vector3 result = new Vector3();
+
+
+		if(toPosition.sqrMagnitude < maxEvasionDist)
+		{
+			result = toPosition.normalized * (maxEvasionDist - toPosition.sqrMagnitude)/maxEvasionDist;
+		}
+
+		float angle = Random.Range(-45.0f, 45.0f);
+		Quaternion q = Quaternion.AngleAxis(angle, transform.up);
+		Quaternion p = Quaternion.LookRotation(result);
+
+		p = p * q;
+
+		repulsion = result;
+	}
+
+
+	void evadeDanger()
+	{
+		float maxEvasionDist = 2.0f;
 		Vector3 toClosestDanger = new Vector3();
 
 		Vector3 result = new Vector3();
 
 		NavMeshHit hit;
+
 		if (NavMesh.FindClosestEdge(transform.position, out hit, NavMesh.AllAreas)) 
 		{
 			toClosestDanger = hit.position - transform.position;
 		}
 
-		if(hit.distance < 2.0f)
+		if(hit.distance < maxEvasionDist)
 		{
-			result = toClosestDanger.normalized * (2.0f - hit.distance) * 5f;
+			result = toClosestDanger.normalized * (maxEvasionDist - hit.distance)/maxEvasionDist;
 		}
-
-		repulsion = result;
+		
+		agent.enabled = true;
+		if(agent.isOnNavMesh)
+			dangerRepulsion = result;
+		else
+			dangerRepulsion = -result;
+		agent.enabled = false;
 	}
 
 	public void stop()
 	{
 		attraction = new Vector3();
 		repulsion = new Vector3();
+		dangerRepulsion = new Vector3();
 	}
 
 	bool whoIsInDanger(Transform opponentT)
@@ -254,10 +292,26 @@ public class AI_Movement : Movement
 	{
 		seeking = b;
 	}
+	public void setstopDist(float f)
+	{
+		stopDist = f;
+	}
 
 	public void setFlanking(bool b)
 	{
 		flanking = b;
+	}
+
+	public bool getIsStalled()
+	{
+		return isStalled;
+	}
+
+	void OnGUI ()
+	{ 
+		GUI.TextArea (new Rect (10, 60, 200, 50), "Direction SqrMag: " + direction.sqrMagnitude 
+		              + "\n isStalled: " + isStalled); 
+		
 	}
 
 }

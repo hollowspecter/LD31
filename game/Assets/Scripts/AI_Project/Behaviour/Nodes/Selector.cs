@@ -55,4 +55,9 @@ public class Selector : ChildNode, ParentNode
 			children[currentChildIndex].Activate();
 		}
 	}
+
+	public void Deactivate()
+	{
+		
+	}
 }
