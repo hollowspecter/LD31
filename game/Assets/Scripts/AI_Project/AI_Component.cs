@@ -17,13 +17,12 @@ public class AI_Component : MonoBehaviour {
 		SearchAndAttack = new Behaviour();
 			//UntilFail startLoop = new UntilFail(SearchAndAttack);
 				Sequence seq_LoopCondition = new Sequence(SearchAndAttack);
-					//Inverter not_enemyDead = new Inverter(seq_LoopCondition);
-					//	IsOpponentDead_C enemyDead = new IsOpponentDead_C(not_enemyDead);
+
 					Inverter not_Hurt = new Inverter(seq_LoopCondition);
 						AreYouHurt_C hurt = new AreYouHurt_C(not_Hurt);
 					SeekOpponentTask seekOpponent = new SeekOpponentTask(seq_LoopCondition, SearchAndAttack);
 					Selector attackOrFlank = new Selector(seq_LoopCondition);
-						//AttackTask attack = new AttackTask(attackOrFlank, SearchAndAttack);
+						AttackTask attack = new AttackTask(attackOrFlank, SearchAndAttack);
 						FlankOpponentTask flank = new FlankOpponentTask(attackOrFlank, SearchAndAttack);
 					//Selector sel_Attack = new Selector(seq_LoopCondition);
 					

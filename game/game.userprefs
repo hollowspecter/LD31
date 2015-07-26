@@ -1,16 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\General\Movement.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AI_Project\AI_Component.cs">
     <Files>
-      <File FileName="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekOpponentTask.cs" Line="59" Column="33" />
-      <File FileName="Assets\Scripts\AI_Project\AI_Component.cs" Line="26" Column="7" />
-      <File FileName="Assets\Scripts\AI_Project\Movement\AI_Movement.cs" Line="191" Column="40" />
-      <File FileName="Assets\Scripts\AI_Project\Behaviour\Tasks\AttackTask.cs" Line="78" Column="59" />
-      <File FileName="Assets\Scripts\AI_Project\Behaviour\Tasks\FlankOpponentTask.cs" Line="62" Column="33" />
+      <File FileName="Assets\Scripts\AI_Project\AI_Component.cs" Line="20" Column="3" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekOpponentTask.cs" Line="66" Column="34" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Tasks\AttackTask.cs" Line="71" Column="23" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Tasks\FlankOpponentTask.cs" Line="16" Column="29" />
       <File FileName="Assets\Scripts\General\Movement.cs" Line="75" Column="7" />
       <File FileName="Assets\Scripts\Player\PlayerStance.cs" Line="17" Column="26" />
       <File FileName="Assets\Scripts\Player\PlayerJab.cs" Line="42" Column="3" />
       <File FileName="Assets\Scripts\AI_Project\Behaviour\Conditions\AreYouHurt_C.cs" Line="30" Column="47" />
+      <File FileName="Assets\Scripts\AI_Project\Movement\AI_Movement.cs" Line="191" Column="40" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

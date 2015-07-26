@@ -13,6 +13,7 @@ public class FlankOpponentTask : TaskNode
 	float timer = 0.0f;
 	float maxTimer = 1.0f;
 	bool flankDirection;
+	float maxFlankDistance  = 9.0f;
 
 	public FlankOpponentTask(ParentNode parent, Behaviour rootBehaviour)
 	{
@@ -60,20 +61,26 @@ public class FlankOpponentTask : TaskNode
 		if(timer >= maxTimer)
 		{
 			moveComponent.turnToTarget();
-			Debug.Log ("flanktask stop: flanktimer achieved");
+			Debug.Log ("flanktask suceed: flanktimer achieved");
 			Deactivate();
 			parent.ChildDone(this, true);
 		}
 		//is the AI or the player falling off the board?
-		else if(!moveComponent.getOnFloor() )
+		else if(!moveComponent.getOnFloor())
 		{
-			Debug.Log ("flanktask stop: AI falls");
+			Debug.Log ("flanktask fail: AI falls");
 			Deactivate();
 			parent.ChildDone(this, false);
 		}
 		else if(!opponent.GetComponent<PlayerMovement>().getOnFloor())
 		{
-			Debug.Log ("flanktask stop: Player falls");
+			Debug.Log ("flanktask fail: Player falls");
+			Deactivate();
+			parent.ChildDone(this, false);
+		}
+		else if((opponent.transform.position - moveComponent.transform.position).sqrMagnitude > maxFlankDistance)
+		{
+			Debug.Log ("flanktask fail: Target too far away");
 			Deactivate();
 			parent.ChildDone(this, false);
 		}

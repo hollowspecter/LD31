@@ -54,20 +54,20 @@ public class SeekOpponentTask : TaskNode
 		//has the AI arrived at its target?
 		if(moveComponent.getHasArrived())
 		{
-			Debug.Log ("seektask stop: arrived");
+			Debug.Log ("seektask suceed: arrived");
 			Deactivate();
 			parent.ChildDone(this, true);
 		}
 		//is the AI or the player falling off the board?
 		else if(!moveComponent.getOnFloor() )
 		{
-			Debug.Log ("seektask stop: AI falls");
+			Debug.Log ("seektask failp: AI falls");
 			Deactivate();
 			parent.ChildDone(this, false);
 		}
 		else if(!opponent.GetComponent<PlayerMovement>().getOnFloor())
 		{
-			Debug.Log ("seektask stop: Player falls");
+			Debug.Log ("seektask fail: Player falls");
 			Deactivate();
 			parent.ChildDone(this, false);
 		}

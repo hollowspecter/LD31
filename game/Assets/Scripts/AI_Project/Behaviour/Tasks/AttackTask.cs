@@ -11,6 +11,7 @@ public class AttackTask : TaskNode
 	HitReach hitReach;
 	PlayerJab playerJab;
 	bool isAttacking;
+	float lastAttackTime;
 	
 	public AttackTask(ParentNode parent, Behaviour rootBehaviour)
 	{
@@ -29,7 +30,6 @@ public class AttackTask : TaskNode
 	
 	public void Activate()
 	{
-		Debug.Log ("attacktask activate");
 		rootBehaviour.activateTask(this);
 		isAttacking = false;
 	}
@@ -37,7 +37,6 @@ public class AttackTask : TaskNode
 	public void Deactivate()
 	{
 		rootBehaviour.deactivateTask(this);
-		Debug.Log ("attacktask deactivated");
 	}
 	
 	public void PerformTask()
@@ -45,14 +44,14 @@ public class AttackTask : TaskNode
 		//has the target left your reach?
 		if(!hitReach.opposingPlayerInReach())
 		{
-			Debug.Log ("attacktask stop: out of reach");
+			Debug.Log ("attacktask fail: out of reach");
 			Deactivate();
 			parent.ChildDone(this, false);
 		}
 		//is the AI falling off the board?
 		else if(!moveComponent.getOnFloor())
 		{
-			Debug.Log ("attacktask stop: AI falls");
+			Debug.Log ("attacktask fail: AI falls");
 			Deactivate();
 			parent.ChildDone(this, false);
 		}
@@ -75,12 +74,13 @@ public class AttackTask : TaskNode
 		bool isJabbing = info.IsName("jabR") || info.IsName("jabL");
 		bool isComboing = info.IsName ("comboR") || info.IsName ("comboL");
 		bool isKicking = info.IsName ("kickR") || info.IsName ("kickL");
-		if(isAttacking && !(isJabbing || isComboing || isKicking))
+		if(isAttacking && !(isJabbing || isComboing || isKicking) && Time.time > (lastAttackTime + 1.5f))
 		{
-			Debug.Log ("attacktask stop: have Attacked");
+			Debug.Log ("attacktask suceed: have Attacked");
 			Deactivate();
 			isAttacking = false;
 			parent.ChildDone(this, true);
+			lastAttackTime = Time.time;
 		}
 
 	}
