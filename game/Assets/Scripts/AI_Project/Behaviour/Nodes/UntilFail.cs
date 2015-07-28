@@ -10,6 +10,7 @@ public class UntilFail: ChildNode, ParentNode
 
 	public UntilFail(ParentNode parent)
 	{
+		Debug.Log ("Untilfail constructed");
 		this.parent = parent;
 		this.parent.AddChild(this);
 	}
@@ -21,10 +22,11 @@ public class UntilFail: ChildNode, ParentNode
 	
 	public void ChildDone(ChildNode child, bool childResult)
 	{
-		
+
 		//if child returns true activate it again
 		if(childResult)
 		{
+			Debug.Log ("loop");
 			child.Activate();
 		}
 		

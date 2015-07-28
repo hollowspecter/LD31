@@ -2,6 +2,13 @@
 using System.Collections;
 
 
+
+/**Defensive Search Task: 
+ * Looks for the nearest Health Pickup and tries to retrieve it.
+ * The Search continues for a set amount of seconds, or until arrival, Ai death, or removal of the targetpickup.
+ **/
+
+
 public class SeekNearestHealthTask: TaskNode 
 {
 	Behaviour rootBehaviour;
@@ -12,8 +19,11 @@ public class SeekNearestHealthTask: TaskNode
 	GameObject[] healthPickup;
 	GameObject targetPickup;
 
+	float stopSearchTimer = 0.0f;
+	float stopMaxTimer = 10.0f;
+
 	float retargetTimer = 0.0f;
-	float retargetInterval = 3.0f;
+	float retargetInterval = 5.0f;
 	
 	public SeekNearestHealthTask(ParentNode parent, Behaviour rootBehaviour)
 	{
@@ -44,6 +54,7 @@ public class SeekNearestHealthTask: TaskNode
 			moveComponent.SetTarget(targetPickup.transform);
 		moveComponent.setSeeking(true);
 		moveComponent.setstopDist(1.0f);
+		stopSearchTimer = 0.0f;
 	}
 	
 	public void Deactivate()
@@ -90,9 +101,18 @@ public class SeekNearestHealthTask: TaskNode
 		}
 		//TODO: is the Player blocking your path?
 
+		//has the search lasted too long?
+		else if(stopSearchTimer > stopMaxTimer)
+		{
+			Debug.Log ("seektask fail: Search took too long");
+			Deactivate();
+			parent.ChildDone(this, false);
+		}
 		//if neither: seek the target through subtargets
 		else
 		{
+			stopSearchTimer += Time.deltaTime;
+
 			retargetTimer += Time.deltaTime;
 			if(retargetTimer > retargetInterval)
 			{

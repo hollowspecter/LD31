@@ -45,7 +45,8 @@ public class EvadeOpponentTask: TaskNode
 	
 	public void Deactivate()
 	{
-		moveComponent.stop();
+		Debug.Log("evadetask deactivate");
+		//moveComponent.stop();
 		rootBehaviour.deactivateTask(this);
 		
 	}
@@ -57,43 +58,27 @@ public class EvadeOpponentTask: TaskNode
 		//are you a safe distance away from the opponent?
 		if(sqrDistToOpponent > safeSqrDist)
 		{
-			//do nothing
-			//Debug.Log ("evadetask succeed: AI safe");
-			//Deactivate();
-			//parent.ChildDone(this, true);
+			Debug.Log ("evadetask succeed: AI is safe");
+			Deactivate();
+			parent.ChildDone(this, true);
 		}
-
-		//are you a decent distance away?
-		else if(sqrDistToOpponent > dangerSqrDist)
-		{
-			//move away until you are safe
-			moveComponent.rep_evadePosition(opponent.transform, safeSqrDist);
-
-			//has your move been stalled?
-
-		}
-
 		//is the AI or the player falling off the board?
 		else if(!moveComponent.getOnFloor())
 		{
-			Debug.Log ("flanktask fail: AI falls");
+			Debug.Log ("evadetask fail: AI falls");
 			Deactivate();
 			parent.ChildDone(this, false);
 		}
 		else if(!opponent.GetComponent<PlayerMovement>().getOnFloor())
 		{
-			Debug.Log ("flanktask succeed: Player falls");
+			Debug.Log ("evadetask succeed: Player falls");
 			Deactivate();
 			parent.ChildDone(this, true);
 		}
-
-		//are you a dangerous distance away?
+		//in any other case: run away
 		else
 		{
-			Debug.Log ("evadetask fail: Player to close");
 			moveComponent.rep_evadePosition(opponent.transform, safeSqrDist);
-			//Deactivate();
-			//parent.ChildDone(this, false);
 		}
 	}
 	

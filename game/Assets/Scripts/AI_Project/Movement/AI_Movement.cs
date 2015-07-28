@@ -14,6 +14,7 @@ public class AI_Movement : Movement
 	private float sqrTargetDist;
 	private float stopDist = 9.0f;
 
+	private Vector3 pathAttraction;
 	private Vector3 attraction;
 	private Vector3 repulsion;
 	private Vector3 dangerRepulsion;
@@ -85,7 +86,7 @@ public class AI_Movement : Movement
 		float f = 5.0f;
 		if(dangerRepulsion.sqrMagnitude > 0.75)
 			f = 0.0f;
-		direction = attraction - (dangerRepulsion*5 + repulsion * f);
+		direction = (pathAttraction * 2 + attraction) - (dangerRepulsion * dangerRepulsion.magnitude * 3 + repulsion * repulsion.magnitude * f);
 
 		//split the direction Vector in a horizontal and vertical component
 		//this is mainly a relict of the PlayerMovement  axis-implementation
@@ -97,9 +98,10 @@ public class AI_Movement : Movement
 
 		//Debug.draw the direction you want to move in
 		
-		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), attraction.normalized * 3,Color.red);
+		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), pathAttraction.normalized * 3,Color.red);
+		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), attraction.normalized * 3,Color.magenta);
 		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), dangerRepulsion.normalized * 3,Color.blue);
-		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), repulsion.normalized * 3,Color.magenta);
+		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), repulsion.normalized * 3,Color.cyan);
 		Debug.DrawRay(transform.position + new Vector3(0.0f, 0.5f, 0.0f), direction.normalized * 3,Color.yellow);
 
 
@@ -147,7 +149,7 @@ public class AI_Movement : Movement
 		{
 			
 			//if you have almost reached your subgoal, move on to the next one to avoid stuttering
-			if(sqrSubDist < 3 && subtargetIndex < path.corners.Length)
+			if(sqrSubDist < 3 && subtargetIndex < path.corners.Length-1)
 			{
 				subtargetIndex++;
 				subtarget = path.corners[subtargetIndex];
@@ -176,8 +178,19 @@ public class AI_Movement : Movement
 		sqrSubDist = subDirection.sqrMagnitude;
 
 
-		attraction = Vector3.Normalize(subDirection);
+		pathAttraction = Vector3.Normalize(subDirection);
 
+	}
+
+	public void attr_SeekPosition(Transform t)
+	{
+		
+		Vector3 seek = t.position - transform.position;
+		seek = new Vector3(seek.x, 0.0f, seek.z);
+		
+		
+		pathAttraction = Vector3.Normalize(seek);
+		
 	}
 
 	public void attr_flank(bool right)
@@ -198,7 +211,7 @@ public class AI_Movement : Movement
 	public void turnToTarget()
 	{
 		Vector3 lookAtTarget = target.position-transform.position;
-		attraction = lookAtTarget.normalized;
+		pathAttraction = lookAtTarget.normalized;
 		Quaternion newRotation = Quaternion.LookRotation(lookAtTarget);
 		playerRigidbody.MoveRotation(newRotation);
 	}
@@ -255,6 +268,7 @@ public class AI_Movement : Movement
 	public void stop()
 	{
 		attraction = new Vector3();
+		pathAttraction = new Vector3();
 		repulsion = new Vector3();
 		dangerRepulsion = new Vector3();
 	}

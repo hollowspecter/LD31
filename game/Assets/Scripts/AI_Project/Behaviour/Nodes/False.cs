@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Inverter : ChildNode, ParentNode 
+public class False : ChildNode, ParentNode 
 {
-
+	
 	ParentNode parent;
 	
 	ChildNode child;
 	
-	public Inverter(ParentNode parent)
+	public False(ParentNode parent)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
@@ -21,7 +21,7 @@ public class Inverter : ChildNode, ParentNode
 	
 	public void ChildDone(ChildNode child, bool childResult)
 	{		
-		parent.ChildDone(this, !childResult);		
+		parent.ChildDone(this, false);		
 	}
 	
 	public void Activate()
@@ -31,7 +31,7 @@ public class Inverter : ChildNode, ParentNode
 			child.Activate();
 		}
 	}
-
+	
 	public void Deactivate()
 	{
 		child.Deactivate();

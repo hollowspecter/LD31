@@ -10,6 +10,9 @@ public class SeekOpponentTask : TaskNode
 	AI_Movement moveComponent;
 	GameObject opponent;
 
+	float stopSearchTimer = 0.0f;
+	float stopMaxTimer = 10.0f;
+
 	public SeekOpponentTask(ParentNode parent, Behaviour rootBehaviour)
 	{
 		this.parent = parent;
@@ -38,6 +41,8 @@ public class SeekOpponentTask : TaskNode
 		rootBehaviour.activateTask(this);
 		moveComponent.SetTarget(opponent.transform);
 		moveComponent.setSeeking(true);
+		
+		stopSearchTimer = 0.0f;
 	}
 
 	public void Deactivate()
@@ -71,9 +76,18 @@ public class SeekOpponentTask : TaskNode
 			Deactivate();
 			parent.ChildDone(this, false);
 		}
+		//has the search lasted too long?
+		if(stopSearchTimer > stopMaxTimer)
+		{
+			Debug.Log ("seektask fail: Search took too long");
+			Deactivate();
+			parent.ChildDone(this, false);
+		}
+
 		//if neither: seek the target through subtargets
 		else
 		{
+			stopSearchTimer += Time.deltaTime;
 			moveComponent.attr_SeekSubtarget();
 		}
 	}

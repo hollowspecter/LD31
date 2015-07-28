@@ -28,7 +28,7 @@ public class ParallelOneForAll : ChildNode, ParentNode
 	
 	public void ChildDone(ChildNode child, bool childResult)
 	{
-			for(int i = 0; i < children.Count; ++i)
+			for(int i = 0; i < children.Count; i++)
 			{
 				children[i].Deactivate();
 			}

@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AreYouHurt_C: ChildNode 
+public class AreYouHurt: ChildNode
 {
 
 	ParentNode parent;
 
 	PlayerStance ownStance;
 
-	float hurtValue = 20.0f;
+	float hurtValue = 33.0f;
+	bool randomize = false;
 
-	public AreYouHurt_C(ParentNode p)
+	public AreYouHurt(ParentNode p, bool randomize)
 	{
 		parent = p;
 		parent.AddChild(this);
@@ -20,13 +21,20 @@ public class AreYouHurt_C: ChildNode
 			self = GameObject.Find("AI_Deer");
 		}
 		ownStance = self.GetComponent<PlayerStance>();
-
+		
+		this.randomize = randomize;
 	}
 
 	public void Activate()
 	{
 		Debug.Log ("are you hurt?");
-		bool areYouHurt = (ownStance.currentMultiplier > hurtValue);
+		float tmpHurt = hurtValue;
+		if(randomize)
+		{
+			tmpHurt += Random.Range(-hurtValue/3, hurtValue/3);
+		}
+
+		bool areYouHurt = (ownStance.currentMultiplier > tmpHurt);
 		if(areYouHurt)
 			Debug.Log("AI hurt over " + hurtValue + "%");
 		

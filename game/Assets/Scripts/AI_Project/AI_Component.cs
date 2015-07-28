@@ -15,19 +15,27 @@ public class AI_Component : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag("Player0");
 
 		SearchAndAttack = new Behaviour();
-			Selector sel_main = new Selector(SearchAndAttack);	
+			Selector sel_main = new Selector(SearchAndAttack);
 				Sequence seq_Aggressive = new Sequence(sel_main);
-					Inverter not_Hurt = new Inverter(seq_Aggressive);
-						AreYouHurt_C hurt = new AreYouHurt_C(not_Hurt);
-					SeekOpponentTask seekOpponent = new SeekOpponentTask(seq_Aggressive, SearchAndAttack);
-					Selector attackOrFlank = new Selector(seq_Aggressive);
-						AttackTask attack = new AttackTask(attackOrFlank, SearchAndAttack);
-						FlankOpponentTask flank_att = new FlankOpponentTask(attackOrFlank, SearchAndAttack, 9.0f);
-					//Selector sel_Attack = new Selector(seq_LoopCondition);
+					Selector sel_Hurt = new Selector(seq_Aggressive);
+						Inverter not_Hurt = new Inverter(sel_Hurt);
+							AreYouHurt hurt = new AreYouHurt(not_Hurt, true);
+						IsOpponentMoreHurt oppHurt = new IsOpponentMoreHurt(sel_Hurt, true);
+					True true_attack = new True(seq_Aggressive);
+						Sequence seq_Attack = new Sequence(true_attack);
+							SeekOpponentTask seekOpponent = new SeekOpponentTask(seq_Attack, SearchAndAttack);
+							Selector attackOrFlank = new Selector(seq_Attack);
+								ParallelOneForAll attackAndMaintain = new ParallelOneForAll(attackOrFlank);
+									AttackTask attack = new AttackTask(attackAndMaintain, SearchAndAttack);
+									UntilFail loop_dist = new UntilFail(attackAndMaintain);
+										MaintainDistanceTask maintain = new MaintainDistanceTask(loop_dist, SearchAndAttack, 9.0f, 2.0f);
+								FlankOpponentTask flank_att = new FlankOpponentTask(attackOrFlank, SearchAndAttack, 9.0f);
+							//Selector sel_Attack = new Selector(seq_LoopCondition);
 				Selector sel_Defensive = new Selector(sel_main);
 					ParallelOneForAll healthAndFlee = new ParallelOneForAll(sel_Defensive);
 						SeekNearestHealthTask health = new SeekNearestHealthTask(healthAndFlee, SearchAndAttack);
-						EvadeOpponentTask flee = new EvadeOpponentTask(healthAndFlee, SearchAndAttack);
+						UntilFail loop_flee = new UntilFail(healthAndFlee);
+							EvadeOpponentTask flee = new EvadeOpponentTask(loop_flee, SearchAndAttack);
 					
 					ParallelOneForAll flankAndFlee2 = new ParallelOneForAll(sel_Defensive);
 						FlankOpponentTask flank = new FlankOpponentTask(flankAndFlee2, SearchAndAttack, 81.0f);

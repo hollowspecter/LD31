@@ -50,6 +50,7 @@ public class FlankOpponentTask : TaskNode
 	
 	public void Deactivate()
 	{
+		Debug.Log ("flanktask deactivate");
 		moveComponent.stop();
 		rootBehaviour.deactivateTask(this);
 		moveComponent.setFlanking(false);

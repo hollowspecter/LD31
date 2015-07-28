@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class IsOpponentInDangerousPosition_C : MonoBehaviour {
+public class IsOpponentInDangerousPosition : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
