@@ -1,13 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class AI_Component : MonoBehaviour {
-
+public class BehaviourTree : MonoBehaviour {
+	
 	Behaviour SearchAndAttack;
 	GameObject player;
 	GameObject ai;
 	// Use this for initialization
 
+	public Color color = Color.black;
+	public string myString = "Hello World";
+	public bool groupEnabled;
+	public bool myBool = true;
+	public float myFloat = 1.23f;
+
+	public List<ChildNode> NodeTypes;
+
+	List<ChildNode> nodes;
 
 	void Awake()
 	{
@@ -55,5 +65,20 @@ public class AI_Component : MonoBehaviour {
 		GUI.TextArea (new Rect (10, 10, 200, 50), "No. Active Tasks: " + SearchAndAttack.GetActiveTasks().Count
 		              + "\nis Running: " + SearchAndAttack.GetIsRunning()); 
 	
+	}
+
+	public void AddNode(ChildNode n)
+	{
+		nodes.Add(n);
+	}
+
+	public void RemoveNodeAt(int i)
+	{
+		nodes.RemoveAt(i);
+	}
+
+	public ChildNode GetNodeAt(int i)
+	{
+		return nodes[i];
 	}
 }

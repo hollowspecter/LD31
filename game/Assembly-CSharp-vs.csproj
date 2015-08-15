@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AI_Project\AI_Component.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Behaviour.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Conditions\AreYouHurt.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Conditions\IsOpponentInDangerousPosition.cs" />
@@ -67,6 +66,7 @@
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\MaintainDistanceTask.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekNearestHealthTask.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekOpponentTask.cs" />
+     <Compile Include="Assets\Scripts\AI_Project\BehaviourTree.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Movement\AI_Movement.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Movement\AI_NavMeshSeek.cs" />
      <Compile Include="Assets\Scripts\General\Billboard.cs" />

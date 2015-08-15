@@ -5,6 +5,8 @@ public interface ChildNode
 {
 	void Activate();	
 	void Deactivate();
+
+	//void SetParent(ParentNode parent);
 }
 
 public interface ParentNode
