@@ -65,4 +65,9 @@ public class Selector : ChildNode, ParentNode
 			children[i].Deactivate();
 		}
 	}
+
+	public List<ChildNode> GetChildren()
+	{
+		return children;
+	}
 }
