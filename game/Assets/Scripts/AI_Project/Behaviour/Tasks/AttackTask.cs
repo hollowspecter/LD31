@@ -84,5 +84,15 @@ public class AttackTask : TaskNode
 		}
 
 	}
+
+	public GUINode GetView()
+	{
+		return null;
+	}
+
+	public void Delete()
+	{
+		parent.RemoveChild(this);
+	}
 	
 }

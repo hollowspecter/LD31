@@ -25,6 +25,13 @@ public class ParallelOneForAll : ChildNode, ParentNode
 		children.Add(child);
 		returns.Add(new bool());
 	}
+
+	public void RemoveChild(ChildNode child)
+	{
+		int i = children.IndexOf(child);
+		returns.RemoveAt(i);
+		children.Remove(child);
+	}
 	
 	public void ChildDone(ChildNode child, bool childResult)
 	{
@@ -58,5 +65,22 @@ public class ParallelOneForAll : ChildNode, ParentNode
 		{
 			children[i].Deactivate();
 		}
+	}
+
+	public GUINode GetView()
+	{
+		return null;
+	}
+
+	public void Delete()
+	{
+		for(int i = 0; i < children.Count; ++i)
+		{
+			children[i].Delete();
+		}
+		children.Clear();
+		returns.Clear();
+		
+		parent.RemoveChild(this);
 	}
 }

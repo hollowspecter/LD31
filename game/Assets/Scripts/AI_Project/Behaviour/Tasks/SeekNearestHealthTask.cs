@@ -154,5 +154,15 @@ public class SeekNearestHealthTask: TaskNode
 		retargetTimer = 0.0f;
 		return nextPickup;
 	}
+
+	public GUINode GetView()
+	{
+		return null;
+	}
+
+	public void Delete()
+	{
+		parent.RemoveChild(this);
+	}
 	
 }

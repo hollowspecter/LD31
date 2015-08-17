@@ -1,7 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface ChildNode
+public interface Node
+{
+	GUINode GetView();
+	void Delete();
+}
+
+public interface ChildNode : Node
 {
 	void Activate();	
 	void Deactivate();
@@ -9,9 +15,10 @@ public interface ChildNode
 	//void SetParent(ParentNode parent);
 }
 
-public interface ParentNode
+public interface ParentNode : Node
 {
 	void AddChild(ChildNode child);
+	void RemoveChild(ChildNode child);
 	void ChildDone(ChildNode child, bool childResult);
 }
 

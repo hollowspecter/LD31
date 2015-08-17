@@ -19,6 +19,11 @@ public class UntilFail: ChildNode, ParentNode
 	{
 		this.child = child;
 	}
+
+	public void RemoveChild(ChildNode child)
+	{
+		this.child = null;
+	}
 	
 	public void ChildDone(ChildNode child, bool childResult)
 	{
@@ -48,6 +53,17 @@ public class UntilFail: ChildNode, ParentNode
 	public void Deactivate()
 	{
 		child.Deactivate();
+	}
+
+	public GUINode GetView()
+	{
+		return null;
+	}
+
+	public void Delete()
+	{
+		child.Delete();
+		parent.RemoveChild(this);
 	}
 
 }

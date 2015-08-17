@@ -99,6 +99,12 @@
      <Compile Include="Assets\Scripts\Player\PlayerStance.cs" />
      <Compile Include="Assets\Scripts\Player\attackInstructions.cs" />
      <Compile Include="Assets\Scripts\Player\buttons.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\BehaviourWindow.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\DraggableGUIElement.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\GUINode.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\GUIBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\GUISelector.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\GUISequence.cs" />
      <Compile Include="Assets\Sprites\HeartPickup.cs" />
      <Compile Include="Assets\Sprites\HeartsView.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />

@@ -4,22 +4,34 @@ using System.Collections.Generic;
 
 public class Selector : ChildNode, ParentNode 
 {
+	GUISelector view;
+
 	ParentNode parent;
 
 	List<ChildNode> children;
 	int currentChildIndex;
 
 	// Use this for initialization
-	public Selector(ParentNode parent)
+	public Selector(ParentNode parent, GUISelector view)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
+
 		children = new List<ChildNode>();
+
+		this.view = view;
+		this.view.SetModel(this);
 	}
 
 	public void AddChild(ChildNode child)
 	{
 		children.Add(child);
+		view.SetValue(children.Count);
+	}
+
+	public void RemoveChild(ChildNode child)
+	{
+		children.Remove(child);
 	}
 
 	public void ChildDone(ChildNode child, bool childResult)
@@ -66,8 +78,32 @@ public class Selector : ChildNode, ParentNode
 		}
 	}
 
+
+	/***********GETTER & SETTER********************/
+	public ParentNode GetParent()
+	{
+		return parent;
+	}
+
 	public List<ChildNode> GetChildren()
 	{
 		return children;
 	}
+
+	public GUINode GetView()
+	{
+		return view;
+	}
+
+	public void Delete()
+	{
+		for(int i = 0; i < children.Count; ++i)
+		{
+			children[i].Delete();
+		}
+		children.Clear();
+		
+		parent.RemoveChild(this);
+	}
+
 }

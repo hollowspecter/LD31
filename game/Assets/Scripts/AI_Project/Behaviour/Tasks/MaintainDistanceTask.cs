@@ -89,5 +89,14 @@ public class MaintainDistanceTask : TaskNode
 			moveComponent.attr_SeekPosition(opponent.transform);
 		}
 	}
-	
+
+	public GUINode GetView()
+	{
+		return null;
+	}
+
+	public void Delete()
+	{
+		parent.RemoveChild(this);
+	}
 }

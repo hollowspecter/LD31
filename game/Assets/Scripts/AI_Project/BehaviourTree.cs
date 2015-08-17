@@ -14,16 +14,23 @@ public class BehaviourTree : MonoBehaviour {
 	public bool groupEnabled;
 	public bool myBool = true;
 	public float myFloat = 1.23f;
+	
+	public bool hasBehaviourNode = false;
 
-	public List<ChildNode> NodeTypes;
+	Behaviour baseNode;
 
 	List<ChildNode> nodes;
+
+	public void Init()
+	{
+		nodes = new List<ChildNode>();
+	}
 
 	void Awake()
 	{
 		ai = this.gameObject;
 		player = GameObject.FindGameObjectWithTag("Player0");
-
+		/*
 		SearchAndAttack = new Behaviour();
 			Selector sel_main = new Selector(SearchAndAttack);
 				Sequence seq_Aggressive = new Sequence(sel_main);
@@ -51,6 +58,7 @@ public class BehaviourTree : MonoBehaviour {
 						FlankOpponentTask flank = new FlankOpponentTask(flankAndFlee2, SearchAndAttack, 81.0f);
 						EvadeOpponentTask flee2 = new EvadeOpponentTask(flankAndFlee2, SearchAndAttack);
 				//wander around
+				*/
 	}
 	
 	// Update is called once per frame
@@ -69,7 +77,13 @@ public class BehaviourTree : MonoBehaviour {
 
 	public void AddNode(ChildNode n)
 	{
+		int i = nodes.Count;
 		nodes.Add(n);
+	}
+
+	public void RemoveNode(ChildNode n)
+	{
+		nodes.Remove(n);
 	}
 
 	public void RemoveNodeAt(int i)
@@ -77,8 +91,18 @@ public class BehaviourTree : MonoBehaviour {
 		nodes.RemoveAt(i);
 	}
 
+	public void SetBaseNode(Behaviour b)
+	{
+		baseNode = b;
+	}
+
 	public ChildNode GetNodeAt(int i)
 	{
 		return nodes[i];
+	}
+
+	public Behaviour GetBaseNode()
+	{
+		return baseNode;
 	}
 }

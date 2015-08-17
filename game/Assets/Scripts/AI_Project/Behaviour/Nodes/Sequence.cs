@@ -4,23 +4,34 @@ using System.Collections.Generic;
 
 public class Sequence : ChildNode, ParentNode 
 {
+	GUISequence view;
+
 	ParentNode parent;
 	
 	List<ChildNode> children;
 	int currentChildIndex;
 	
 	// Use this for initialization
-	public Sequence(ParentNode parent)
+	public Sequence(ParentNode parent, GUISequence view)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
 		//Debug.Log("sequence constructed");
 		children = new List<ChildNode>();
+
+		this.view = view;
+		this.view.SetModel(this);
 	}
 	
 	public void AddChild(ChildNode child)
 	{
 		children.Add(child);
+		view.SetValue(children.Count);
+	}
+
+	public void RemoveChild(ChildNode child)
+	{
+		children.Remove(child);
 	}
 	
 	public void ChildDone(ChildNode child, bool childResult)
@@ -69,4 +80,31 @@ public class Sequence : ChildNode, ParentNode
 			children[i].Deactivate();
 		}
 	}
+
+	public ParentNode GetParent()
+	{
+		return parent;
+	}
+	
+	public List<ChildNode> GetChildren()
+	{
+		return children;
+	}
+	
+	public GUINode GetView()
+	{
+		return view;
+	}
+
+	public void Delete()
+	{
+		for(int i = 0; i < children.Count; ++i)
+		{
+			children[i].Delete();
+		}
+		children.Clear();
+		
+		parent.RemoveChild(this);
+	}
+
 }

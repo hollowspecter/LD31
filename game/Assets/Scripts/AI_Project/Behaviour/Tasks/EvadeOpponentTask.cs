@@ -81,5 +81,15 @@ public class EvadeOpponentTask: TaskNode
 			moveComponent.rep_evadePosition(opponent.transform, safeSqrDist);
 		}
 	}
+
+	public GUINode GetView()
+	{
+		return null;
+	}
+
+	public void Delete()
+	{
+		parent.RemoveChild(this);
+	}
 	
 }

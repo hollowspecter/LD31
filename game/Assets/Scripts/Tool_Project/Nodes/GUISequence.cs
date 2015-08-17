@@ -9,35 +9,34 @@ public class GUISequence : GUINode
 
 	public GUISequence(int value, Vector2 position) : base("Sequence", value, position)
 	{
-		//model = new Sequence();
+		baseColor = Color.yellow;
 	}
 
-	public override void AddChild(ChildNode child)
+	public override void DrawParentLine()
 	{
-		Debug.Log ("add child to sequence");
-	}
-
-	public override void DrawChildLines()
-	{
-		
-		/*value = children.Count;
-		foreach(GUINode child in children)
+		if(model != null)
 		{
-			if(child == null)
-			{
-				children.Remove(child);
-			}
+			GUINode parent = model.GetParent().GetView();
 			Handles.BeginGUI();
 			Handles.color = Color.black;
-			Vector3 start = new Vector3(this.GetBotPosition().x, this.GetBotPosition().y);
-			Vector3 end = new Vector3(child.GetTopPosition().x, child.GetTopPosition().y);
+			Vector3 start = new Vector3(parent.GetBotPosition().x, parent.GetBotPosition().y);
+			Vector3 end = new Vector3(this.GetTopPosition().x, this.GetTopPosition().y);
 			Handles.DrawBezier(start,
 			                   end,
 			                   start + new Vector3(0 , 100),
 			                   end + new Vector3(0, -100),
 			                   Color.black,null, 4);
-			Handles.EndGUI(); 
-		}*/
+			Handles.EndGUI();
+		}
 	}
-	
+
+	public void SetModel(Sequence model)
+	{
+		this.model = model;
+	}
+
+	public override Node GetModel()
+	{
+		return model;
+	}
 }

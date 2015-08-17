@@ -94,5 +94,15 @@ public class FlankOpponentTask : TaskNode
 			timer += Time.deltaTime;
 		}
 	}
+
+	public GUINode GetView()
+	{
+		return null;
+	}
+
+	public void Delete()
+	{
+		parent.RemoveChild(this);
+	}
 	
 }

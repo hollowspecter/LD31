@@ -4,16 +4,25 @@ using System.Collections.Generic;
 
 public class Behaviour : ParentNode  
 {
+	BehaviourTree tree;
+
+	GUIBehaviour view;
+
 	bool isRunning = false;
 	ChildNode behaviourRoot;
 	List<TaskNode> activeTasks;
 	
 	float timer = 0.0f;
 	
-	public Behaviour()
+	public Behaviour(GUIBehaviour view, BehaviourTree tree)
 	{
 		activeTasks = new List<TaskNode>();
 		Debug.Log ("Behaviour constructed");
+
+		this.view = view;
+		this.view.SetModel(this);
+
+		this.tree = tree;
 	}
 
 	// Use this for initialization
@@ -54,6 +63,12 @@ public class Behaviour : ParentNode
 	public void AddChild(ChildNode child)
 	{
 		behaviourRoot = child;
+		view.SetValue(1);
+	}
+
+	public void RemoveChild(ChildNode child)
+	{
+		behaviourRoot = null;
 	}
 
 	public void ChildDone(ChildNode child, bool childResult)
@@ -73,6 +88,17 @@ public class Behaviour : ParentNode
 		activeTasks.Remove(t);
 	}
 
+	public void Delete()
+	{
+		behaviourRoot.Delete();
+		behaviourRoot = null;
+
+		activeTasks.Clear();
+
+		tree.SetBaseNode(null);
+	}
+
+	/*******GETTER & SETTER****************/
 
 	public List<TaskNode> GetActiveTasks()
 	{
@@ -87,5 +113,10 @@ public class Behaviour : ParentNode
 	public bool GetIsRunning()
 	{
 		return isRunning;
+	}
+
+	public GUINode GetView()
+	{
+		return view;
 	}
 }

@@ -6,6 +6,7 @@ public class GUINode : DraggableGUIElement
 {
 	protected string name;
 	protected int value;
+	protected Color baseColor;
 
 	int width = 80;
 	int height = 40;
@@ -17,7 +18,7 @@ public class GUINode : DraggableGUIElement
 	Rect topRect;
 	Rect botRect;
 
-	bool selected;
+	protected bool selected;
 
 	public GUINode(string name, int value, Vector2 position) : base(position)
 	{
@@ -25,6 +26,8 @@ public class GUINode : DraggableGUIElement
 		this.value = value;
 		topPosition = new Vector2(position.x, position.y - height/2 - height/4);
 		botPosition = new Vector2(position.x, position.y + height/2 + height/4);
+
+		baseColor = Color.white;
 	}
 		
 	public void OnGUI()
@@ -35,48 +38,56 @@ public class GUINode : DraggableGUIElement
 		topRect = new Rect(topPosition.x - width/8, topPosition.y, width/4, height/4);
 		botRect = new Rect(botPosition.x - width/8, botPosition.y-height/4 ,width/4, height/4);
 
+		if(selected)
+			Drag(drawRect);
 
-		color = selected ? Color.red : Color.white;
-		
-		Drag (drawRect);
-		GUI.color = color;
-		GUILayout.BeginArea(drawRect, GUI.skin.GetStyle("Box"));
-			GUILayout.Label(name);
-			GUILayout.Label(value.ToString());
-			//dragRect = GUILayoutUtility.GetLastRect();
-		GUILayout.EndArea();
-		GUI.color = Color.green;
-		GUILayout.BeginArea(topRect, GUI.skin.GetStyle("Box"));
-		GUILayout.EndArea();
-
-		GUI.color = Color.blue;
-		GUILayout.BeginArea(botRect, GUI.skin.GetStyle("Box"));
-		GUILayout.EndArea();
-		
-		//GUI.DrawTexture(dragRect, EditorGUIUtility.whiteTexture);
-
+		DrawMainRect();
+		DrawParentConnector();
+		DrawChildConnector();
 
 		topPosition = new Vector2(position.x, position.y - height/2 - height/4);
 		botPosition = new Vector2(position.x, position.y + height/2 + height/4);
 
-		DrawChildLines();
+		DrawParentLine();
+		GUI.color = Color.white;
 	}
 
-	//This method is overridden by the inheriting classes
-	//in order to connect Lines to their children
-	public virtual void DrawChildLines()
+	public virtual void DrawMainRect()
+	{
+		color = selected ? Color.red : baseColor;
+		GUI.color = color;
+		GUILayout.BeginArea(drawRect, GUI.skin.GetStyle("Box"));
+		GUILayout.Label(name);
+		GUILayout.Label(value.ToString());
+		GUILayout.EndArea();
+	}
+
+	public virtual void DrawParentConnector()
+	{
+		GUI.color = Color.green;
+		GUILayout.BeginArea(topRect, GUI.skin.GetStyle("Box"));
+		GUILayout.EndArea();
+	}
+
+	public virtual void DrawChildConnector()
+	{
+		GUI.color = Color.blue;
+		GUILayout.BeginArea(botRect, GUI.skin.GetStyle("Box"));
+		GUILayout.EndArea();
+	}
+
+	public virtual void DrawParentLine()
 	{
 
 	}
 
-	public virtual void AddChild(ChildNode child)
-	{
-		Debug.Log ("virtual addchild");
-	}
 
-	public virtual void SetParent(ParentNode parent)
+	/******GETTER & SETTER*************/
+
+	public virtual Node GetModel()
 	{
-		Debug.Log ("virtual setparent");
+		Debug.Log ("this NodeType has no model(virtual call)");
+		return null;
 	}
 
 	public Vector2 GetTopPosition()
@@ -92,6 +103,11 @@ public class GUINode : DraggableGUIElement
 	public Rect getMainRect()
 	{
 		return drawRect;
+	}
+
+	public void SetValue(int i)
+	{
+		value = i;
 	}
 
 	public bool Select

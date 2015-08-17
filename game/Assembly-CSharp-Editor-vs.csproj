@@ -47,11 +47,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\Tool\BehaviourTreeEditor.cs" />
-     <Compile Include="Assets\Editor\Tool\BehaviourWindow.cs" />
-     <Compile Include="Assets\Editor\Tool\DraggableGUIElement.cs" />
-     <Compile Include="Assets\Editor\Tool\GUINode.cs" />
-     <Compile Include="Assets\Editor\Tool\Nodes\GUISelector.cs" />
-     <Compile Include="Assets\Editor\Tool\Nodes\GUISequence.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />

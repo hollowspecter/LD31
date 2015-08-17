@@ -54,5 +54,15 @@ public class IsOpponentMoreHurt : ChildNode
 	{
 		
 	}
+
+	public GUINode GetView()
+	{
+		return null;
+	}
+
+	public void Delete()
+	{
+		parent.RemoveChild(this);
+	}
 	
 }

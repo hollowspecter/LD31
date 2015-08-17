@@ -12,6 +12,8 @@ public class DraggableGUIElement
 
 	protected Color color = Color.white;
 
+
+
 	public DraggableGUIElement(Vector2 position)
 	{
 		this.position = position;
