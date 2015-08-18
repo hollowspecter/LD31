@@ -7,6 +7,8 @@ public class SeekOpponentTask : TaskNode
 
 	ParentNode parent;
 
+	GUISeekOpponentTask view;
+
 	AI_Movement moveComponent;
 	GameObject opponent;
 
@@ -94,7 +96,12 @@ public class SeekOpponentTask : TaskNode
 
 	public GUINode GetView()
 	{
-		return null;
+		return view;
+	}
+
+	public ParentNode GetParent()
+	{
+		return parent;
 	}
 
 	public void Delete()

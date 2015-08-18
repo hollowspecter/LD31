@@ -26,7 +26,6 @@ public class Selector : ChildNode, ParentNode
 	public void AddChild(ChildNode child)
 	{
 		children.Add(child);
-		view.SetValue(children.Count);
 	}
 
 	public void RemoveChild(ChildNode child)

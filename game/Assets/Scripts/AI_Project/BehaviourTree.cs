@@ -3,27 +3,42 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class BehaviourTree : MonoBehaviour {
-	
+
+	NodeFactory factory;
+
+	string currentFileName = "no file";
+
 	Behaviour SearchAndAttack;
 	GameObject player;
 	GameObject ai;
 	// Use this for initialization
 
 	public Color color = Color.black;
-	public string myString = "Hello World";
+	public string myString = "FileName without ending";
 	public bool groupEnabled;
 	public bool myBool = true;
 	public float myFloat = 1.23f;
 	
 	public bool hasBehaviourNode = false;
 
-	Behaviour baseNode;
+	Behaviour behaviour;
 
 	List<ChildNode> nodes;
 
+	List<GUINode> guiNodes;
+
 	public void Init()
 	{
-		nodes = new List<ChildNode>();
+		if(nodes == null && guiNodes == null)
+		{
+			Debug.Log ("init nodes");
+			nodes = new List<ChildNode>();
+			guiNodes = new List<GUINode>();
+		}
+		if(factory == null)
+		{
+			factory = new NodeFactory(this);
+		}
 	}
 
 	void Awake()
@@ -77,7 +92,6 @@ public class BehaviourTree : MonoBehaviour {
 
 	public void AddNode(ChildNode n)
 	{
-		int i = nodes.Count;
 		nodes.Add(n);
 	}
 
@@ -85,15 +99,31 @@ public class BehaviourTree : MonoBehaviour {
 	{
 		nodes.Remove(n);
 	}
-
+	
+	
 	public void RemoveNodeAt(int i)
 	{
 		nodes.RemoveAt(i);
 	}
 
-	public void SetBaseNode(Behaviour b)
+	public void AddGUINode(GUINode n)
 	{
-		baseNode = b;
+		guiNodes.Add(n);
+	}
+	
+	public void RemoveGUINode(GUINode n)
+	{
+		guiNodes.Remove(n);
+	}
+
+	public List<GUINode> GetGUINodes()
+	{
+		return guiNodes;
+	}
+
+	public void SetBehaviour(Behaviour b)
+	{
+		behaviour = b;
 	}
 
 	public ChildNode GetNodeAt(int i)
@@ -101,8 +131,28 @@ public class BehaviourTree : MonoBehaviour {
 		return nodes[i];
 	}
 
-	public Behaviour GetBaseNode()
+	public int GetCount()
 	{
-		return baseNode;
+		return nodes.Count;
+	}
+
+	public Behaviour GetBehaviour()
+	{
+		return behaviour;
+	}
+
+	public NodeFactory GetFactory()
+	{
+		return factory;
+	}
+	
+	public string GetCurrentFileName()
+	{
+		return currentFileName;
+	}
+
+	public void SetCurrentFileName(string s)
+	{
+		currentFileName = s;
 	}
 }

@@ -63,7 +63,6 @@ public class Behaviour : ParentNode
 	public void AddChild(ChildNode child)
 	{
 		behaviourRoot = child;
-		view.SetValue(1);
 	}
 
 	public void RemoveChild(ChildNode child)
@@ -90,12 +89,14 @@ public class Behaviour : ParentNode
 
 	public void Delete()
 	{
-		behaviourRoot.Delete();
-		behaviourRoot = null;
-
+		if(behaviourRoot != null)
+		{
+			behaviourRoot.Delete();
+			behaviourRoot = null;
+		}
 		activeTasks.Clear();
 
-		tree.SetBaseNode(null);
+		tree.SetBehaviour(null);
 	}
 
 	/*******GETTER & SETTER****************/
@@ -103,6 +104,16 @@ public class Behaviour : ParentNode
 	public List<TaskNode> GetActiveTasks()
 	{
 			return activeTasks;
+	}
+
+	public bool hasRoot()
+	{
+		return (behaviourRoot != null); 
+	}
+
+	public ChildNode GetRoot()
+	{
+		return behaviourRoot;
 	}
 
 	public void SetIsRunning(bool b)

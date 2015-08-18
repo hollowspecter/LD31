@@ -16,6 +16,7 @@ public class BehaviourTreeEditor : Editor
 	// Override the default Editor
 	public override void OnInspectorGUI()
 	{
+		GUILayout.Label(behaviourTree.GetCurrentFileName());
 		if (GUILayout.Button("Edit Behaviour Tree", GUILayout.Width(255)))
 		{   
 			BehaviourWindow window = (BehaviourWindow) EditorWindow.GetWindow(typeof(BehaviourWindow));

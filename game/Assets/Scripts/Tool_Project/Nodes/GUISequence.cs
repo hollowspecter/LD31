@@ -23,8 +23,8 @@ public class GUISequence : GUINode
 			Vector3 end = new Vector3(this.GetTopPosition().x, this.GetTopPosition().y);
 			Handles.DrawBezier(start,
 			                   end,
-			                   start + new Vector3(0 , 100),
-			                   end + new Vector3(0, -100),
+			                   start + new Vector3(0 , 50),
+			                   end + new Vector3(0, -50),
 			                   Color.black,null, 4);
 			Handles.EndGUI();
 		}
@@ -39,4 +39,26 @@ public class GUISequence : GUINode
 	{
 		return model;
 	}
+
+	public override bool CanHaveMoreChildren ()
+	{
+		return true;
+	}
+
+	public override List<GUINode> GetAllChildren ()
+	{
+		List<GUINode> children = new List<GUINode>();
+		
+		foreach(ChildNode child in model.GetChildren())
+		{	
+			children.Add(child.GetView());
+			foreach(GUINode n in child.GetView().GetAllChildren())
+			{
+				children.Add(n);
+			}
+		}
+		
+		return children;
+	}
+
 }

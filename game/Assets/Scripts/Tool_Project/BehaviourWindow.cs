@@ -18,7 +18,6 @@ public class BehaviourWindow : EditorWindow
 
 	Rect deleteRect;
 
-	List<GUINode> guiNodes;
 	GUINode selected;
 
 	bool resize = false;
@@ -30,12 +29,20 @@ public class BehaviourWindow : EditorWindow
 		// Get existing open window or if none, make a new one:
 		behaviourTree = GameObject.FindGameObjectWithTag("Player1").GetComponent<BehaviourTree>();
 		behaviourTree.Init();
+
 		BehaviourWindow window = (BehaviourWindow)EditorWindow.GetWindow<BehaviourWindow>("Behaviour Tree Editor");
+
 		window.Show();
+
 	}
 
 	public void OnEnable()
 	{
+		if(behaviourTree == null)
+		{
+			behaviourTree = GameObject.FindGameObjectWithTag("Player1").GetComponent<BehaviourTree>();
+		}
+		behaviourTree.Init();
 		BehaviourWindow window = (BehaviourWindow)EditorWindow.GetWindow (typeof (BehaviourWindow));
 		window.titleContent.text = "Behaviour";
 		window.titleContent.tooltip = "Here you can edit your Behaviour Tree";
@@ -45,7 +52,6 @@ public class BehaviourWindow : EditorWindow
 
 		mainAreaRect = new Rect(currentToolWidth, 20, position.width-currentToolWidth, position.height);
 		deleteRect = new Rect(7, mainAreaRect.height - 200, 100, 170);
-		guiNodes = new List<GUINode>();
 		selected = null;
 
 		scrollPos = Vector2.zero;
@@ -68,38 +74,38 @@ public class BehaviourWindow : EditorWindow
 				behaviourTree.color = EditorGUILayout.ColorField(behaviourTree.color, GUILayout.Width(200));
 
 				GUILayout.Label ("Base Settings", EditorStyles.boldLabel);
-				behaviourTree.myString = EditorGUILayout.TextField ("Text Field", behaviourTree.myString);
-				
-				behaviourTree.groupEnabled = EditorGUILayout.BeginToggleGroup ("Optional Settings", behaviourTree.groupEnabled);
-				behaviourTree.myBool = EditorGUILayout.Toggle ("Toggle", behaviourTree.myBool);
-				behaviourTree.myFloat = EditorGUILayout.Slider ("Slider", behaviourTree.myFloat, -3, 3);
-				EditorGUILayout.EndToggleGroup ();
-				
-				EditorGUI.BeginDisabledGroup(guiNodes.Count > 0);
+				GUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+					behaviourTree.myString = EditorGUILayout.TextField (behaviourTree.myString);
+					if(GUILayout.Button("Save as File"))
+					{
+						if(EditorUtility.DisplayDialog("Save as...", "Save as " + behaviourTree.myString + ".txt?", "Yes", "No"))
+						{
+							behaviourTree.GetFactory().ReadFile("example");
+						}
+						
+					}
+				GUILayout.EndHorizontal();
+				if(GUILayout.Button("Load File"))
+				{
+					behaviourTree.GetFactory().ReadFile("example.txt");
+				}
+				EditorGUI.BeginDisabledGroup(behaviourTree.GetGUINodes().Count > 0);
 				if(GUILayout.Button("New Behaviour"))
 		 		{
-					GUIBehaviour tmp = new GUIBehaviour(guiNodes.Count,scrollPos + mainAreaRect.center + new Vector2 ( 0, -mainAreaRect.height/2)- new Vector2(currentToolWidth, 0));
-					guiNodes.Add(tmp);
-					behaviourTree.SetBaseNode(new Behaviour(tmp, behaviourTree));
-					SelectNode(guiNodes[guiNodes.Count-1]);
+					behaviourTree.GetFactory().Create ("Behaviour", scrollPos + mainAreaRect.center + new Vector2 ( 0, -mainAreaRect.height/2)- new Vector2(currentToolWidth, 0), null); 
+					SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
 				}
 				EditorGUI.EndDisabledGroup();
-				EditorGUI.BeginDisabledGroup(selected == null);
+				EditorGUI.BeginDisabledGroup(selected == null || !selected.CanHaveMoreChildren());
 					if(GUILayout.Button("New Selector"))
 					{
-						GUISelector tmp = new GUISelector(guiNodes.Count, scrollPos + mainAreaRect.center - new Vector2(currentToolWidth, 0));
-						guiNodes.Add(tmp);
-						Selector s = new Selector((ParentNode)selected.GetModel(), tmp);
-						behaviourTree.AddNode(s);
-						SelectNode(guiNodes[guiNodes.Count-1]);
+						behaviourTree.GetFactory().Create("Selector", scrollPos +  selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
+						SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
 					}
 					if(GUILayout.Button("New Sequence"))
 					{
-						GUISequence tmp = new GUISequence(guiNodes.Count, scrollPos + mainAreaRect.center - new Vector2(currentToolWidth, 0));
-						guiNodes.Add(tmp);
-			Sequence s = new Sequence((ParentNode)selected.GetModel(), tmp);
-						behaviourTree.AddNode(s);
-						SelectNode(guiNodes[guiNodes.Count-1]);
+						behaviourTree.GetFactory().Create("Sequence", scrollPos +  selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
+						SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
 					}
 				EditorGUI.EndDisabledGroup();
 				
@@ -107,10 +113,10 @@ public class BehaviourWindow : EditorWindow
 				GUI.color = Color.red;
 				if(GUILayout.Button("Delete All"))
 				{
-					DeselectNode();
-					foreach(GUINode node in guiNodes)
+					if(EditorUtility.DisplayDialog("Delete All", "Do you really want to delete all Nodes?", "Yes", "No"))
 					{
-						DeleteNode(node);
+						DeselectNode();
+						DeleteNode(behaviourTree.GetBehaviour().GetView());
 					}
 				}
 				
@@ -125,22 +131,22 @@ public class BehaviourWindow : EditorWindow
 				GUI.color = Color.white;
 
 				delete = null;
-				if(guiNodes.Count > 0)
+				if(behaviourTree.GetGUINodes().Count > 0)
 				{
-					for(int i = 0; i < guiNodes.Count; ++i)
+					for(int i = 0; i < behaviourTree.GetGUINodes().Count; ++i)
 					{
-						GUINode node = guiNodes[i];
+						GUINode node = behaviourTree.GetGUINodes()[i];
 						
 						wasDragging = node.IsDragging;
 						
 						node.OnGUI();
 						
-						if(i+1 < guiNodes.Count)
+						if(i+1 < behaviourTree.GetGUINodes().Count)
 						{/*
 							Handles.BeginGUI();
 							Handles.color = Color.black;
 							Vector3 start = new Vector3(node.GetBotPosition().x, node.GetBotPosition().y);
-							Vector3 end = new Vector3(guiNodes[i+1].GetTopPosition().x, guiNodes[i+1].GetTopPosition().y);
+							Vector3 end = new Vector3(behaviourTree.GetGUINodes()[i+1].GetTopPosition().x, behaviourTree.GetGUINodes()[i+1].GetTopPosition().y);
 							Handles.DrawBezier(start,
 							             		end,
 							                   	start + new Vector3(0 , 100),
@@ -217,6 +223,11 @@ public class BehaviourWindow : EditorWindow
 			resize = false;
 	}
 
+	public void AddNode(GUINode node)
+	{
+		behaviourTree.GetGUINodes().Add(node);
+	}
+
 	void SelectNode(GUINode node)
 	{
 		if(selected != null)
@@ -227,14 +238,30 @@ public class BehaviourWindow : EditorWindow
 
 	void DeselectNode()
 	{
-		selected.Select = false;
-		selected = null;
+		if(selected != null)
+		{
+			selected.Select = false;
+			selected = null;
+		}
 	}
 
 	void DeleteNode(GUINode node)
 	{	
+		List<GUINode> deleteList = node.GetAllChildren();	
 		node.GetModel().Delete();
-		guiNodes.Remove(node);
+		foreach(GUINode g in deleteList)
+		{
+			behaviourTree.GetGUINodes().Remove(g);
+		}
+		behaviourTree.GetGUINodes().Remove(node);
+
+	}
+
+	public void OnDestroy()
+	{
+		DeselectNode();
+		behaviourTree.GetFactory().SaveToFile("backupSave.txt");
+		Repaint ();
 	}
 
 }

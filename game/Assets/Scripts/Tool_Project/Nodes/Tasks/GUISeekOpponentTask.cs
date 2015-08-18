@@ -2,14 +2,13 @@
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
-
-public class GUISelector : GUINode 
+public class GUISeekOpponentTask : GUINode 
 {
-	Selector model;
+	SeekOpponentTask model;
 
-	public GUISelector(int value, Vector2 position) : base("Selector", value, position)
+	public GUISeekOpponentTask(int value, Vector2 position) : base("SeekTask", value, position)
 	{
-		baseColor = Color.yellow;
+		baseColor = Color.blue;
 	}
 
 	public override void DrawParentLine()
@@ -30,11 +29,11 @@ public class GUISelector : GUINode
 		}
 	}
 
-	public void SetModel(Selector model)
+	public override void DrawChildConnector ()
 	{
-		this.model = model;
+
 	}
-	
+
 	public override Node GetModel()
 	{
 		return model;
@@ -42,23 +41,12 @@ public class GUISelector : GUINode
 
 	public override bool CanHaveMoreChildren ()
 	{
-		return true;
+		return false;
 	}
 
 	public override List<GUINode> GetAllChildren ()
 	{
-		List<GUINode> children = new List<GUINode>();
-		
-		foreach(ChildNode child in model.GetChildren())
-		{	
-			children.Add(child.GetView());
-			foreach(GUINode n in child.GetView().GetAllChildren())
-			{
-				children.Add(n);
-			}
-		}
-		
+		List<GUINode> children = new List<GUINode>();	
 		return children;
 	}
-
 }

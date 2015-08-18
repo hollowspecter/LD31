@@ -31,5 +31,24 @@ public class GUIBehaviour : GUINode
 	{
 		return model;
 	}
-	
+
+	public override bool CanHaveMoreChildren ()
+	{
+		return !(model.hasRoot());
+	}
+
+	public override List<GUINode> GetAllChildren ()
+	{
+		List<GUINode> children = new List<GUINode>();
+
+		if(model.hasRoot())
+		{
+			children.Add(model.GetRoot().GetView());
+			foreach(GUINode n in model.GetRoot().GetView().GetAllChildren())
+			{
+				children.Add(n);
+			}
+		}
+		return children;
+	}
 }

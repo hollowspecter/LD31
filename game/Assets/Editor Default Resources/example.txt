@@ -1,0 +1,12 @@
+Type<0>
+Node<4>
+Parent<-1>
+X<100>
+Y<100>
+/
+Type<1>
+Node<6>
+Parent<4>
+X<100>
+Y<200>
+/

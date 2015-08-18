@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GUINode : DraggableGUIElement
 {
 	protected string name;
-	protected int value;
+	protected int NodeID;
 	protected Color baseColor;
 
 	int width = 80;
@@ -23,7 +24,7 @@ public class GUINode : DraggableGUIElement
 	public GUINode(string name, int value, Vector2 position) : base(position)
 	{
 		this.name = name;
-		this.value = value;
+		this.NodeID = value;
 		topPosition = new Vector2(position.x, position.y - height/2 - height/4);
 		botPosition = new Vector2(position.x, position.y + height/2 + height/4);
 
@@ -58,7 +59,7 @@ public class GUINode : DraggableGUIElement
 		GUI.color = color;
 		GUILayout.BeginArea(drawRect, GUI.skin.GetStyle("Box"));
 		GUILayout.Label(name);
-		GUILayout.Label(value.ToString());
+		GUILayout.Label(NodeID.ToString());
 		GUILayout.EndArea();
 	}
 
@@ -79,6 +80,17 @@ public class GUINode : DraggableGUIElement
 	public virtual void DrawParentLine()
 	{
 
+	}
+	public virtual bool CanHaveMoreChildren()
+	{
+		Debug.Log("virtual call");
+		return false;
+	}
+
+	public virtual List<GUINode> GetAllChildren()
+	{
+		Debug.Log ("virtual children");
+		return null;
 	}
 
 
@@ -105,9 +117,14 @@ public class GUINode : DraggableGUIElement
 		return drawRect;
 	}
 
-	public void SetValue(int i)
+	public void SetNodeID(int i)
 	{
-		value = i;
+		NodeID = i;
+	}
+
+	public int GetNodeID()
+	{
+		return NodeID;
 	}
 
 	public bool Select
@@ -121,4 +138,6 @@ public class GUINode : DraggableGUIElement
 			selected = value;
 		}
 	}
+
+
 }
