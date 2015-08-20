@@ -94,5 +94,10 @@ public class AttackTask : TaskNode
 	{
 		parent.RemoveChild(this);
 	}
+
+	public ParentNode GetParent()
+	{
+		return parent;
+	}
 	
 }

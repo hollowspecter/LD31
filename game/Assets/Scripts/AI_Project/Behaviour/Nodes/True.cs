@@ -52,5 +52,10 @@ public class True : ChildNode, ParentNode
 		child.Delete();
 		parent.RemoveChild(this);
 	}
+
+	public ParentNode GetParent()
+	{
+		return parent;
+	}
 }
 

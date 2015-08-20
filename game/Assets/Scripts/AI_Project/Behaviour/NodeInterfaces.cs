@@ -12,7 +12,7 @@ public interface ChildNode : Node
 	void Activate();	
 	void Deactivate();
 
-	//void SetParent(ParentNode parent);
+	ParentNode GetParent();
 }
 
 public interface ParentNode : Node

@@ -52,4 +52,9 @@ public class Inverter : ChildNode, ParentNode
 		child.Delete();
 		parent.RemoveChild(this);
 	}
+
+	public ParentNode GetParent()
+	{
+		return parent;
+	}
 }

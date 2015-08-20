@@ -10,6 +10,7 @@ public class GUISequence : GUINode
 	public GUISequence(int value, Vector2 position) : base("Sequence", value, position)
 	{
 		baseColor = Color.yellow;
+		TypeID = 2;
 	}
 
 	public override void DrawParentLine()

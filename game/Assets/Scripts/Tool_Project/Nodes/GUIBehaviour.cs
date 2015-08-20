@@ -10,6 +10,7 @@ public class GUIBehaviour : GUINode
 	{
 		//model = new Sequence();
 		baseColor = Color.cyan;
+		TypeID = 0;
 	}
 
 	public override void DrawParentConnector()

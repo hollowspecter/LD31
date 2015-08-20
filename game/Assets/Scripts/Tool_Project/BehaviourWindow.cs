@@ -14,6 +14,8 @@ public class BehaviourWindow : EditorWindow
 	float maxToolWidth;
 	Rect cursorChangeRect;
 
+	string lastTreePath;
+
 	Rect mainAreaRect;
 
 	Rect deleteRect;
@@ -55,6 +57,11 @@ public class BehaviourWindow : EditorWindow
 		selected = null;
 
 		scrollPos = Vector2.zero;
+
+		if(!(behaviourTree.GetCurrentFilePath() == ""))
+		{
+			behaviourTree.GetFactory().ReadFromPath(behaviourTree.GetCurrentFilePath());
+		}
 	}
 
 	void OnGUI()
@@ -64,31 +71,45 @@ public class BehaviourWindow : EditorWindow
 		bool wasDragging;
 		Color color;
 
-		GUILayout.Toolbar(-1, new string[]{"Tool0", "Tool1", "Tool2", "Tool3", "Tool4", "Tool5"});
+		GUILayout.BeginHorizontal("box", GUILayout.ExpandWidth(true));
+			int buttonWidth = 50;
+			if(GUILayout.Button("Load", GUILayout.MaxWidth(buttonWidth)))
+			{
+				if(behaviourTree.GetBehaviour() == null)
+				{
+					string path = EditorUtility.OpenFilePanel("Open Behaviour File...", "Assets\\Resources\\Behaviour Trees", behaviourTree.GetFactory().GetFileExtension());
+					if(path != "")
+					{
+						behaviourTree.GetFactory().ReadFromPath(path);
+						behaviourTree.SetCurrentFilePath(path);
+					}
+				}
+				else if(EditorUtility.DisplayDialog("Load Behaviour Tree", "Do you really want to load a Behaviour Tree and delete all current Nodes?", "Yes", "No"))
+				{
+					DeleteAll();
+					string path = EditorUtility.OpenFilePanel("Open Behaviour File...", "Assets\\Resources\\Behaviour Trees", behaviourTree.GetFactory().GetFileExtension());
+					if(path != "")
+					{
+						behaviourTree.GetFactory().ReadFromPath(path);
+						behaviourTree.SetCurrentFilePath(path);
+					}
+				}
+			}
+		if(GUILayout.Button("Save", GUILayout.MaxWidth(buttonWidth)))
+			{
+				string path = EditorUtility.SaveFilePanel("Save Behaviour as..", "Assets\\Resources\\Behaviour Trees", "BehaviourTree", behaviourTree.GetFactory().GetFileExtension());
+				if(path != "")
+				{
+					behaviourTree.GetFactory().SaveToPath(path);
+					behaviourTree.SetCurrentFilePath(path);
+				}
+			}
+		GUILayout.EndHorizontal();
 
 		//left Toolbar
 		GUILayout.BeginHorizontal(GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 
 			GUILayout.BeginVertical("box", GUILayout.Width(currentToolWidth), GUILayout.ExpandHeight(true));
-				//Debug.Log (currentToolWidth);
-				behaviourTree.color = EditorGUILayout.ColorField(behaviourTree.color, GUILayout.Width(200));
-
-				GUILayout.Label ("Base Settings", EditorStyles.boldLabel);
-				GUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
-					behaviourTree.myString = EditorGUILayout.TextField (behaviourTree.myString);
-					if(GUILayout.Button("Save as File"))
-					{
-						if(EditorUtility.DisplayDialog("Save as...", "Save as " + behaviourTree.myString + ".txt?", "Yes", "No"))
-						{
-							behaviourTree.GetFactory().ReadFile("example");
-						}
-						
-					}
-				GUILayout.EndHorizontal();
-				if(GUILayout.Button("Load File"))
-				{
-					behaviourTree.GetFactory().ReadFile("example.txt");
-				}
 				EditorGUI.BeginDisabledGroup(behaviourTree.GetGUINodes().Count > 0);
 				if(GUILayout.Button("New Behaviour"))
 		 		{
@@ -107,6 +128,11 @@ public class BehaviourWindow : EditorWindow
 						behaviourTree.GetFactory().Create("Sequence", scrollPos +  selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
 						SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
 					}
+					if(GUILayout.Button("New SeekOpponentTask"))
+					{
+						behaviourTree.GetFactory().Create("SeekOpponentTask", scrollPos +  selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
+						SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
+					}
 				EditorGUI.EndDisabledGroup();
 				
 				GUILayout.Space(280);
@@ -115,8 +141,7 @@ public class BehaviourWindow : EditorWindow
 				{
 					if(EditorUtility.DisplayDialog("Delete All", "Do you really want to delete all Nodes?", "Yes", "No"))
 					{
-						DeselectNode();
-						DeleteNode(behaviourTree.GetBehaviour().GetView());
+						DeleteAll();
 					}
 				}
 				
@@ -257,10 +282,18 @@ public class BehaviourWindow : EditorWindow
 
 	}
 
+	void DeleteAll()
+	{
+		DeselectNode();
+		DeleteNode(behaviourTree.GetBehaviour().GetView());
+		behaviourTree.GetGUINodes().Clear();
+		behaviourTree.ClearNodes();
+	}
+
 	public void OnDestroy()
 	{
 		DeselectNode();
-		behaviourTree.GetFactory().SaveToFile("backupSave.txt");
+		behaviourTree.GetFactory().SaveToPath("Assets\\Resources\\Behaviour Trees\\Backups\\backupSave.txt");
 		Repaint ();
 	}
 

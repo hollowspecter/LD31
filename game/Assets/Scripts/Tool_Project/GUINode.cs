@@ -7,6 +7,7 @@ public class GUINode : DraggableGUIElement
 {
 	protected string name;
 	protected int NodeID;
+	protected int TypeID;
 	protected Color baseColor;
 
 	int width = 80;
@@ -25,6 +26,7 @@ public class GUINode : DraggableGUIElement
 	{
 		this.name = name;
 		this.NodeID = value;
+		TypeID = -1;
 		topPosition = new Vector2(position.x, position.y - height/2 - height/4);
 		botPosition = new Vector2(position.x, position.y + height/2 + height/4);
 
@@ -125,6 +127,11 @@ public class GUINode : DraggableGUIElement
 	public int GetNodeID()
 	{
 		return NodeID;
+	}
+
+	public int GetTypeID()
+	{
+		return TypeID;
 	}
 
 	public bool Select

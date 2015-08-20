@@ -83,4 +83,9 @@ public class ParallelOneForAll : ChildNode, ParentNode
 		
 		parent.RemoveChild(this);
 	}
+
+	public ParentNode GetParent()
+	{
+		return parent;
+	}
 }

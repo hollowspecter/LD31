@@ -99,4 +99,9 @@ public class MaintainDistanceTask : TaskNode
 	{
 		parent.RemoveChild(this);
 	}
+
+	public ParentNode GetParent()
+	{
+		return parent;
+	}
 }

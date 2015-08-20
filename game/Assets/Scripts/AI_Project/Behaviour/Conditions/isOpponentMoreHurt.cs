@@ -64,5 +64,10 @@ public class IsOpponentMoreHurt : ChildNode
 	{
 		parent.RemoveChild(this);
 	}
+
+	public ParentNode GetParent()
+	{
+		return parent;
+	}
 	
 }

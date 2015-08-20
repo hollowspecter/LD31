@@ -15,17 +15,21 @@ public class SeekOpponentTask : TaskNode
 	float stopSearchTimer = 0.0f;
 	float stopMaxTimer = 10.0f;
 
-	public SeekOpponentTask(ParentNode parent, Behaviour rootBehaviour)
+	public SeekOpponentTask(ParentNode parent, Behaviour rootBehaviour, GUISeekOpponentTask view)
 	{
+		Debug.Log ("constructing SeekOpponentTask");
 		this.parent = parent;
 		this.parent.AddChild(this);
 		this.rootBehaviour = rootBehaviour;
+
+		this.view = view;
+		this.view.SetModel(this);
 
 		GameObject self = GameObject.FindGameObjectWithTag("Player1");
 		if(self == null)
 		{
 			self = GameObject.Find("AI_Deer");
-		}		
+		}
 		moveComponent = self.GetComponent<AI_Movement>();
 
 		opponent = GameObject.FindGameObjectWithTag("Player0");
@@ -33,12 +37,12 @@ public class SeekOpponentTask : TaskNode
 		{
 			opponent = GameObject.Find("boar");
 		}
+		Debug.Log ("constructed SeekOpponentTask");
 	}
 
 	public void Activate()
 	{
 		Debug.Log ("seektask activate");
-
 
 		rootBehaviour.activateTask(this);
 		moveComponent.SetTarget(opponent.transform);

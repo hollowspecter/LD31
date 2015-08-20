@@ -8,7 +8,8 @@ public class GUISeekOpponentTask : GUINode
 
 	public GUISeekOpponentTask(int value, Vector2 position) : base("SeekTask", value, position)
 	{
-		baseColor = Color.blue;
+		baseColor = new Color(0.5f, 0.6f, 1.0f);
+		TypeID = 10;
 	}
 
 	public override void DrawParentLine()
@@ -37,6 +38,11 @@ public class GUISeekOpponentTask : GUINode
 	public override Node GetModel()
 	{
 		return model;
+	}
+
+	public void SetModel(SeekOpponentTask model)
+	{
+		this.model = model;
 	}
 
 	public override bool CanHaveMoreChildren ()

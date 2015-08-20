@@ -10,6 +10,7 @@ public class GUISelector : GUINode
 	public GUISelector(int value, Vector2 position) : base("Selector", value, position)
 	{
 		baseColor = Color.yellow;
+		TypeID = 1;
 	}
 
 	public override void DrawParentLine()

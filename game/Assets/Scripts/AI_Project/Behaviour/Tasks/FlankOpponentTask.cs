@@ -104,5 +104,10 @@ public class FlankOpponentTask : TaskNode
 	{
 		parent.RemoveChild(this);
 	}
+
+	public ParentNode GetParent()
+	{
+		return parent;
+	}
 	
 }

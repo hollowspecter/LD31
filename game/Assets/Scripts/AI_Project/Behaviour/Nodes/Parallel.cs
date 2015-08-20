@@ -111,4 +111,9 @@ public class Parallel : ChildNode, ParentNode
 		
 		parent.RemoveChild(this);
 	}
+
+	public ParentNode GetParent()
+	{
+		return parent;
+	}
 }

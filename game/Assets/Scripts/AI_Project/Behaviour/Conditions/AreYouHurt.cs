@@ -55,5 +55,10 @@ public class AreYouHurt: ChildNode
 	{
 		parent.RemoveChild(this);
 	}
+
+	public ParentNode GetParent()
+	{
+		return parent;
+	}
 	
 }

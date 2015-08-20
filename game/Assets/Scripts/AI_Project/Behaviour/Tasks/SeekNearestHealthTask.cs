@@ -164,5 +164,10 @@ public class SeekNearestHealthTask: TaskNode
 	{
 		parent.RemoveChild(this);
 	}
+
+	public ParentNode GetParent()
+	{
+		return parent;
+	}
 	
 }
