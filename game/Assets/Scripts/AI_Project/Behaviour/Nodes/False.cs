@@ -7,11 +7,16 @@ public class False : ChildNode, ParentNode
 	ParentNode parent;
 	
 	ChildNode child;
-	
-	public False(ParentNode parent)
+
+	GUIFalse view;
+
+	public False(ParentNode parent, GUIFalse view)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
+
+		this.view = view;
+		view.SetModel(this);
 	}
 	
 	public void AddChild(ChildNode child)
@@ -44,7 +49,12 @@ public class False : ChildNode, ParentNode
 
 	public GUINode GetView()
 	{
-		return null;
+		return view;
+	}
+
+	public ChildNode GetChild()
+	{
+		return child;
 	}
 
 	public void Delete()

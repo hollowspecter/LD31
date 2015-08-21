@@ -1,12 +1,6 @@
 Type<0>
-Node<4>
+Node<0>
 Parent<-1>
-X<414>
-Y<20>
-/
-Type<10>
-Node<9>
-Parent<4>
-X<414>
-Y<220>
+X<421>
+Y<40>
 /

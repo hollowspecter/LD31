@@ -15,7 +15,18 @@ public class NodeFactory
 	//0 -> Behaviour
 	//1 -> Selector
 	//2 -> Sequence
+	//3 -> True
+	//4 -> False
+	//5 -> Inverter
+	//6 -> Parallel
+	//7 -> ParallelOneForAll
+	//8 -> UntilFail
+	//9 -> AttackTask
 	//10 ->SeekOpponentTask
+	//11 ->EvadeOpponentTask
+	//12 ->FlankOpponentTask
+	//13 ->MaintainDistanceTask
+	//14 ->SeekNearestHealthTask
 
 	string fileExtension = "txt";
 

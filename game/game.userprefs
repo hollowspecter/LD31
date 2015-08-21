@@ -1,16 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Tool_Project\Nodes\Tasks\GUISeekOpponentTask.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Tool_Project\BehaviourWindow.cs">
     <Files>
-      <File FileName="Assets\Scripts\AI_Project\BehaviourTree.cs" Line="49" Column="4" />
-      <File FileName="Assets\Scripts\Tool_Project\BehaviourWindow.cs" Line="63" Column="80" />
-      <File FileName="Assets\Scripts\Tool_Project\Nodes\GUIBehaviour.cs" Line="9" Column="80" />
-      <File FileName="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekOpponentTask.cs" Line="49" Column="1" />
-      <File FileName="Assets\Scripts\Tool_Project\Nodes\Tasks\GUISeekOpponentTask.cs" Line="11" Column="28" />
-      <File FileName="Assets\Scripts\AI_Project\Behaviour\Nodes\Selector.cs" Line="23" Column="28" />
-      <File FileName="Assets\Scripts\Tool_Project\NodeFactory.cs" Line="250" Column="89" />
-      <File FileName="Assets\Scripts\Tool_Project\Nodes\GUISelector.cs" Line="37" Column="3" />
-      <File FileName="Assets\Scripts\AI_Project\Movement\AI_Movement.cs" Line="35" Column="1" />
+      <File FileName="Assets\Scripts\Tool_Project\BehaviourWindow.cs" Line="196" Column="94" />
+      <File FileName="Assets\Scripts\Tool_Project\DraggableGUIElement.cs" Line="42" Column="17" />
+      <File FileName="Assets\Scripts\Tool_Project\GUINode.cs" Line="46" Column="15" />
+      <File FileName="Assets\Scripts\Tool_Project\NodeFactory.cs" Line="29" Column="8" />
+      <File FileName="Assets\Scripts\Tool_Project\Nodes\Decorators\GUISelector.cs" Line="46" Column="2" />
+      <File FileName="Assets\Scripts\Tool_Project\Nodes\Decorators\GUISequence.cs" Line="38" Column="2" />
+      <File FileName="Assets\Scripts\Tool_Project\Nodes\Tasks\GUISeekOpponentTask.cs" Line="40" Column="2" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekOpponentTask.cs" Line="26" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

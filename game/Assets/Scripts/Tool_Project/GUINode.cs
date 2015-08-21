@@ -11,12 +11,13 @@ public class GUINode : DraggableGUIElement
 	protected Color baseColor;
 
 	int width = 80;
-	int height = 40;
+	int height = 50;
 
 	Vector2 topPosition;
 	Vector2 botPosition;
 
 	Rect drawRect;
+	Rect selectRect;
 	Rect topRect;
 	Rect botRect;
 
@@ -37,6 +38,7 @@ public class GUINode : DraggableGUIElement
 	{
 		//Debug.Log ("node:onGUI");
 		drawRect = new Rect(position.x - width/2, position.y - height/2, width, height);
+		selectRect = new Rect(position.x - (width/2 + 3), position.y - (height/2 +3), width + 6, height + 6);
 
 		topRect = new Rect(topPosition.x - width/8, topPosition.y, width/4, height/4);
 		botRect = new Rect(botPosition.x - width/8, botPosition.y-height/4 ,width/4, height/4);
@@ -47,18 +49,30 @@ public class GUINode : DraggableGUIElement
 		DrawMainRect();
 		DrawParentConnector();
 		DrawChildConnector();
+		
+		DrawParentLine();
 
+		Update();
+
+
+		GUI.color = Color.white;
+	}
+
+	public virtual void Update()
+	{
 		topPosition = new Vector2(position.x, position.y - height/2 - height/4);
 		botPosition = new Vector2(position.x, position.y + height/2 + height/4);
-
-		DrawParentLine();
-		GUI.color = Color.white;
 	}
 
 	public virtual void DrawMainRect()
 	{
-		color = selected ? Color.red : baseColor;
-		GUI.color = color;
+
+		if(selected)
+		{
+			GUI.color = Color.red;
+			GUI.Box(selectRect, "");
+		}
+		GUI.color = baseColor;
 		GUILayout.BeginArea(drawRect, GUI.skin.GetStyle("Box"));
 		GUILayout.Label(name);
 		GUILayout.Label(NodeID.ToString());

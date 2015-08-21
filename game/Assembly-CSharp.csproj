@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Extra GUI Skins\SkinTest.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Behaviour.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Conditions\AreYouHurt.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Conditions\IsOpponentInDangerousPosition.cs" />
@@ -100,11 +101,26 @@
      <Compile Include="Assets\Scripts\Player\buttons.cs" />
      <Compile Include="Assets\Scripts\Tool_Project\BehaviourWindow.cs" />
      <Compile Include="Assets\Scripts\Tool_Project\DraggableGUIElement.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\EditorZoomArea.cs" />
      <Compile Include="Assets\Scripts\Tool_Project\GUINode.cs" />
      <Compile Include="Assets\Scripts\Tool_Project\NodeFactory.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Conditions\GUIAreYouHurt.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Conditions\GUIIsOpponentInDangerousPosition.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Conditions\GUIIsOpponentMoreHurt.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Decorators\GUIFalse.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Decorators\GUIInverter.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Decorators\GUIParallel.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Decorators\GUIParallelOneForAll.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Decorators\GUISelector.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Decorators\GUISequence.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Decorators\GUITrue.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Decorators\GUIUntilFail.cs" />
      <Compile Include="Assets\Scripts\Tool_Project\Nodes\GUIBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Tool_Project\Nodes\GUISelector.cs" />
-     <Compile Include="Assets\Scripts\Tool_Project\Nodes\GUISequence.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Tasks\GUIAttackTask.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Tasks\GUIEvadeOpponentTask.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Tasks\GUIFlankOpponentTask.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Tasks\GUIMaintainDistanceTask.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Tasks\GUISeekNearestHealthTask.cs" />
      <Compile Include="Assets\Scripts\Tool_Project\Nodes\Tasks\GUISeekOpponentTask.cs" />
      <Compile Include="Assets\Sprites\HeartPickup.cs" />
      <Compile Include="Assets\Sprites\HeartsView.cs" />
@@ -148,7 +164,6 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Luminance.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\ColorCorrectionSelective.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\Bokeh34.shader" />
-     <None Include="Assets\Editor Default Resources\example.txt" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\CameraMotionBlurDX11.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\SeparableBlurPlus.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\MultiPassHollywoodFlares.shader" />
@@ -165,7 +180,6 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\TwirlEffect.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\VortexEffect.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Adaptation.shader" />
-     <None Include="Assets\Editor Default Resources\backupSave.txt" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseAndGrain.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\VignettingShader.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Tonemapper.shader" />

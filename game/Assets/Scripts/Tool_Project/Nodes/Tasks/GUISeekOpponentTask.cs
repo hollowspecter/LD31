@@ -6,12 +6,39 @@ public class GUISeekOpponentTask : GUINode
 {
 	SeekOpponentTask model;
 
+	Vector2 offsetToParent;
+
 	public GUISeekOpponentTask(int value, Vector2 position) : base("SeekTask", value, position)
 	{
 		baseColor = new Color(0.5f, 0.6f, 1.0f);
 		TypeID = 10;
 	}
 
+	public override void DrawChildConnector ()
+	{
+
+	}
+
+	public override bool CanHaveMoreChildren ()
+	{
+		return false;
+	}
+
+	public override List<GUINode> GetAllChildren ()
+	{
+		List<GUINode> children = new List<GUINode>();	
+		return children;
+	}
+
+	public void SetModel(SeekOpponentTask model)
+	{
+		this.model = model;
+		DragUpdate();
+	}
+
+
+
+	//CAN ALWAYS COPY PASTE LIKE THIS
 	public override void DrawParentLine()
 	{
 		if(model != null)
@@ -29,30 +56,21 @@ public class GUISeekOpponentTask : GUINode
 			Handles.EndGUI();
 		}
 	}
-
-	public override void DrawChildConnector ()
+	
+	public override void Update ()
 	{
-
+		if(!selected)
+			position = model.GetParent().GetView().Position - offsetToParent;
+		base.Update();
 	}
-
+	
+	public override void DragUpdate()
+	{
+		offsetToParent = model.GetParent().GetView().Position - position;
+	}
+	
 	public override Node GetModel()
 	{
 		return model;
-	}
-
-	public void SetModel(SeekOpponentTask model)
-	{
-		this.model = model;
-	}
-
-	public override bool CanHaveMoreChildren ()
-	{
-		return false;
-	}
-
-	public override List<GUINode> GetAllChildren ()
-	{
-		List<GUINode> children = new List<GUINode>();	
-		return children;
 	}
 }

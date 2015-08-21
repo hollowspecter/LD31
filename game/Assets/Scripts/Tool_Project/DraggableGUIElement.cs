@@ -23,13 +23,13 @@ public class DraggableGUIElement
 	public void Drag(Rect dragRect)
 	{
 		//If the mouse is released, stop dragging
-		if(isDragging && Event.current.type == EventType.MouseUp)
+		if(isDragging && Event.current.type == EventType.MouseUp && Event.current.button == 0)
 		{
 			isDragging = false;
 			//Debug.Log ("stopDrag");
 		}
 		//if the mouse is pressed within the target rectangle(bounds of the GUIElement) start dragging
-		else if(Event.current.type == EventType.MouseDrag && dragRect.Contains(Event.current.mousePosition))
+		else if(Event.current.type == EventType.MouseDrag && Event.current.button == 0 && dragRect.Contains(Event.current.mousePosition))
 		{
 			//Debug.Log("startdrag");
 			isDragging = true;
@@ -39,7 +39,13 @@ public class DraggableGUIElement
 		if(isDragging)
 		{
 			position = Event.current.mousePosition - dragOffset;
+			DragUpdate();
 		}
+	}
+
+	public virtual void DragUpdate()
+	{
+
 	}
 
 	public bool IsMouseHover(Rect dragRect)
