@@ -2,13 +2,15 @@
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
+
+
 public class GUISeekOpponentTask : GUINode 
 {
 	SeekOpponentTask model;
 
 	Vector2 offsetToParent;
 
-	public GUISeekOpponentTask(int value, Vector2 position) : base("SeekTask", value, position)
+	public GUISeekOpponentTask(int value, Vector2 position) : base("Seek Opponent!", value, position)
 	{
 		baseColor = new Color(0.5f, 0.6f, 1.0f);
 		TypeID = 10;
@@ -34,6 +36,7 @@ public class GUISeekOpponentTask : GUINode
 	{
 		this.model = model;
 		DragUpdate();
+		DragEnd ();
 	}
 
 
@@ -67,6 +70,11 @@ public class GUISeekOpponentTask : GUINode
 	public override void DragUpdate()
 	{
 		offsetToParent = model.GetParent().GetView().Position - position;
+	}
+
+	public override void DragEnd ()
+	{
+		model.GetParent().ChildEvent(model);
 	}
 	
 	public override Node GetModel()

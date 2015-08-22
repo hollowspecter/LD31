@@ -1,15 +1,19 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Tool_Project\BehaviourWindow.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AI_Project\BehaviourTree.cs">
     <Files>
-      <File FileName="Assets\Scripts\Tool_Project\BehaviourWindow.cs" Line="196" Column="94" />
-      <File FileName="Assets\Scripts\Tool_Project\DraggableGUIElement.cs" Line="42" Column="17" />
-      <File FileName="Assets\Scripts\Tool_Project\GUINode.cs" Line="46" Column="15" />
-      <File FileName="Assets\Scripts\Tool_Project\NodeFactory.cs" Line="29" Column="8" />
-      <File FileName="Assets\Scripts\Tool_Project\Nodes\Decorators\GUISelector.cs" Line="46" Column="2" />
-      <File FileName="Assets\Scripts\Tool_Project\Nodes\Decorators\GUISequence.cs" Line="38" Column="2" />
-      <File FileName="Assets\Scripts\Tool_Project\Nodes\Tasks\GUISeekOpponentTask.cs" Line="40" Column="2" />
-      <File FileName="Assets\Scripts\AI_Project\Behaviour\Tasks\SeekOpponentTask.cs" Line="26" Column="26" />
+      <File FileName="Assets\Scripts\Tool_Project\BehaviourWindow.cs" Line="72" Column="16" />
+      <File FileName="Assets\Scripts\AI_Project\BehaviourTree.cs" Line="103" Column="1" />
+      <File FileName="Assets\Scripts\Tool_Project\GUINode.cs" Line="84" Column="4" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Nodes\Sequence.cs" Line="134" Column="4" />
+      <File FileName="Assets\Scripts\Tool_Project\Nodes\Decorators\GUIUntilFail.cs" Line="21" Column="13" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Nodes\Parallel.cs" Line="129" Column="4" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Nodes\ParallelOneForAll.cs" Line="101" Column="4" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Nodes\Selector.cs" Line="104" Column="52" />
+      <File FileName="Assets\Scripts\Tool_Project\Nodes\Conditions\GUIIsOpponentMoreHurt.cs" Line="41" Column="2" />
+      <File FileName="Assets\Scripts\Tool_Project\Nodes\Tasks\GUIFlankOpponentTask.cs" Line="13" Column="82" />
+      <File FileName="Assets\Scripts\AI_Project\Behaviour\Tasks\FlankOpponentTask.cs" Line="31" Column="36" />
+      <File FileName="Assets\Scripts\Tool_Project\NodeFactory.cs" Line="519" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

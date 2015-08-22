@@ -14,6 +14,8 @@ public class SeekNearestHealthTask: TaskNode
 	Behaviour rootBehaviour;
 	
 	ParentNode parent;
+
+	GUISeekNearestHealthTask view;
 	
 	AI_Movement moveComponent;
 	GameObject[] healthPickup;
@@ -25,11 +27,14 @@ public class SeekNearestHealthTask: TaskNode
 	float retargetTimer = 0.0f;
 	float retargetInterval = 5.0f;
 	
-	public SeekNearestHealthTask(ParentNode parent, Behaviour rootBehaviour)
+	public SeekNearestHealthTask(ParentNode parent, Behaviour rootBehaviour, GUISeekNearestHealthTask view)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
 		this.rootBehaviour = rootBehaviour;
+
+		this.view = view;
+		this.view.SetModel(this);
 		
 		GameObject self = GameObject.FindGameObjectWithTag("Player1");
 		if(self == null)

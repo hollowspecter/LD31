@@ -20,6 +20,7 @@ public interface ParentNode : Node
 	void AddChild(ChildNode child);
 	void RemoveChild(ChildNode child);
 	void ChildDone(ChildNode child, bool childResult);
+	void ChildEvent(ChildNode child);
 }
 
 public interface TaskNode : ChildNode

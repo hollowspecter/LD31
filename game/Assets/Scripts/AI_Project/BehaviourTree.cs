@@ -25,7 +25,6 @@ public class BehaviourTree : MonoBehaviour {
 	{
 		if(nodes == null && guiNodes == null)
 		{
-			Debug.Log ("init nodes");
 			nodes = new List<ChildNode>();
 			guiNodes = new List<GUINode>();
 		}

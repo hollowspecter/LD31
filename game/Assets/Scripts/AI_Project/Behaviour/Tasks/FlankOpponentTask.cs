@@ -1,26 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Flanking Task
+//This Task makes the AI flank around the Opponent left or right Randomly
+//for a specified time, until the Opponent leaves the flanking range or until the usual Criteria
+//like falling apply
+
 public class FlankOpponentTask : TaskNode 
 {
 	Behaviour rootBehaviour;
+
+	GUIFlankOpponentTask view;
 	
 	ParentNode parent;
 	
 	AI_Movement moveComponent;
 	GameObject opponent;
 
-	float timer = 0.0f;
-	float maxTimer = 1.0f;
-	bool flankDirection;
-	float maxFlankDistance  = 9.0f;
+	float timer = 0.0f; //How long are you flanking
+	float maxTimer = 1.0f; //How long are you allowed to flank
+	bool flankDirection; //are you going right?
+	float maxFlankDistance  = 9.0f; //How far away can you be to continue flanking
 
-	public FlankOpponentTask(ParentNode parent, Behaviour rootBehaviour, float flankDistance)
+	public FlankOpponentTask(ParentNode parent, Behaviour rootBehaviour, float flankDistance, GUIFlankOpponentTask view)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
 		this.rootBehaviour = rootBehaviour;
+
 		maxFlankDistance = flankDistance;
+
+		this.view = view;
+		this.view.SetModel(this);
 		
 		GameObject self = GameObject.FindGameObjectWithTag("Player1");
 		if(self == null)
@@ -97,7 +108,7 @@ public class FlankOpponentTask : TaskNode
 
 	public GUINode GetView()
 	{
-		return null;
+		return view;
 	}
 
 	public void Delete()

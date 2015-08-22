@@ -5,13 +5,17 @@ public class True : ChildNode, ParentNode
 {
 	
 	ParentNode parent;
+
+	GUITrue view;
 	
 	ChildNode child;
 	
-	public True(ParentNode parent)
+	public True(ParentNode parent, GUITrue view)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
+		this.view = view;
+		view.SetModel(this);
 	}
 	
 	public void AddChild(ChildNode child)
@@ -39,23 +43,35 @@ public class True : ChildNode, ParentNode
 	
 	public void Deactivate()
 	{
-		child.Deactivate();
+		if(child != null)
+			child.Deactivate();
+	}
+
+	public void ChildEvent(ChildNode child)
+	{
+		
 	}
 
 	public GUINode GetView()
 	{
-		return null;
+		return view;
 	}
 
 	public void Delete()
 	{
-		child.Delete();
+		if(child != null)
+			child.Delete();
 		parent.RemoveChild(this);
 	}
 
 	public ParentNode GetParent()
 	{
 		return parent;
+	}
+
+	public ChildNode GetChild()
+	{
+		return child;
 	}
 }
 

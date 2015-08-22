@@ -1,0 +1,12 @@
+Type<0>
+Node<28>
+Parent<-1>
+X<487>
+Y<105>
+/
+Type<10>
+Node<45>
+Parent<28>
+X<490>
+Y<305>
+/

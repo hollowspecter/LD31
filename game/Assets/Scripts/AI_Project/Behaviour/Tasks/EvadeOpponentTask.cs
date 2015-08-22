@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Evasion Task
+//This Task makes the AI run away until it reaches a safe Distance or the usual Criteria
+//like falling apply. 
+
+
 
 public class EvadeOpponentTask: TaskNode 
 {
 	Behaviour rootBehaviour;
 	
 	ParentNode parent;
+
+	GUIEvadeOpponentTask view;
 	
 	AI_Movement moveComponent;
 	
@@ -16,11 +23,14 @@ public class EvadeOpponentTask: TaskNode
 	float dangerSqrDist = 9.0f;
 	
 	
-	public EvadeOpponentTask(ParentNode parent, Behaviour rootBehaviour)
+	public EvadeOpponentTask(ParentNode parent, Behaviour rootBehaviour, GUIEvadeOpponentTask view)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
 		this.rootBehaviour = rootBehaviour;
+
+		this.view = view;
+		this.view.SetModel(this);
 		
 		GameObject self = GameObject.FindGameObjectWithTag("Player1");
 		if(self == null)
@@ -58,6 +68,7 @@ public class EvadeOpponentTask: TaskNode
 		//are you a safe distance away from the opponent?
 		if(sqrDistToOpponent > safeSqrDist)
 		{
+			//stop running away
 			Debug.Log ("evadetask succeed: AI is safe");
 			Deactivate();
 			parent.ChildDone(this, true);
@@ -84,7 +95,7 @@ public class EvadeOpponentTask: TaskNode
 
 	public GUINode GetView()
 	{
-		return null;
+		return view;
 	}
 
 	public void Delete()

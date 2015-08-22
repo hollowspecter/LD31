@@ -7,12 +7,44 @@ public class GUIFalse : GUINode
 {
 	False model;
 
+	Vector2 offsetToParent;
+
 	public GUIFalse(int value, Vector2 position) : base("False", value, position)
 	{
+		Debug.Log (value);
 		baseColor = Color.yellow;
-		TypeID = 3;
+		TypeID = 4;
 	}
 	
+	public void SetModel(False model)
+	{
+		this.model = model;
+		DragUpdate();
+		DragEnd();
+	}
+	
+	public override bool CanHaveMoreChildren ()
+	{
+		return (model.GetChild() == null);
+	}
+	
+	public override List<GUINode> GetAllChildren ()
+	{
+		List<GUINode> children = new List<GUINode>();
+			
+		if(model.GetChild() != null)
+		{
+			children.Add(model.GetChild().GetView());
+			foreach(GUINode n in model.GetChild().GetView().GetAllChildren())
+			{
+				children.Add(n);
+			}	
+		}
+		
+		return children;
+	}
+
+	//CAN ALWAYS COPY PASTE LIKE THIS
 	public override void DrawParentLine()
 	{
 		if(model != null)
@@ -31,31 +63,25 @@ public class GUIFalse : GUINode
 		}
 	}
 	
-	public void SetModel(False model)
+	public override void Update ()
 	{
-		this.model = model;
+		if(!selected)
+			position = model.GetParent().GetView().Position - offsetToParent;
+		base.Update();
+	}
+	
+	public override void DragUpdate()
+	{
+		offsetToParent = model.GetParent().GetView().Position - position;
+	}
+
+	public override void DragEnd ()
+	{
+		model.GetParent().ChildEvent(model);
 	}
 	
 	public override Node GetModel()
 	{
 		return model;
-	}
-	
-	public override bool CanHaveMoreChildren ()
-	{
-		return (model.GetChild() == null);
-	}
-	
-	public override List<GUINode> GetAllChildren ()
-	{
-		List<GUINode> children = new List<GUINode>();
-			
-		children.Add(model.GetChild().GetView());
-		foreach(GUINode n in model.GetChild().GetView().GetAllChildren())
-		{
-			children.Add(n);
-		}
-		
-		return children;
 	}
 }

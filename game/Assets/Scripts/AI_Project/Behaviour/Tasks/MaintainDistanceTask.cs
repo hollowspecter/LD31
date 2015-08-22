@@ -6,22 +6,25 @@ public class MaintainDistanceTask : TaskNode
 	Behaviour rootBehaviour;
 	
 	ParentNode parent;
+
+	GUIMaintainDistanceTask view;
 	
 	AI_Movement moveComponent;
 	
 	GameObject opponent;
 	
 	float desiredSqrDistance = 9.0f; //at what distance do you want to stay?
-	float sqrDesiredRange = 2.0f;	//whats the range around your desired Distance
+	float sqrDesiredRange = 2.0f;	//whats the range around your desired Distance that you are okay with
 	
 	
-	public MaintainDistanceTask(ParentNode parent, Behaviour rootBehaviour, float sqrDistance, float sqrRange)
+	public MaintainDistanceTask(ParentNode parent, Behaviour rootBehaviour, GUIMaintainDistanceTask view)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
 		this.rootBehaviour = rootBehaviour;
-		desiredSqrDistance = sqrDistance;
-		sqrDesiredRange = sqrRange;
+
+		this.view = view;
+		this.view.SetModel(this);
 		
 		GameObject self = GameObject.FindGameObjectWithTag("Player1");
 		if(self == null)
@@ -92,7 +95,7 @@ public class MaintainDistanceTask : TaskNode
 
 	public GUINode GetView()
 	{
-		return null;
+		return view;
 	}
 
 	public void Delete()

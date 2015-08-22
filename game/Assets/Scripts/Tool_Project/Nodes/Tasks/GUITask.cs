@@ -4,16 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class GUIAttackTask : GUINode 
+public class GUITask : GUINode 
 {
-	AttackTask model;
+	TaskNode model;
 	
 	Vector2 offsetToParent;
 	
-	public GUIAttackTask(int value, Vector2 position) : base("Attack!", value, position)
+	public GUITask(int value, Vector2 position, int type, string typeName) : base(typeName, value, position)
 	{
 		baseColor = new Color(0.5f, 0.6f, 1.0f);
-		TypeID = 9;
+		TypeID = type;
 	}
 	
 	public override void DrawChildConnector ()
@@ -32,11 +32,10 @@ public class GUIAttackTask : GUINode
 		return children;
 	}
 	
-	public void SetModel(AttackTask model)
+	public void SetModel(TaskNode model)
 	{
 		this.model = model;
 		DragUpdate();
-		DragEnd ();
 	}
 	
 	
@@ -62,19 +61,15 @@ public class GUIAttackTask : GUINode
 	
 	public override void Update ()
 	{
+		Debug.Log (model.GetParent().GetType());
 		if(!selected)
-			position = model.GetParent().GetView().Position - offsetToParent;
+			//position = model.GetParent().GetView().Position - offsetToParent;
 		base.Update();
 	}
 	
 	public override void DragUpdate()
 	{
 		offsetToParent = model.GetParent().GetView().Position - position;
-	}
-
-	public override void DragEnd ()
-	{
-		model.GetParent().ChildEvent(model);
 	}
 	
 	public override Node GetModel()

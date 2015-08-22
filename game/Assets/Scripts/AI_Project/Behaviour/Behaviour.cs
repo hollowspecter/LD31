@@ -99,6 +99,11 @@ public class Behaviour : ParentNode
 		tree.SetBehaviour(null);
 	}
 
+	public void ChildEvent(ChildNode child)
+	{
+		
+	}
+
 	/*******GETTER & SETTER****************/
 
 	public List<TaskNode> GetActiveTasks()

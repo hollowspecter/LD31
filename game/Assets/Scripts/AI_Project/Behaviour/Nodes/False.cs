@@ -16,7 +16,7 @@ public class False : ChildNode, ParentNode
 		this.parent.AddChild(this);
 
 		this.view = view;
-		view.SetModel(this);
+		this.view.SetModel(this);
 	}
 	
 	public void AddChild(ChildNode child)
@@ -44,7 +44,13 @@ public class False : ChildNode, ParentNode
 	
 	public void Deactivate()
 	{
-		child.Deactivate();
+		if(child != null)
+			child.Deactivate();
+	}
+
+	public void ChildEvent(ChildNode child)
+	{
+		
 	}
 
 	public GUINode GetView()
@@ -59,7 +65,8 @@ public class False : ChildNode, ParentNode
 
 	public void Delete()
 	{
-		child.Delete();
+		if(child != null)
+			child.Delete();
 		parent.RemoveChild(this);
 	}
 

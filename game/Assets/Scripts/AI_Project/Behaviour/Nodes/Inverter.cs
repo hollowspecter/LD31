@@ -5,13 +5,18 @@ public class Inverter : ChildNode, ParentNode
 {
 
 	ParentNode parent;
+
+	GUIInverter view;
 	
 	ChildNode child;
 	
-	public Inverter(ParentNode parent)
+	public Inverter(ParentNode parent, GUIInverter view)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
+
+		this.view = view;
+		this.view.SetModel(this);
 	}
 	
 	public void AddChild(ChildNode child)
@@ -22,6 +27,11 @@ public class Inverter : ChildNode, ParentNode
 	public void RemoveChild(ChildNode child)
 	{
 		this.child = null;
+	}
+
+	public ChildNode GetChild()
+	{
+		return child;
 	}
 
 	public void ChildDone(ChildNode child, bool childResult)
@@ -39,17 +49,24 @@ public class Inverter : ChildNode, ParentNode
 
 	public void Deactivate()
 	{
-		child.Deactivate();
+		if(child != null)
+			child.Deactivate();
+	}
+
+	public void ChildEvent(ChildNode child)
+	{
+		
 	}
 
 	public GUINode GetView()
 	{
-		return null;
+		return view;
 	}
 
 	public void Delete()
 	{
-		child.Delete();
+		if(child != null)
+			child.Delete();
 		parent.RemoveChild(this);
 	}
 

@@ -5,17 +5,23 @@ public class IsOpponentMoreHurt : ChildNode
 {
 	
 	ParentNode parent;
-	
+
+	GUIIsOpponentMoreHurt view;
+
 	PlayerStance ownStance;
 	PlayerStance oppStance;
 	
 	float hurtValue = 33.0f;
 	bool randomize = false;
 	
-	public IsOpponentMoreHurt(ParentNode p, bool randomize)
+	public IsOpponentMoreHurt(ParentNode p, bool randomize, GUIIsOpponentMoreHurt view)
 	{
 		parent = p;
 		parent.AddChild(this);
+
+		this.view = view;
+		this.view.SetModel(this);
+
 		GameObject self = GameObject.FindGameObjectWithTag("Player1");
 		if(self == null)
 		{
@@ -57,7 +63,7 @@ public class IsOpponentMoreHurt : ChildNode
 
 	public GUINode GetView()
 	{
-		return null;
+		return view;
 	}
 
 	public void Delete()

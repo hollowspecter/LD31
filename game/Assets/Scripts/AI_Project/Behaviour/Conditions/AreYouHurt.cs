@@ -6,15 +6,21 @@ public class AreYouHurt: ChildNode
 
 	ParentNode parent;
 
+	GUIAreYouHurt view;
+
 	PlayerStance ownStance;
 
 	float hurtValue = 33.0f;
 	bool randomize = false;
 
-	public AreYouHurt(ParentNode p, bool randomize)
+	public AreYouHurt(ParentNode p, bool randomize, GUIAreYouHurt view)
 	{
 		parent = p;
 		parent.AddChild(this);
+
+		this.view = view;
+		this.view.SetModel(this);
+
 		GameObject self = GameObject.FindGameObjectWithTag("Player1");
 		if(self == null)
 		{
@@ -48,7 +54,7 @@ public class AreYouHurt: ChildNode
 
 	public GUINode GetView()
 	{
-		return null;
+		return view;
 	}
 
 	public void Delete()

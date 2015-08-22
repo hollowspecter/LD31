@@ -40,6 +40,7 @@ public class GUISelector : GUINode
 	{
 		this.model = model;
 		DragUpdate();
+		DragEnd ();
 	}
 
 
@@ -73,6 +74,11 @@ public class GUISelector : GUINode
 	public override void DragUpdate()
 	{
 		offsetToParent = model.GetParent().GetView().Position - position;
+	}
+
+	public override void DragEnd ()
+	{
+		model.GetParent().ChildEvent(model);
 	}
 	
 	public override Node GetModel()

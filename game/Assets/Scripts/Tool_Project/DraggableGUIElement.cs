@@ -26,6 +26,7 @@ public class DraggableGUIElement
 		if(isDragging && Event.current.type == EventType.MouseUp && Event.current.button == 0)
 		{
 			isDragging = false;
+			DragEnd();
 			//Debug.Log ("stopDrag");
 		}
 		//if the mouse is pressed within the target rectangle(bounds of the GUIElement) start dragging
@@ -44,6 +45,11 @@ public class DraggableGUIElement
 	}
 
 	public virtual void DragUpdate()
+	{
+
+	}
+
+	public virtual void DragEnd()
 	{
 
 	}

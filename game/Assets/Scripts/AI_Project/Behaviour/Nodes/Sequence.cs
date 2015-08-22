@@ -106,4 +106,32 @@ public class Sequence : ChildNode, ParentNode
 		parent.RemoveChild(this);
 	}
 
+	public void ChildEvent(ChildNode child)
+	{
+		bool sorted = false;
+		foreach(ChildNode node in children)
+		{
+			if(node != child)
+			{
+				if(child.GetView().Position.x < node.GetView().Position.x)
+				{
+					sorted = true;
+					children.Remove(child);
+					int i = children.IndexOf(node);
+					children.Insert(i, child);
+					break;
+				}
+			}
+		}
+		if(!sorted)
+		{
+			children.Remove(child);
+			children.Add (child);
+		}
+		foreach(ChildNode node in children)
+		{
+			node.GetView().setValue(children.IndexOf(node));
+		}
+	}
+
 }

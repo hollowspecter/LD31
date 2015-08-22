@@ -7,16 +7,22 @@ public class AttackTask : TaskNode
 	
 	ParentNode parent;
 
+	GUIAttackTask view;
+
 	AI_Movement moveComponent;
 	HitReach hitReach;
 	PlayerJab playerJab;
 	bool isAttacking;
 	float lastAttackTime;
 	
-	public AttackTask(ParentNode parent, Behaviour rootBehaviour)
+	public AttackTask(ParentNode parent, Behaviour rootBehaviour, GUIAttackTask view)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
+		
+		this.view = view;
+		this.view.SetModel(this);
+
 		this.rootBehaviour = rootBehaviour;
 		GameObject self = GameObject.FindGameObjectWithTag("Player1");
 		if(self == null)
@@ -87,7 +93,7 @@ public class AttackTask : TaskNode
 
 	public GUINode GetView()
 	{
-		return null;
+		return view;
 	}
 
 	public void Delete()

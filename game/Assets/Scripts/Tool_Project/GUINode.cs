@@ -8,10 +8,13 @@ public class GUINode : DraggableGUIElement
 	protected string name;
 	protected int NodeID;
 	protected int TypeID;
+
+	protected int value = -1;
+
 	protected Color baseColor;
 
 	int width = 80;
-	int height = 50;
+	int height = 60;
 
 	Vector2 topPosition;
 	Vector2 botPosition;
@@ -74,8 +77,12 @@ public class GUINode : DraggableGUIElement
 		}
 		GUI.color = baseColor;
 		GUILayout.BeginArea(drawRect, GUI.skin.GetStyle("Box"));
+		TextAnchor t = GUI.skin.label.alignment;
+		GUI.skin.label.alignment = TextAnchor.MiddleCenter;
 		GUILayout.Label(name);
-		GUILayout.Label(NodeID.ToString());
+		if(value != -1)
+			GUILayout.Label(value.ToString());
+		GUI.skin.label.alignment = t;
 		GUILayout.EndArea();
 	}
 
@@ -160,5 +167,9 @@ public class GUINode : DraggableGUIElement
 		}
 	}
 
+	public void setValue(int value)
+	{
+		this.value = value;
+	}
 
 }

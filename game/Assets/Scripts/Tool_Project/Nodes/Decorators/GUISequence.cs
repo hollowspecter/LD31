@@ -40,6 +40,7 @@ public class GUISequence : GUINode
 	{
 		this.model = model;
 		DragUpdate();
+		DragEnd ();
 	}
 
 
@@ -73,6 +74,12 @@ public class GUISequence : GUINode
 	{
 		offsetToParent = model.GetParent().GetView().Position - position;
 	}
+
+	public override void DragEnd ()
+	{
+		model.GetParent().ChildEvent(model);
+	}
+
 	
 	public override Node GetModel()
 	{

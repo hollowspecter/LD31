@@ -5,14 +5,19 @@ using System.Collections.Generic;
 public class UntilFail: ChildNode, ParentNode 
 {
 	ParentNode parent;
+
+	GUIUntilFail view;
 	
 	ChildNode child;
 
-	public UntilFail(ParentNode parent)
+	public UntilFail(ParentNode parent, GUIUntilFail view)
 	{
 		Debug.Log ("Untilfail constructed");
 		this.parent = parent;
 		this.parent.AddChild(this);
+
+		this.view = view;
+		this.view.SetModel(this);
 	}
 
 	public void AddChild(ChildNode child)
@@ -52,23 +57,35 @@ public class UntilFail: ChildNode, ParentNode
 	}
 	public void Deactivate()
 	{
-		child.Deactivate();
+		if(child != null)
+			child.Deactivate();
+	}
+
+	public void ChildEvent(ChildNode child)
+	{
+		
 	}
 
 	public GUINode GetView()
 	{
-		return null;
+		return view;
 	}
 
 	public void Delete()
 	{
-		child.Delete();
+		if(child != null)
+			child.Delete();
 		parent.RemoveChild(this);
 	}
 
 	public ParentNode GetParent()
 	{
 		return parent;
+	}
+
+	public ChildNode GetChild()
+	{
+		return child;
 	}
 
 }

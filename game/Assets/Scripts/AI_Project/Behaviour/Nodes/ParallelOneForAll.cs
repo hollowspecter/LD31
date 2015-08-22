@@ -6,15 +6,21 @@ using System.Collections.Generic;
 public class ParallelOneForAll : ChildNode, ParentNode 
 {
 	ParentNode parent;
+
+	GUIParallelOneForAll view;
 	
 	List<ChildNode> children;
 	List<bool> returns;
 	
 	// Use this for initialization
-	public ParallelOneForAll(ParentNode parent)
+	public ParallelOneForAll(ParentNode parent, GUIParallelOneForAll view)
 	{
 		this.parent = parent;
 		this.parent.AddChild(this);
+
+		this.view = view;
+		this.view.SetModel(this);
+
 		Debug.Log("parallel constructed");
 		children = new List<ChildNode>();
 		returns = new List<bool>();
@@ -67,9 +73,37 @@ public class ParallelOneForAll : ChildNode, ParentNode
 		}
 	}
 
+	public void ChildEvent(ChildNode child)
+	{
+		bool sorted = false;
+		foreach(ChildNode node in children)
+		{
+			if(node != child)
+			{
+				if(child.GetView().Position.x < node.GetView().Position.x)
+				{
+					sorted = true;
+					children.Remove(child);
+					int i = children.IndexOf(node);
+					children.Insert(i, child);
+					break;
+				}
+			}
+		}
+		if(!sorted)
+		{
+			children.Remove(child);
+			children.Add (child);
+		}
+		foreach(ChildNode node in children)
+		{
+			node.GetView().setValue(children.IndexOf(node));
+		}
+	}
+
 	public GUINode GetView()
 	{
-		return null;
+		return view;
 	}
 
 	public void Delete()
@@ -87,5 +121,10 @@ public class ParallelOneForAll : ChildNode, ParentNode
 	public ParentNode GetParent()
 	{
 		return parent;
+	}
+
+	public List<ChildNode> GetChildren()
+	{
+		return children;
 	}
 }
