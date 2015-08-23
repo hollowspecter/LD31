@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Inverter : ChildNode, ParentNode 
+public class Inverter : DecoratorNode
 {
-
+	public static int TypeID = 5;
 	ParentNode parent;
 
 	GUIInverter view;
@@ -17,6 +17,26 @@ public class Inverter : ChildNode, ParentNode
 
 		this.view = view;
 		this.view.SetModel(this);
+	}
+
+	public Inverter()
+	{
+		Debug.Log ("standard constructor called");
+	}
+	
+	public void Create(int nodeID, Vector2 guiPosition, ParentNode parent, BehaviourTree tree)
+	{
+		Debug.Log ("Create Inverter");
+		GUIInverter gui = new GUIInverter(nodeID, guiPosition);
+		tree.AddGUINode(gui);
+		
+		this.parent = parent;
+		this.parent.AddChild(this);
+		
+		this.view = gui;
+		this.view.SetModel(this);
+		
+		tree.AddNode(this);
 	}
 	
 	public void AddChild(ChildNode child)
@@ -74,4 +94,9 @@ public class Inverter : ChildNode, ParentNode
 	{
 		return parent;
 	}
+	public int GetTypeID()
+	{
+		return TypeID;
+	}
+
 }

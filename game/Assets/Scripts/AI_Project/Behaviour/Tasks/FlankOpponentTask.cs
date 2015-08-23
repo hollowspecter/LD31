@@ -8,6 +8,8 @@ using System.Collections;
 
 public class FlankOpponentTask : TaskNode 
 {
+	public static int TypeID = 12;
+
 	Behaviour rootBehaviour;
 
 	GUIFlankOpponentTask view;
@@ -45,6 +47,41 @@ public class FlankOpponentTask : TaskNode
 		{
 			opponent = GameObject.Find("boar");
 		}
+	}
+
+	public FlankOpponentTask()
+	{
+		Debug.Log ("standard constructor called");
+	}
+	
+	public void Create(int nodeID, Vector2 guiPosition, ParentNode parent, BehaviourTree tree)
+	{
+		Debug.Log ("Create FlankOpponentTask");
+		GUIFlankOpponentTask gui = new GUIFlankOpponentTask(nodeID, guiPosition);
+		tree.AddGUINode(gui);
+		
+		this.parent = parent;
+		this.parent.AddChild(this);
+		
+		this.view = gui;
+		this.view.SetModel(this);
+
+		this.rootBehaviour = rootBehaviour;
+
+		GameObject self = GameObject.FindGameObjectWithTag("Player1");
+		if(self == null)
+		{
+			self = GameObject.Find("AI_Deer");
+		}		
+		moveComponent = self.GetComponent<AI_Movement>();
+		
+		opponent = GameObject.FindGameObjectWithTag("Player0");
+		if(opponent == null)
+		{
+			opponent = GameObject.Find("boar");
+		}
+		
+		tree.AddNode(this);
 	}
 	
 	public void Activate()
@@ -119,6 +156,11 @@ public class FlankOpponentTask : TaskNode
 	public ParentNode GetParent()
 	{
 		return parent;
+	}
+
+	public int GetTypeID()
+	{
+		return TypeID;
 	}
 	
 }

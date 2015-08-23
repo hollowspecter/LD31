@@ -10,6 +10,9 @@ public class BehaviourTree : MonoBehaviour {
 	[SerializeField]
 	string currentFilePath = "";
 
+	[SerializeField]
+	string[] extraTypes;
+
 	bool noFileError = false;
 
 	GameObject player;
@@ -32,6 +35,7 @@ public class BehaviourTree : MonoBehaviour {
 		{
 			factory = new NodeFactory(this);
 		}
+		factory.Init();
 	}
 
 	void Awake()
@@ -175,5 +179,10 @@ public class BehaviourTree : MonoBehaviour {
 	public void SetCurrentFilePath(string s)
 	{
 		currentFilePath = s;
+	}
+
+	public string[] getExtraTypes()
+	{
+		return extraTypes;
 	}
 }

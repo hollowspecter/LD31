@@ -39,30 +39,27 @@ public class GUINode : DraggableGUIElement
 		
 	public void OnGUI()
 	{
-		//Debug.Log ("node:onGUI");
-		drawRect = new Rect(position.x - width/2, position.y - height/2, width, height);
-		selectRect = new Rect(position.x - (width/2 + 3), position.y - (height/2 +3), width + 6, height + 6);
-
-		topRect = new Rect(topPosition.x - width/8, topPosition.y, width/4, height/4);
-		botRect = new Rect(botPosition.x - width/8, botPosition.y-height/4 ,width/4, height/4);
-
-		if(selected)
-			Drag(drawRect);
+		Update();
 
 		DrawMainRect();
 		DrawParentConnector();
 		DrawChildConnector();
 		
 		DrawParentLine();
-
-		Update();
-
-
 		GUI.color = Color.white;
 	}
 
 	public virtual void Update()
 	{
+		drawRect = new Rect(position.x - width/2, position.y - height/2, width, height);
+		selectRect = new Rect(position.x - (width/2 + 3), position.y - (height/2 +3), width + 6, height + 6);
+		
+		topRect = new Rect(topPosition.x - width/8, topPosition.y, width/4, height/4);
+		botRect = new Rect(botPosition.x - width/8, botPosition.y-height/4 ,width/4, height/4);
+
+		if(selected)
+			Drag(drawRect);
+
 		topPosition = new Vector2(position.x, position.y - height/2 - height/4);
 		botPosition = new Vector2(position.x, position.y + height/2 + height/4);
 	}
@@ -102,8 +99,9 @@ public class GUINode : DraggableGUIElement
 
 	public virtual void DrawParentLine()
 	{
-
+		Debug.Log("virtual call");
 	}
+
 	public virtual bool CanHaveMoreChildren()
 	{
 		Debug.Log("virtual call");

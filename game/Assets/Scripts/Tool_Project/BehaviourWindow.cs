@@ -71,7 +71,7 @@ public class BehaviourWindow : EditorWindow
 
 		saved = true;
 
-		if(!(behaviourTree.GetCurrentFilePath() == ""))
+		if(!(behaviourTree.GetCurrentFilePath() == "") && behaviourTree.GetGUINodes().Count == 0)
 		{
 			behaviourTree.GetFactory().ReadFromPath(behaviourTree.GetCurrentFilePath());
 		}
@@ -204,111 +204,63 @@ public class BehaviourWindow : EditorWindow
 				GUI.color = Color.cyan;
 				if(GUILayout.Button("New Behaviour"))
 				{
-					behaviourTree.GetFactory().Create ("Behaviour", scrollPos + mainAreaRect.center + new Vector2 ( 0, -mainAreaRect.height/2)- new Vector2(currentToolWidth, -50), null); 
-						SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
-					}
-					GUI.color = Color.white;
-				EditorGUI.EndDisabledGroup();
-				EditorGUI.BeginDisabledGroup(selected == null || !selected.CanHaveMoreChildren());
+					behaviourTree.GetFactory().CreateNode("Behaviour", scrollPos + mainAreaRect.center + new Vector2 ( 0, -mainAreaRect.height/2)- new Vector2(currentToolWidth, -50), null); 
+					SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
+				}
+				GUI.color = Color.white;
+			EditorGUI.EndDisabledGroup();
+			
+
+			EditorGUI.BeginDisabledGroup(selected == null || !selected.CanHaveMoreChildren());
 				GUI.color = Color.yellow;
 				showDecorators = EditorGUILayout.Foldout(showDecorators, "Decorators");
 				if(showDecorators)
 				{		
-					if(GUILayout.Button("New Selector"))
+					List<string> decoratorTypes = behaviourTree.GetFactory().GetNodeSubTypeName(typeof(DecoratorNode));
+			
+					foreach(string s in decoratorTypes)
 					{
-							behaviourTree.GetFactory().Create("Selector", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
-							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
-						}
-						if(GUILayout.Button("New Sequence"))
+						if(GUILayout.Button("New " + s))
 						{
-							behaviourTree.GetFactory().Create("Sequence", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
+							behaviourTree.GetFactory().CreateNode(s, selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
 							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
 						}
-						if(GUILayout.Button("New True"))
-						{
-							behaviourTree.GetFactory().Create("True", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
-							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
-						}
-						if(GUILayout.Button("New False"))
-						{
-							behaviourTree.GetFactory().Create("False", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
-							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
-						}
-						if(GUILayout.Button("New Inverter"))
-						{
-							behaviourTree.GetFactory().Create("Inverter", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
-							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
-						}
-						if(GUILayout.Button("New Parallel"))
-						{
-							behaviourTree.GetFactory().Create("Parallel", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
-							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
-						}
-						if(GUILayout.Button("New ParallelOneForAll"))
-						{
-							behaviourTree.GetFactory().Create("ParallelOneForAll", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
-							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
-						}
-						if(GUILayout.Button("New UntilFail"))
-						{
-							behaviourTree.GetFactory().Create("UntilFail", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
-							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
-						}
+					}
 
-					}
-					GUI.color = new Color(0.5f, 0.6f, 1.0f);
-					showTasks = EditorGUILayout.Foldout(showTasks, "Tasks");
-					if(showTasks)
+				}
+				GUI.color = new Color(0.5f, 0.6f, 1.0f);
+				showTasks = EditorGUILayout.Foldout(showTasks, "Tasks");
+				if(showTasks)
+				{
+					List<string> taskTypes = behaviourTree.GetFactory().GetNodeSubTypeName(typeof(TaskNode));
+					
+					foreach(string s in taskTypes)
 					{
-						if(GUILayout.Button("New AttackTask"))
+						if(GUILayout.Button("New " + s))
 						{
-							behaviourTree.GetFactory().Create("AttackTask", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
-							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
-						}
-						if(GUILayout.Button("New SeekOpponentTask"))
-						{
-							behaviourTree.GetFactory().Create("SeekOpponentTask", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
-							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
-						}
-						if(GUILayout.Button("New EvadeOpponentTask"))
-						{
-							behaviourTree.GetFactory().Create("EvadeOpponentTask", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
-							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
-						}
-						if(GUILayout.Button("New FlankOpponentTask"))
-						{
-							behaviourTree.GetFactory().Create("FlankOpponentTask", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
-							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
-						}
-						if(GUILayout.Button("New MaintainDistanceTask"))
-						{
-							behaviourTree.GetFactory().Create("MaintainDistanceTask", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
-							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
-						}
-						if(GUILayout.Button("New SeekNearestHealthTask"))
-						{
-							behaviourTree.GetFactory().Create("SeekNearestHealthTask", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
+							behaviourTree.GetFactory().CreateNode(s, selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
 							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
 						}
 					}
-					GUI.color = Color.green;
-					showConditions = EditorGUILayout.Foldout(showConditions, "Conditions");
-					if(showConditions)
+				}
+				GUI.color = Color.green;
+				showConditions = EditorGUILayout.Foldout(showConditions, "Conditions");
+				if(showConditions)
+				{
+					List<string> conditionTypes = behaviourTree.GetFactory().GetNodeSubTypeName(typeof(ConditionNode));
+					
+					foreach(string s in conditionTypes)
 					{
-						if(GUILayout.Button("New AreYouHurt"))
+						if(GUILayout.Button("New " + s))
 						{
-							behaviourTree.GetFactory().Create("AreYouHurt", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
+							behaviourTree.GetFactory().CreateNode(s, selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
 							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
 						}
-						if(GUILayout.Button("New IsOpponentMoreHurt"))
-						{
-							behaviourTree.GetFactory().Create("IsOpponentMoreHurt", selected.Position + new Vector2(0, 200), (ParentNode)selected.GetModel());
-							SelectNode(behaviourTree.GetGUINodes()[behaviourTree.GetGUINodes().Count-1]);
-						}
+					}
 
-					}
-					GUI.color = Color.white;
-				EditorGUI.EndDisabledGroup();
+				}
+				GUI.color = Color.white;
+			EditorGUI.EndDisabledGroup();
 
 				GUILayout.Space(50);
 				GUI.color = Color.red;

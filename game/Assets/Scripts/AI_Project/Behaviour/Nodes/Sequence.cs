@@ -2,15 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Sequence : ChildNode, ParentNode 
+public class Sequence : DecoratorNode 
 {
+	public static int TypeID = 2;
+
 	GUISequence view;
 
 	ParentNode parent;
 	
 	List<ChildNode> children;
 	int currentChildIndex;
-	
+
+
+
 	// Use this for initialization
 	public Sequence(ParentNode parent, GUISequence view)
 	{
@@ -22,6 +26,29 @@ public class Sequence : ChildNode, ParentNode
 		this.view = view;
 		this.view.SetModel(this);
 	}
+
+	public Sequence()
+	{
+		Debug.Log ("standard constructor called");
+	}
+
+	public void Create(int nodeID, Vector2 guiPosition, ParentNode parent, BehaviourTree tree)
+	{
+		Debug.Log ("Create Sequence");
+		GUISequence gui = new GUISequence(nodeID, guiPosition);
+		tree.AddGUINode(gui);
+		
+		this.parent = parent;
+		this.parent.AddChild(this);
+		
+		children = new List<ChildNode>();
+		
+		this.view = gui;
+		this.view.SetModel(this);
+		
+		tree.AddNode(this);
+	}
+
 	
 	public void AddChild(ChildNode child)
 	{
@@ -132,6 +159,11 @@ public class Sequence : ChildNode, ParentNode
 		{
 			node.GetView().setValue(children.IndexOf(node));
 		}
+	}
+
+	public int GetTypeID()
+	{
+		return TypeID;
 	}
 
 }

@@ -4,13 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class GUITask : GUINode 
+public class GUICondition : GUINode 
 {	
 	Vector2 offsetToParent;
-
-	public GUITask(string typeName, int value, Vector2 position, int type) : base(typeName, value, position)
+	
+	public GUICondition(string typeName, int value, Vector2 position, int type) : base(typeName, value, position)
 	{
-		baseColor = new Color(0.5f, 0.6f, 1.0f);
+		baseColor = Color.green;
 		TypeID = type;
 	}
 	
@@ -29,7 +29,7 @@ public class GUITask : GUINode
 		List<GUINode> children = new List<GUINode>();	
 		return children;
 	}
-
+	
 	public override void DrawParentLine()
 	{
 		if(GetModel() is ChildNode)
@@ -66,5 +66,5 @@ public class GUITask : GUINode
 		if(GetModel() is ChildNode)
 			((ChildNode)GetModel()).GetParent().ChildEvent((ChildNode)GetModel());
 	}
-
+	
 }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Behaviour : ParentNode  
 {
+	public static int TypeID = 0;
+
 	BehaviourTree tree;
 
 	GUIBehaviour view;
@@ -13,7 +15,12 @@ public class Behaviour : ParentNode
 	List<TaskNode> activeTasks;
 	
 	float timer = 0.0f;
-	
+
+	public Behaviour()
+	{
+		Debug.Log ("standard constructor called");
+	}
+
 	public Behaviour(GUIBehaviour view, BehaviourTree tree)
 	{
 		activeTasks = new List<TaskNode>();
@@ -23,6 +30,22 @@ public class Behaviour : ParentNode
 		this.view.SetModel(this);
 
 		this.tree = tree;
+	}
+
+	public void Create(int nodeID, Vector2 guiPosition, ParentNode parent, BehaviourTree tree)
+	{
+		Debug.Log ("Create Behaviour");
+		GUIBehaviour gui = new GUIBehaviour(nodeID, guiPosition);
+		tree.AddGUINode(gui);
+		
+		activeTasks = new List<TaskNode>();
+		
+		this.view = gui;
+		this.view.SetModel(this);
+		
+		this.tree = tree;
+		
+		tree.SetBehaviour(this);
 	}
 
 	// Use this for initialization
@@ -134,5 +157,10 @@ public class Behaviour : ParentNode
 	public GUINode GetView()
 	{
 		return view;
+	}
+
+	public int GetTypeID()
+	{
+		return TypeID;
 	}
 }

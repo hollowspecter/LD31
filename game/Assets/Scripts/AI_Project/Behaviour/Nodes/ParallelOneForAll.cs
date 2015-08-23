@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 //This is a special Parallelclass that stops all its childrenTasks, no matter what the result is
-public class ParallelOneForAll : ChildNode, ParentNode 
+public class ParallelOneForAll : DecoratorNode
 {
+	public static int TypeID = 7;
+
 	ParentNode parent;
 
 	GUIParallelOneForAll view;
@@ -24,6 +26,29 @@ public class ParallelOneForAll : ChildNode, ParentNode
 		Debug.Log("parallel constructed");
 		children = new List<ChildNode>();
 		returns = new List<bool>();
+	}
+
+	public ParallelOneForAll()
+	{
+		Debug.Log ("standard constructor called");
+	}
+	
+	public void Create(int nodeID, Vector2 guiPosition, ParentNode parent, BehaviourTree tree)
+	{
+		Debug.Log ("Create ParallelOneForAll");
+		GUIParallelOneForAll gui = new GUIParallelOneForAll(nodeID, guiPosition);
+		tree.AddGUINode(gui);
+		
+		this.parent = parent;
+		this.parent.AddChild(this);
+		
+		children = new List<ChildNode>();
+		returns = new List<bool>();
+		
+		this.view = gui;
+		this.view.SetModel(this);
+		
+		tree.AddNode(this);
 	}
 	
 	public void AddChild(ChildNode child)
@@ -126,5 +151,10 @@ public class ParallelOneForAll : ChildNode, ParentNode
 	public List<ChildNode> GetChildren()
 	{
 		return children;
+	}
+
+	public int GetTypeID()
+	{
+		return TypeID;
 	}
 }

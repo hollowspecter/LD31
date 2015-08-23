@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class False : ChildNode, ParentNode 
+public class False : DecoratorNode 
 {
+	public static int TypeID = 4;
 	
 	ParentNode parent;
 	
@@ -17,6 +18,26 @@ public class False : ChildNode, ParentNode
 
 		this.view = view;
 		this.view.SetModel(this);
+	}
+
+	public False()
+	{
+		Debug.Log ("standard constructor called");
+	}
+	
+	public void Create(int nodeID, Vector2 guiPosition, ParentNode parent, BehaviourTree tree)
+	{
+		Debug.Log ("Create False");
+		GUIFalse gui = new GUIFalse(nodeID, guiPosition);
+		tree.AddGUINode(gui);
+		
+		this.parent = parent;
+		this.parent.AddChild(this);
+		
+		this.view = gui;
+		this.view.SetModel(this);
+		
+		tree.AddNode(this);
 	}
 	
 	public void AddChild(ChildNode child)
@@ -73,5 +94,10 @@ public class False : ChildNode, ParentNode
 	public ParentNode GetParent()
 	{
 		return parent;
+	}
+
+	public int GetTypeID()
+	{
+		return TypeID;
 	}
 }

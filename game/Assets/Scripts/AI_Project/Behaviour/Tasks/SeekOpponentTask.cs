@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SeekOpponentTask : TaskNode 
 {
+	public static int TypeID = 10;
+
 	Behaviour rootBehaviour;
 
 	ParentNode parent;
@@ -17,7 +19,6 @@ public class SeekOpponentTask : TaskNode
 
 	public SeekOpponentTask(ParentNode parent, Behaviour rootBehaviour, GUISeekOpponentTask view)
 	{
-		Debug.Log ("constructing SeekOpponentTask");
 		this.parent = parent;
 		this.parent.AddChild(this);
 		this.rootBehaviour = rootBehaviour;
@@ -37,7 +38,41 @@ public class SeekOpponentTask : TaskNode
 		{
 			opponent = GameObject.Find("boar");
 		}
-		Debug.Log ("constructed SeekOpponentTask");
+	}
+
+	public SeekOpponentTask()
+	{
+		Debug.Log ("standard constructor called");
+	}
+	
+	public void Create(int nodeID, Vector2 guiPosition, ParentNode parent, BehaviourTree tree)
+	{
+		Debug.Log ("Create SeekOpponentTask");
+		GUISeekOpponentTask gui = new GUISeekOpponentTask(nodeID, guiPosition);
+		tree.AddGUINode(gui);
+		
+		this.parent = parent;
+		this.parent.AddChild(this);
+		
+		this.view = gui;
+		this.view.SetModel(this);
+		
+		this.rootBehaviour = rootBehaviour;
+		
+		GameObject self = GameObject.FindGameObjectWithTag("Player1");
+		if(self == null)
+		{
+			self = GameObject.Find("AI_Deer");
+		}		
+		moveComponent = self.GetComponent<AI_Movement>();
+		
+		opponent = GameObject.FindGameObjectWithTag("Player0");
+		if(opponent == null)
+		{
+			opponent = GameObject.Find("boar");
+		}
+		
+		tree.AddNode(this);
 	}
 
 	public void Activate()
@@ -111,6 +146,11 @@ public class SeekOpponentTask : TaskNode
 	public void Delete()
 	{
 		parent.RemoveChild(this);
+	}
+
+	public int GetTypeID()
+	{
+		return TypeID;
 	}
 
 }

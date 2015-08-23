@@ -11,6 +11,8 @@ using System.Collections;
 
 public class SeekNearestHealthTask: TaskNode 
 {
+	public static int TypeID = 14;
+
 	Behaviour rootBehaviour;
 	
 	ParentNode parent;
@@ -43,6 +45,36 @@ public class SeekNearestHealthTask: TaskNode
 		}		
 		moveComponent = self.GetComponent<AI_Movement>();
 		healthPickup = null;
+	}
+
+	public SeekNearestHealthTask()
+	{
+		Debug.Log ("standard constructor called");
+	}
+	
+	public void Create(int nodeID, Vector2 guiPosition, ParentNode parent, BehaviourTree tree)
+	{
+		Debug.Log ("Create SeekNearestHealthTask");
+		GUISeekNearestHealthTask gui = new GUISeekNearestHealthTask(nodeID, guiPosition);
+		tree.AddGUINode(gui);
+		
+		this.parent = parent;
+		this.parent.AddChild(this);
+		
+		this.view = gui;
+		this.view.SetModel(this);
+		
+		this.rootBehaviour = rootBehaviour;
+		
+		GameObject self = GameObject.FindGameObjectWithTag("Player1");
+		if(self == null)
+		{
+			self = GameObject.Find("AI_Deer");
+		}		
+		moveComponent = self.GetComponent<AI_Movement>();
+		healthPickup = null;
+		
+		tree.AddNode(this);
 	}
 	
 	public void Activate()
@@ -173,6 +205,11 @@ public class SeekNearestHealthTask: TaskNode
 	public ParentNode GetParent()
 	{
 		return parent;
+	}
+
+	public int GetTypeID()
+	{
+		return TypeID;
 	}
 	
 }

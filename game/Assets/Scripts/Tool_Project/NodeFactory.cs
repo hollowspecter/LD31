@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using System;
+using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +12,8 @@ public class NodeFactory
 	BehaviourTree behaviourTree;
 
 	int nodeID;
+
+	List<Type> nodeTypes;
 
 	//TypeID -> Type
 	//0 -> Behaviour
@@ -37,253 +41,65 @@ public class NodeFactory
 		nodeID = 0;
 	}
 
-	public void ResetID()
+	public void Init()
 	{
-		nodeID = 0;
+		nodeTypes = GetClasses(typeof(Node));
+
 	}
+
 	
-	public void Create(string type, Vector2 guiPosition, ParentNode parentNode)
+	public void CreateNode(string typeName, Vector2 guiPosition, ParentNode parentNode)
 	{
-		switch(type)
+		Type correctType = null;
+
+		foreach(Type type in nodeTypes)
 		{
-			case "Behaviour":
+			if(type.Name == typeName)
 			{
-				CreateBehaviour(nodeID++, guiPosition);
+				correctType = type;
 				break;
 			}
-
-			/***DECORATORS****/
-
-			case "Selector":
-			{
-				CreateSelector(nodeID++, guiPosition, parentNode);
-				break;
-			}
-
-			case "Sequence":
-			{
-				CreateSequence(nodeID++, guiPosition, parentNode);
-				break;
-			}
-
-			case "True":
-			{
-				CreateTrue(nodeID++, guiPosition, parentNode);
-				break;
-			}
-
-			case "False":
-			{
-				CreateFalse(nodeID++, guiPosition, parentNode);
-				break;
-			}
-
-			case "Inverter":
-			{
-				CreateInverter(nodeID++, guiPosition, parentNode);
-				break;
-			}
-
-			case "Parallel":
-			{
-				CreateParallel(nodeID++, guiPosition, parentNode);
-				break;
-			}
-
-			case "ParallelOneForAll":
-			{
-				CreateParallelOneForAll(nodeID++, guiPosition, parentNode);
-				break;
-			}
-
-			case "UntilFail":
-			{
-				CreateUntilFail(nodeID++, guiPosition, parentNode);
-				break;
-			}
-
-			/****TASKS*****/
-
-			case "AttackTask":
-			{
-				CreateAttackTask(nodeID++, guiPosition, parentNode);
-				break;
-			}
-
-			case "SeekOpponentTask":
-			{
-				CreateSeekOpponentTask(nodeID++, guiPosition, parentNode);
-				break;
-			}
-
-			case "EvadeOpponentTask":
-			{
-				CreateEvadeOpponentTask(nodeID++, guiPosition, parentNode);
-				break;
-			}
-
-			case "FlankOpponentTask":
-			{
-				CreateFlankOpponentTask(nodeID++, guiPosition, parentNode);
-				break;
-			}
-
-			case "MaintainDistanceTask":
-			{
-				CreateMaintainDistanceTask(nodeID++, guiPosition, parentNode);
-				break;
-			}
-
-			case "SeekNearestHealthTask":
-			{
-				CreateSeekNearestHealthTask(nodeID++, guiPosition, parentNode);
-				break;
-			}
-
-			/***CONDITIONS******/
-			case "AreYouHurt":
-			{
-				CreateAreYouHurt(nodeID++, guiPosition, parentNode);
-				break;
-			}
-				
-			case "IsOpponentMoreHurt":
-			{
-				CreateIsOpponentMoreHurt(nodeID++, guiPosition, parentNode);
-				break;
-			}
+		}
+		if(correctType != null)
+		{
+			ConstructorInfo ctor =  correctType.GetConstructor(Type.EmptyTypes);
+			object instance = ctor.Invoke(Type.EmptyTypes);
+			correctType.GetMethod("Create").Invoke(instance, new object[] {nodeID++, guiPosition, parentNode, behaviourTree});
+			
 		}
 	}
 
-	void CreateFromFile(int TypeID, int NodeID, int parentID, int guiPosX, int guiPosY)
+	public void CreateNodeFromFile(int TypeID, int NodeID, int ParentID, Vector2 guiPosition)
 	{
-		if(nodeID <= NodeID)
+		if(NodeID >= nodeID)
 		{
-			nodeID = (NodeID + 1);
+			nodeID = NodeID + 1;
 		}
+		string typeName = FindTypeName(TypeID);
+		ParentNode parentNode = null;
+		if(ParentID >= 0)
+			parentNode = FindParent(ParentID);
 
-		Vector2 guiPosition = new Vector2(guiPosX, guiPosY);
-
-		ParentNode parentNode = FindParent(parentID);
-
-		switch(TypeID)
+		Type correctType = null;
+		
+		foreach(Type type in nodeTypes)
 		{
-			case 0:
+			if(type.Name == typeName)
 			{
-				Debug.Log ("Create Behaviour: ID:" + NodeID);
-				CreateBehaviour(NodeID,guiPosition);
+				correctType = type;
 				break;
 			}
-
-			case 1:
-			{
-				Debug.Log ("Create Selector: ID:" + NodeID + " Parent:" + parentID);
-				CreateSelector(NodeID,guiPosition, parentNode);
-				break;
-			}
-
-			case 2:
-			{
-				Debug.Log ("Create Sequence: ID:" + NodeID + " Parent:" + parentID);
-				CreateSequence(NodeID, guiPosition, parentNode);
-				break;
-			}
-
-			case 3:
-			{
-				Debug.Log ("Create True: ID:" + NodeID + " Parent:" + parentID);
-				CreateTrue(NodeID, guiPosition, parentNode);
-				break;
-			}
-				
-			case 4:
-			{
-				Debug.Log ("Create False: ID:" + NodeID + " Parent:" + parentID);
-				CreateFalse(NodeID, guiPosition, parentNode);
-				break;
-			}
-				
-			case 5:
-			{
-				Debug.Log ("Create Inverter: ID:" + NodeID + " Parent:" + parentID);
-				CreateInverter(NodeID, guiPosition, parentNode);
-				break;
-			}
-				
-			case 6:
-			{
-				Debug.Log ("Create Parallel: ID:" + NodeID + " Parent:" + parentID);
-				CreateParallel(NodeID, guiPosition, parentNode);
-				break;
-			}
-				
-			case 7:
-			{
-				Debug.Log ("Create ParallelOneForAll: ID:" + NodeID + " Parent:" + parentID);
-				CreateParallelOneForAll(NodeID, guiPosition, parentNode);
-				break;
-			}
-				
-			case 8:
-			{
-				Debug.Log ("Create UntilFail: ID:" + NodeID + " Parent:" + parentID);
-				CreateUntilFail(NodeID, guiPosition, parentNode);
-				break;
-			}
-
-			case 9:
-			{
-				Debug.Log ("Create AttackTask: ID:" + NodeID + " Parent:" + parentID);
-				CreateAttackTask(NodeID, guiPosition, parentNode);
-				break;
-			}
-
-			case 10:
-			{
-				Debug.Log ("Create SeekOpponentTask: ID:" + NodeID + " Parent:" + parentID);
-				CreateSeekOpponentTask(NodeID, guiPosition, parentNode);
-				break;
-			}
-			case 11:
-			{
-				Debug.Log ("Create EvadeOpponentTask: ID:" + NodeID + " Parent:" + parentID);
-				CreateEvadeOpponentTask(NodeID, guiPosition, parentNode);
-				break;
-			}
-			case 12:
-			{
-				Debug.Log ("Create FlankOpponentTask: ID:" + NodeID + " Parent:" + parentID);
-				CreateFlankOpponentTask(NodeID, guiPosition, parentNode);
-				break;
-			}
-			case 13:
-			{
-				Debug.Log ("Create MaintainDistanceTask: ID:" + NodeID + " Parent:" + parentID);
-				CreateMaintainDistanceTask(NodeID, guiPosition, parentNode);
-				break;
-			}
-			case 14:
-			{
-				Debug.Log ("Create SeekNearestHealthTask: ID:" + NodeID + " Parent:" + parentID);
-				CreateSeekNearestHealthTask(NodeID, guiPosition, parentNode);
-				break;
-			}
-
-			/***CONDITIONS******/
-			case 15:
-			{
-				CreateAreYouHurt(NodeID, guiPosition, parentNode);
-				break;
-			}
-				
-			case 16:
-			{
-				CreateIsOpponentMoreHurt(NodeID, guiPosition, parentNode);
-				break;
-			}
-
+		}
+		if(correctType != null)
+		{
+			ConstructorInfo ctor =  correctType.GetConstructor(Type.EmptyTypes);
+			object instance = ctor.Invoke(Type.EmptyTypes);
+			correctType.GetMethod("Create").Invoke(instance, new object[] {NodeID, guiPosition, parentNode, behaviourTree});
+			
 		}
 	}
+
+
 
 	//cuts . from fileName and removes anything behind that
 	string CutFileExtension(string fileName)
@@ -298,20 +114,15 @@ public class NodeFactory
 		return tmp;
 	}
 
-	public void CheckForExistingFile(string fileName)
-	{
-
-	}
-
 	public void SaveToPath(string path)
 	{
 		StreamWriter writer = new StreamWriter(path);
 		foreach(GUINode gui in behaviourTree.GetGUINodes())
 		{
-			writer.Write("Type<" + gui.GetTypeID() + ">\n");
+			writer.Write("Type<" + gui.GetModel().GetTypeID() + ">\n");
 			writer.Write("Node<" + gui.GetNodeID() + ">\n");
 			int parentID = -1;
-			if(gui.GetTypeID() != 0)
+			if(gui.GetModel().GetTypeID() != 0)
 			{
 				ChildNode c = (ChildNode)(gui.GetModel());
 				parentID = c.GetParent().GetView().GetNodeID();
@@ -334,10 +145,11 @@ public class NodeFactory
 		do
 		{
 			int j = content.IndexOf("/");
-			string subContent =content.Substring(0, j+1);
+			string subContent = content.Substring(0, j+1);
 			
 			//parse substring into ints
-			int type, node, parent, x, y;
+			int type, node, parent;
+			Vector2 position = new Vector2();
 			int i = subContent.IndexOf(">");
 			type = int.Parse(subContent.Substring(5, i-5));
 			subContent = subContent.Substring(i+2);
@@ -349,22 +161,25 @@ public class NodeFactory
 			subContent = subContent.Substring(i+2);
 			i = subContent.IndexOf(">");
 			//Debug.Log (i + "\n" + subContent);
-			x = int.Parse(subContent.Substring(2, i-2));
+			position.x = int.Parse(subContent.Substring(2, i-2));
 			subContent = subContent.Substring(i+2);
 			i = subContent.IndexOf(">");
-			y = int.Parse(subContent.Substring(2, i-2));
+			position.y = int.Parse(subContent.Substring(2, i-2));
 			
-			CreateFromFile(type, node, parent, x, y);
+			CreateNodeFromFile(type, node, parent, position); 
 			
 			if(j+2 <= content.Length)
 			{
 				content = content.Substring(j+2);
+				Debug.Log (content);
 			}
 			else
 			{
 				content = "";
+				Debug.Log ("File is empty");
 			}
 		}while(content != "");
+		Debug.Log ("read file to end");
 		reader.Close();
 	}
 
@@ -397,158 +212,74 @@ public class NodeFactory
 		return null;
 	}
 
+	string FindTypeName(int typeID)
+	{
+		foreach(Type type in nodeTypes)
+		{
+			FieldInfo i = type.GetField("TypeID");
+			if(i != null)
+			{
+				object o = i.GetValue(null);
+				if(typeID == (int)o)
+				{
+					return type.Name;
+				}
+				Debug.Log ("IDs do not match " + typeID + "|" + (int)o);
+
+			}
+			else
+			{
+				Debug.Log ("no property like that");
+			}
+		}
+		return "";
+	}
+
 	public string GetFileExtension()
 	{
 		return fileExtension;
 	}
 
-
-	/***********CREATION METHODS************/
-	//All of these Methods are Basically the Same and just differ in the Type of Nodes they create.
-	//For additional Types just Copy-Paste a Method of the corresponding Group (Decorator, Task or Condition)
-	//and replace the Types.
-	
-
-	void CreateBehaviour(int NodeID, Vector2 guiPosition)
+	public List<Type> GetClasses(Type baseType)
 	{
-		GUIBehaviour gui = new GUIBehaviour(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		Behaviour node = new Behaviour(gui, behaviourTree);
-		behaviourTree.SetBehaviour(node);
-	}
-
-	/***********DECORATORS***************/
-
-	void CreateSelector(int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUISelector gui = new GUISelector(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		Selector node = new Selector(parent, gui);
-		behaviourTree.AddNode(node);
-	}
-
-	void CreateSequence(int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUISequence gui = new GUISequence(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		Sequence node = new Sequence(parent, gui);
-		behaviourTree.AddNode(node);
-	}
-
-	void CreateTrue(int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUITrue gui = new GUITrue(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		True node = new True(parent, gui);
-		behaviourTree.AddNode(node);
-	}
-
-	void CreateFalse(int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUIFalse gui = new GUIFalse(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		False node = new False(parent, gui);
-		behaviourTree.AddNode(node);
-	}
-
-	void CreateInverter(int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUIInverter gui = new GUIInverter(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		Inverter node = new Inverter(parent, gui);
-		behaviourTree.AddNode(node);
-	}
-
-	void CreateParallel(int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUIParallel gui = new GUIParallel(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		Parallel node = new Parallel(parent, gui);
-		behaviourTree.AddNode(node);
-	}
-
-	void CreateParallelOneForAll(int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUIParallelOneForAll gui = new GUIParallelOneForAll(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		ParallelOneForAll node = new ParallelOneForAll(parent, gui);
-		behaviourTree.AddNode(node);
-	}
-
-	void CreateUntilFail(int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUIUntilFail gui = new GUIUntilFail(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		UntilFail node = new UntilFail(parent, gui);
-		behaviourTree.AddNode(node);
-	}
-
-	/**********TASKS*********************/
-
-	void CreateAttackTask (int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUIAttackTask gui = new GUIAttackTask(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		AttackTask node = new AttackTask(parent, behaviourTree.GetBehaviour(), gui);
-		behaviourTree.AddNode(node);
-	}
-
-	void CreateSeekOpponentTask(int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUISeekOpponentTask gui = new GUISeekOpponentTask(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		SeekOpponentTask node = new SeekOpponentTask(parent, behaviourTree.GetBehaviour(), gui);
-		behaviourTree.AddNode(node);
-	}
-
-	void CreateEvadeOpponentTask(int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUIEvadeOpponentTask gui = new GUIEvadeOpponentTask(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		EvadeOpponentTask node = new EvadeOpponentTask(parent, behaviourTree.GetBehaviour(), gui);
-		behaviourTree.AddNode(node);
-	}
-
-	void CreateFlankOpponentTask (int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUIFlankOpponentTask gui = new GUIFlankOpponentTask(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		FlankOpponentTask node = new FlankOpponentTask(parent, behaviourTree.GetBehaviour(), 9.0f, gui);
-		behaviourTree.AddNode(node);
-	}
-
-	void CreateMaintainDistanceTask (int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUIMaintainDistanceTask gui = new GUIMaintainDistanceTask(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		MaintainDistanceTask node = new MaintainDistanceTask(parent, behaviourTree.GetBehaviour(), gui);
-		behaviourTree.AddNode(node);
-	}
-
-	void CreateSeekNearestHealthTask (int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUISeekNearestHealthTask gui = new GUISeekNearestHealthTask(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		SeekNearestHealthTask node = new SeekNearestHealthTask(parent, behaviourTree.GetBehaviour(), gui);
-		behaviourTree.AddNode(node);
-	}
-
-
-	/**********CONDITIONS****************/
-	void CreateAreYouHurt (int NodeID, Vector2 guiPosition, ParentNode parent)
-	{
-		GUIAreYouHurt gui = new GUIAreYouHurt(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		AreYouHurt node = new AreYouHurt(parent, true, gui);
-		behaviourTree.AddNode(node);
+		Type[] array = Assembly.GetCallingAssembly().GetTypes();
+		List<Type> res = new List<Type>();
+		string t = "List of Types: \n";
+		foreach(Type type in array)
+		{
+			if(baseType.IsAssignableFrom(type) && !type.IsInterface )
+			{
+				res.Add(type);
+				t += type.Name + "\n";
+			}
+		}
+		
+		Debug.Log (t);
+		return res;
 	}
 	
-	void CreateIsOpponentMoreHurt (int NodeID, Vector2 guiPosition, ParentNode parent)
+	public List<string> GetNodeSubTypeName(Type subType)
 	{
-		GUIIsOpponentMoreHurt gui = new GUIIsOpponentMoreHurt(NodeID, guiPosition);
-		behaviourTree.AddGUINode(gui);
-		IsOpponentMoreHurt node = new IsOpponentMoreHurt(parent, true, gui);
-		behaviourTree.AddNode(node);
+		List<string> res = new List<string>();
+		string t = "List for Subtype:" + subType.Name + "\n";
+		
+		foreach(Type type in behaviourTree.GetFactory().GetNodeTypes())
+		{
+			if(subType.IsAssignableFrom(type))
+			{
+				res.Add(type.Name);
+				t += type.Name + "\n";
+			}
+		}
+		
+		
+		Debug.Log (t);
+		return res;
+	}
+	
+	public List<Type> GetNodeTypes()
+	{
+		return nodeTypes;
 	}
 
 }

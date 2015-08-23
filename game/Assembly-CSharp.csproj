@@ -104,6 +104,7 @@
      <Compile Include="Assets\Scripts\Tool_Project\GUINode.cs" />
      <Compile Include="Assets\Scripts\Tool_Project\NodeFactory.cs" />
      <Compile Include="Assets\Scripts\Tool_Project\Nodes\Conditions\GUIAreYouHurt.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\Nodes\Conditions\GUICondition.cs" />
      <Compile Include="Assets\Scripts\Tool_Project\Nodes\Conditions\GUIIsOpponentInDangerousPosition.cs" />
      <Compile Include="Assets\Scripts\Tool_Project\Nodes\Conditions\GUIIsOpponentMoreHurt.cs" />
      <Compile Include="Assets\Scripts\Tool_Project\Nodes\Decorators\GUIFalse.cs" />
@@ -122,6 +123,7 @@
      <Compile Include="Assets\Scripts\Tool_Project\Nodes\Tasks\GUISeekNearestHealthTask.cs" />
      <Compile Include="Assets\Scripts\Tool_Project\Nodes\Tasks\GUISeekOpponentTask.cs" />
      <Compile Include="Assets\Scripts\Tool_Project\Nodes\Tasks\GUITask.cs" />
+     <Compile Include="Assets\Scripts\Tool_Project\TypeLibrary.cs" />
      <Compile Include="Assets\Sprites\HeartPickup.cs" />
      <Compile Include="Assets\Sprites\HeartsView.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
@@ -150,6 +152,7 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\FisheyeShader.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Apply.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\frag_ao.cginc" />
+     <None Include="Assets\Resources\Behaviour Trees\test.txt" />
      <None Include="Assets\Resources\Behaviour Trees\BehaviourTree.txt" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\DepthOfField34.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\MobileBlur.shader" />

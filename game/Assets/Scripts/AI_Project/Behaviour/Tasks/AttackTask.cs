@@ -3,6 +3,8 @@ using System.Collections;
 
 public class AttackTask : TaskNode 
 {
+	public static int TypeID = 9;
+
 	Behaviour rootBehaviour;
 	
 	ParentNode parent;
@@ -14,7 +16,7 @@ public class AttackTask : TaskNode
 	PlayerJab playerJab;
 	bool isAttacking;
 	float lastAttackTime;
-	
+
 	public AttackTask(ParentNode parent, Behaviour rootBehaviour, GUIAttackTask view)
 	{
 		this.parent = parent;
@@ -32,6 +34,36 @@ public class AttackTask : TaskNode
 		hitReach = self.GetComponentInChildren<HitReach>();
 		playerJab = self.GetComponent<PlayerJab>();
 		moveComponent = self.GetComponent<AI_Movement>();
+	}
+
+	public AttackTask()
+	{
+		Debug.Log ("standard constructor called");
+	}
+	
+	public void Create(int nodeID, Vector2 guiPosition, ParentNode parent, BehaviourTree tree)
+	{
+		Debug.Log ("Create AttackTask");
+		GUIAttackTask gui = new GUIAttackTask(nodeID, guiPosition);
+		tree.AddGUINode(gui);
+		
+		this.parent = parent;
+		this.parent.AddChild(this);
+		
+		this.view = gui;
+		this.view.SetModel(this);
+
+		this.rootBehaviour = rootBehaviour;
+		GameObject self = GameObject.FindGameObjectWithTag("Player1");
+		if(self == null)
+		{
+			self = GameObject.Find("AI_Deer");
+		}
+		hitReach = self.GetComponentInChildren<HitReach>();
+		playerJab = self.GetComponent<PlayerJab>();
+		moveComponent = self.GetComponent<AI_Movement>();
+
+		tree.AddNode(this);
 	}
 	
 	public void Activate()
@@ -104,6 +136,11 @@ public class AttackTask : TaskNode
 	public ParentNode GetParent()
 	{
 		return parent;
+	}
+
+	public int GetTypeID()
+	{
+		return TypeID;
 	}
 	
 }

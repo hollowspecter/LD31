@@ -2,14 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Selector : ChildNode, ParentNode 
+public class Selector : DecoratorNode 
 {
+	public static int TypeID = 1;
+
 	GUISelector view;
 
 	ParentNode parent;
 
 	List<ChildNode> children;
 	int currentChildIndex;
+
+	public Selector()
+	{
+		Debug.Log ("standard constructor called");
+	}
 
 	// Use this for initialization
 	public Selector(ParentNode parent, GUISelector view)
@@ -22,6 +29,24 @@ public class Selector : ChildNode, ParentNode
 		this.view = view;
 		this.view.SetModel(this);
 	}
+
+	public void Create(int nodeID, Vector2 guiPosition, ParentNode parent, BehaviourTree tree)
+	{
+		Debug.Log ("Create Selector");
+		GUISelector gui = new GUISelector(nodeID, guiPosition);
+		tree.AddGUINode(gui);
+		
+		this.parent = parent;
+		this.parent.AddChild(this);
+		
+		children = new List<ChildNode>();
+		
+		this.view = gui;
+		this.view.SetModel(this);
+		
+		tree.AddNode(this);
+	}
+
 
 	public void AddChild(ChildNode child)
 	{
@@ -105,7 +130,6 @@ public class Selector : ChildNode, ParentNode
 		}
 	}
 
-
 	/***********GETTER & SETTER********************/
 	public ParentNode GetParent()
 	{
@@ -133,5 +157,9 @@ public class Selector : ChildNode, ParentNode
 		parent.RemoveChild(this);
 	}
 
+	public int GetTypeID()
+	{
+		return TypeID;
+	}
 
 }

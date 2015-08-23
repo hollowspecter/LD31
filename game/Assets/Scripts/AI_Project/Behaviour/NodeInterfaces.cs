@@ -3,7 +3,9 @@ using System.Collections;
 
 public interface Node
 {
+	void Create(int nodeID, Vector2 guiPosition, ParentNode parent, BehaviourTree tree);
 	GUINode GetView();
+	int GetTypeID();
 	void Delete();
 }
 
@@ -26,6 +28,16 @@ public interface ParentNode : Node
 public interface TaskNode : ChildNode
 {
 	void PerformTask();
+}
+
+public interface ConditionNode: ChildNode
+{
+	void Check();
+}
+
+public interface DecoratorNode: ParentNode, ChildNode
+{
+
 }
 
 

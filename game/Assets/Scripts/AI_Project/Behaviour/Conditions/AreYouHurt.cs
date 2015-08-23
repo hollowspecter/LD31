@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AreYouHurt: ChildNode
+public class AreYouHurt: ConditionNode
 {
+	public static int TypeID = 15;
 
 	ParentNode parent;
 
@@ -31,7 +32,46 @@ public class AreYouHurt: ChildNode
 		this.randomize = randomize;
 	}
 
+	public AreYouHurt()
+	{
+		Debug.Log ("standard constructor called");
+	}
+	
+	public void Create(int nodeID, Vector2 guiPosition, ParentNode parent, BehaviourTree tree)
+	{
+		Debug.Log ("Create AreYouHurt");
+		GUIAreYouHurt gui = new GUIAreYouHurt(nodeID, guiPosition);
+		tree.AddGUINode(gui);
+		
+		this.parent = parent;
+		parent.AddChild(this);
+		
+		this.view = gui;
+		this.view.SetModel(this);
+		
+		GameObject self = GameObject.FindGameObjectWithTag("Player1");
+		if(self == null)
+		{
+			self = GameObject.Find("AI_Deer");
+		}
+		ownStance = self.GetComponent<PlayerStance>();
+
+		this.randomize = true;
+		
+		tree.AddNode(this);
+	}
+
 	public void Activate()
+	{
+		Check ();
+	}
+
+	public void Deactivate()
+	{
+
+	}
+	
+	public void Check()
 	{
 		Debug.Log ("are you hurt?");
 		float tmpHurt = hurtValue;
@@ -39,17 +79,12 @@ public class AreYouHurt: ChildNode
 		{
 			tmpHurt += Random.Range(-hurtValue/3, hurtValue/3);
 		}
-
+		
 		bool areYouHurt = (ownStance.currentMultiplier > tmpHurt);
 		if(areYouHurt)
 			Debug.Log("AI hurt over " + hurtValue + "%");
 		
 		parent.ChildDone(this, areYouHurt);
-	}
-
-	public void Deactivate()
-	{
-
 	}
 
 	public GUINode GetView()
@@ -66,5 +101,10 @@ public class AreYouHurt: ChildNode
 	{
 		return parent;
 	}
-	
+
+	public int GetTypeID()
+	{
+		return TypeID;
+	}
+
 }

@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class UntilFail: ChildNode, ParentNode 
+public class UntilFail: DecoratorNode
 {
+	public static int TypeID = 8;
+
 	ParentNode parent;
 
 	GUIUntilFail view;
@@ -18,6 +20,26 @@ public class UntilFail: ChildNode, ParentNode
 
 		this.view = view;
 		this.view.SetModel(this);
+	}
+
+	public UntilFail()
+	{
+		Debug.Log ("standard constructor called");
+	}
+	
+	public void Create(int nodeID, Vector2 guiPosition, ParentNode parent, BehaviourTree tree)
+	{
+		Debug.Log ("Create UntilFail");
+		GUIUntilFail gui = new GUIUntilFail(nodeID, guiPosition);
+		tree.AddGUINode(gui);
+		
+		this.parent = parent;
+		this.parent.AddChild(this);
+		
+		this.view = gui;
+		this.view.SetModel(this);
+		
+		tree.AddNode(this);
 	}
 
 	public void AddChild(ChildNode child)
@@ -86,6 +108,11 @@ public class UntilFail: ChildNode, ParentNode
 	public ChildNode GetChild()
 	{
 		return child;
+	}
+
+	public int GetTypeID()
+	{
+		return TypeID;
 	}
 
 }
