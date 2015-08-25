@@ -49,7 +49,7 @@
      <Compile Include="Assets\Scripts\AI_Project\AI_Component.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Behaviour.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Conditions\AreYouHurt.cs" />
-     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Conditions\IsOpponentInDangerousPosition.cs" />
+     <Compile Include="Assets\Scripts\AI_Project\Behaviour\Conditions\IsOpponentHurt.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Conditions\isOpponentMoreHurt.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\NodeInterfaces.cs" />
      <Compile Include="Assets\Scripts\AI_Project\Behaviour\Nodes\False.cs" />

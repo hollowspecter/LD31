@@ -25,12 +25,19 @@ public class AI_Component : MonoBehaviour {
 						Sequence seq_Attack = new Sequence(true_attack);
 							SeekOpponentTask seekOpponent = new SeekOpponentTask(seq_Attack, SearchAndAttack);
 							Selector attackOrFlank = new Selector(seq_Attack);
-								ParallelOneForAll attackAndMaintain = new ParallelOneForAll(attackOrFlank);
-									AttackTask attack = new AttackTask(attackAndMaintain, SearchAndAttack);
-									UntilFail loop_dist = new UntilFail(attackAndMaintain);
-										MaintainDistanceTask maintain = new MaintainDistanceTask(loop_dist, SearchAndAttack, 9.0f, 2.0f);
+								Selector sel_Attack = new Selector(attackOrFlank);
+									Sequence seq_Strong = new Sequence(sel_Attack);
+										IsOpponentHurt isHeHurt = new IsOpponentHurt(seq_Strong, true);
+										ParallelOneForAll strongAndMaintain = new ParallelOneForAll(seq_Strong);
+											AttackStrongTask strong = new AttackStrongTask(strongAndMaintain, SearchAndAttack);
+											UntilFail loop_dist = new UntilFail(strongAndMaintain);
+												MaintainDistanceTask maintain = new MaintainDistanceTask(loop_dist, SearchAndAttack, 9.0f, 2.0f);
+									ParallelOneForAll attackAndMaintain = new ParallelOneForAll(sel_Attack);
+										AttackTask attack = new AttackTask(attackAndMaintain, SearchAndAttack);
+										UntilFail loop_dist2 = new UntilFail(attackAndMaintain);
+											MaintainDistanceTask maintain2 = new MaintainDistanceTask(loop_dist2, SearchAndAttack, 9.0f, 2.0f);
 								FlankOpponentTask flank_att = new FlankOpponentTask(attackOrFlank, SearchAndAttack, 9.0f);
-							//Selector sel_Attack = new Selector(seq_LoopCondition);
+							
 				Selector sel_Defensive = new Selector(sel_main);
 					ParallelOneForAll healthAndFlee = new ParallelOneForAll(sel_Defensive);
 						SeekNearestHealthTask health = new SeekNearestHealthTask(healthAndFlee, SearchAndAttack);

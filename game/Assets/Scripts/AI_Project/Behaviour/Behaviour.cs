@@ -36,7 +36,7 @@ public class Behaviour : ParentNode
 	// Update is called once per frame
 	public void Update() 
 	{
-		if((!isRunning ||activeTasks.Count < 1) && timer > 1.0f)
+		if((!isRunning ||activeTasks.Count < 1) && timer > 0.5f)
 		{
 			
 			Debug.Log("Start BehaviourTree");
