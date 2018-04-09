@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour {
 	
 	void HitPlayer(Collider col)
 	{
-		col.transform.FindChild("iceblock").GetComponent<iceblock>().Activate();
+		col.transform.Find("iceblock").GetComponent<iceblock>().Activate();
 		playSound(snowballHit);
 		Destroy(gameObject);
 	}

@@ -85,7 +85,8 @@ public class BehaviourWindow : EditorWindow
 		MoveAround();
 		ResizeBar();
 
-		DrawGraphArea();
+        GUILayout.BeginHorizontal(GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+        DrawGraphArea();
 		DrawMenuArea();
 
 		mainAreaRect = new Rect(currentToolWidth + 10, 0, position.width-currentToolWidth -10, position.height);
@@ -196,8 +197,6 @@ public class BehaviourWindow : EditorWindow
 		GUILayout.EndHorizontal();
 		
 		//dont know why this
-		GUILayout.BeginHorizontal(GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
-
 		menuScrollPos = GUILayout.BeginScrollView(menuScrollPos, GUILayout.Width(currentToolWidth+7), GUILayout.ExpandHeight(true));
 		GUILayout.BeginVertical("box", GUILayout.Width(currentToolWidth), GUILayout.ExpandHeight(true));
 			EditorGUI.BeginDisabledGroup(behaviourTree.GetGUINodes().Count > 0);
@@ -293,7 +292,7 @@ public class BehaviourWindow : EditorWindow
 		//GUI.DrawTexture(cursorChangeRect,EditorGUIUtility.whiteTexture);
 		EditorGUIUtility.AddCursorRect(cursorChangeRect,MouseCursor.ResizeHorizontal);
 
-		if( Event.current.type == EventType.mouseDown && cursorChangeRect.Contains(Event.current.mousePosition))
+		if( Event.current.type == EventType.MouseDown && cursorChangeRect.Contains(Event.current.mousePosition))
 		{
 			resize = true;
 		}

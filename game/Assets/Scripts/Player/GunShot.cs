@@ -19,9 +19,9 @@ public class GunShot : MonoBehaviour {
 	void Awake()
 	{
 		myTrans = transform;
-		gunpoint = transform.FindChild("GunPoint");
+		gunpoint = transform.Find("GunPoint");
 		anim = GetComponent<Animator>();
-		snowcanon = transform.FindChild("Sprite").FindChild("snowcanon").gameObject;
+		snowcanon = transform.Find("Sprite").Find("snowcanon").gameObject;
 	}
 	
 	void Update()
