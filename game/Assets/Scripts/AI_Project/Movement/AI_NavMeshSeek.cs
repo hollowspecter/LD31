@@ -5,11 +5,11 @@ public class AI_NavMeshSeek : MonoBehaviour {
 
 	public Transform target;
 
-	private NavMeshAgent agent;
+	private UnityEngine.AI.NavMeshAgent agent;
 	// Use this for initialization
 	void Start () 
 	{
-		agent = GetComponent<NavMeshAgent>();
+		agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 	}
 	
 	// Update is called once per frame

@@ -9,7 +9,7 @@ public class AI_Movement : Movement
 
 	public Vector3 subtarget;
 
-	private NavMeshAgent agent;
+	private UnityEngine.AI.NavMeshAgent agent;
 
 	private float sqrTargetDist;
 	private float stopDist = 9.0f;
@@ -24,7 +24,7 @@ public class AI_Movement : Movement
 	private float sqrSubDist;
 	private int subtargetIndex = 1;
 
-	private NavMeshPath path;
+	private UnityEngine.AI.NavMeshPath path;
 	private bool hasArrived = false;
 
 	private bool isStalled = false;
@@ -37,8 +37,8 @@ public class AI_Movement : Movement
 	public override void Awake()
 	{
 		base.Awake();
-		path = new NavMeshPath();
-		agent = GetComponent<NavMeshAgent>();
+		path = new UnityEngine.AI.NavMeshPath();
+		agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 		InvokeRepeating("AIUpdate",0.5f,0.5f);
 	}
 
@@ -245,9 +245,9 @@ public class AI_Movement : Movement
 
 		Vector3 result = new Vector3();
 
-		NavMeshHit hit;
+		UnityEngine.AI.NavMeshHit hit;
 
-		if (NavMesh.FindClosestEdge(transform.position, out hit, NavMesh.AllAreas)) 
+		if (UnityEngine.AI.NavMesh.FindClosestEdge(transform.position, out hit, UnityEngine.AI.NavMesh.AllAreas)) 
 		{
 			toClosestDanger = hit.position - transform.position;
 		}
@@ -276,11 +276,11 @@ public class AI_Movement : Movement
 	bool whoIsInDanger(Transform opponentT)
 	{
 
-		NavMeshHit opponentHit;
-		NavMesh.FindClosestEdge(opponentT.position, out opponentHit, NavMesh.AllAreas);
+		UnityEngine.AI.NavMeshHit opponentHit;
+		UnityEngine.AI.NavMesh.FindClosestEdge(opponentT.position, out opponentHit, UnityEngine.AI.NavMesh.AllAreas);
 		
-		NavMeshHit myHit;
-		NavMesh.FindClosestEdge(transform.position, out myHit, NavMesh.AllAreas);
+		UnityEngine.AI.NavMeshHit myHit;
+		UnityEngine.AI.NavMesh.FindClosestEdge(transform.position, out myHit, UnityEngine.AI.NavMesh.AllAreas);
 
 		return true;
 
